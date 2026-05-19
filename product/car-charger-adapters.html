@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse product variants — Corporate Giveaways Philippines | CreativeKit3A">
+  <!-- ADDED: items-page.html
+       This is a NEW page that shows individual product variants (items)
+       when a user clicks a specific sub-category card on category-page.html.
+       Example flow: category-page.html (Car Accessories) → click "Car Charger Adapters"
+                     → items-page.html?cat=accessories-gadgets&subcat=car&item=car-charger-adapter
+       The page reads the URL params and renders the correct item variants.
+       No existing files were modified to create this page.
+  -->
+  <title>Items | CreativeKit3A</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Shared site styles (same as category-page.html uses) -->
+  <link rel="stylesheet" href="/style.css">
+  <!-- Items-page specific styles (separated per your request) -->
+  <link rel="stylesheet" href="/product/car-charger-adapters.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       TOP BAR  (identical to category-page.html top bar)
+       ============================================================ -->
+  <div class="top-bar">
+    <div class="container">
+      <ul class="top-bar-social">
+        <li><a href="https://www.facebook.com/profile.php?id=100063787431490" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+        <li class="top-bar-auth">
+          <button class="btn btn-outline btn-sm" onclick="openModal('login-modal')">Sign In</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('login-modal'); switchTab('register')">Register</button>
+        </li>
+      </ul>
+      <div class="top-bar-contact">
+        <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope icon"></i> salesandmarketing@creativekit3a.com</a>
+        <a href="tel:+639177142774"><i class="fas fa-mobile-alt icon"></i> +63 917 714 2774</a>
+        <a href="tel:+639339927410"><i class="fas fa-phone icon"></i> +63 933 992 7410</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN NAVBAR  (identical to category-page.html navbar)
+       ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidenav">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="/" class="navbar-logo" aria-label="CreativeKit3A home">
+        <img src="/2.png" alt="CreativeKit3A Logo" class="logo-img">
+        <span class="logo-text">CreativeKit3A</span>
+      </a>
+      <div class="navbar-search" role="search">
+        <input type="search" placeholder="What are you looking for?" aria-label="Search products" id="items-search-input">
+        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      </div>
+      <div class="navbar-right">
+        <nav class="navbar-links" aria-label="Secondary navigation">
+          <a href="/faq/">About</a>
+          <a href="/all-categories/" style="color:var(--orange-primary); font-weight:700;">Category</a>
+          <a href="/contact-us/">Contact Us</a>
+        </nav>
+        <button class="btn-chat" aria-label="Request a Quote">Request a Quote</button>
+        <a href="/cart/" class="navbar-cart" aria-label="Shopping cart">
+          <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+          <span>Cart</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MEGA MENU BAR  (identical to category-page.html mega menu)
+       ============================================================ -->
+  <div class="mega-menu-bar" role="navigation" aria-label="Category navigation">
+    <ul class="mega-menu-nav">
+      <li class="mega-menu-item active-cat">
+        <a href="/product-category/accessories-gadgets">ACCESSORIES & GADGETS <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Car Accessories</h4>
+            <a href="/product/car-charger-adapters.html">Car Charger Adapters</a>
+            <a href="/product/car-organizers.html">Car Organizers & Holders</a>
+            <a href="/product/car-dashcams">Dash Cams</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Computer Accessories</h4>
+            <a href="/product/computer-audio">Audio Accessories</a>
+            <a href="/product/computer-mouse">Mouse & Mouse Pads</a>
+            <a href="/product/computer-usb">USB Hub & Connectors</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Desk Accessories</h4>
+            <a href="/product/desk-organizers">Desk Organizers & Pen Holders</a>
+            <a href="/product/desk-clocks">Clocks & Timepieces</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Mobile Accessories</h4>
+            <a href="/product/mobile-powerbanks">Mobile Power Banks</a>
+            <a href="/product/mobile-stands">Mobile Stands</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Gadgets</h4>
+            <a href="/product/gadgets-portable-fans">Portable Fans</a>
+            <a href="/product/gadgets-powerbanks">Power Banks</a>
+          </div>
+        </div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/apparel">APPAREL <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Caps</h4>
+            <a href="/product/cap-baseball/">Baseball Cap</a>
+            <a href="/product/cap-bucket-hat/">Bucket Hat</a>
+          </div>
+        </div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/bags-pouches">BAGS & POUCHES <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown"><div class="mega-dropdown-col"><a href="/product-category/bags-pouches">View All</a></div></div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/drinkware">DRINKWARE <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown"><div class="mega-dropdown-col"><a href="/product-category/drinkware">View All</a></div></div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/giftset">GIFT SET <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown"><div class="mega-dropdown-col"><a href="/product-category/giftset">View All</a></div></div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/home-living">HOME LIVING <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown"><div class="mega-dropdown-col"><a href="/product-category/home-living">View All</a></div></div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/pen-paper/">PEN & PAPER <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown"><div class="mega-dropdown-col"><a href="/product-category/pen-paper/">View All</a></div></div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category-pu-leather/">PU LEATHER <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown"><div class="mega-dropdown-col"><a href="/product-category-pu-leather/">View All</a></div></div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sidenav Overlay -->
+  <div class="sidenav-overlay" aria-hidden="true"></div>
+
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav" role="complementary" aria-label="Mobile navigation">
+    <div class="sidenav-header">
+      <span class="logo-text">CreativeKit3A</span>
+      <button class="sidenav-close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="sidenav-body">
+      <p class="sidenav-section-title">Categories</p>
+      <a href="/product-category/accessories-gadgets">ACCESSORIES & GADGETS</a>
+      <a href="/product-category/apparel">APPAREL</a>
+      <a href="/product-category/bags-pouches">BAGS & POUCHES</a>
+      <a href="/product-category/drinkware">DRINKWARE</a>
+      <a href="/product-category/giftset">GIFT SET</a>
+      <a href="/product-category/home-living">HOME LIVING</a>
+      <a href="/product-category/pen-paper/">PEN & PAPER</a>
+      <a href="/product-category-pu-leather/">PU LEATHER</a>
+      <p class="sidenav-section-title">Help</p>
+      <a href="/faq/">About</a>
+      <a href="/all-categories/">All Categories</a>
+      <a href="/contact-us/">Contact Us</a>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       BREADCRUMB BAR
+       JS fills in: Home > Category > Subcategory > Item Name
+       ============================================================ -->
+  <div class="items-breadcrumb-bar">
+    <div class="container">
+      <nav class="items-breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html"><i class="fas fa-home"></i> Home</a>
+        <span class="sep"><i class="fas fa-chevron-right"></i></span>
+        <!-- JS fills these dynamically -->
+        <a href="#" id="bc-category-link" class="bc-cat">Accessories Gadgets</a>
+        <span class="sep"><i class="fas fa-chevron-right"></i></span>
+        <a href="#" id="bc-subcat-link" class="bc-subcat">Car Accessories</a>
+        <span class="sep"><i class="fas fa-chevron-right"></i></span>
+        <span class="current" id="bc-item-name">Car Charger Adapters</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ITEM HERO BANNER
+       Displays the sub-category product name, price, and a
+       brief description. JS populates all text content.
+       ============================================================ -->
+  <section class="item-hero" id="item-hero">
+    <div class="container item-hero-inner">
+      <div class="item-hero-text">
+        <span class="item-hero-eyebrow" id="item-eyebrow">Car Accessories</span>
+        <h1 class="item-hero-title" id="item-hero-title">Car Charger Adapters</h1>
+        <p class="item-hero-desc" id="item-hero-desc">
+          Custom-branded car charger adapters perfect for corporate giveaways, events, and daily use.
+        </p>
+        <div class="item-hero-meta">
+          <span class="item-hero-price" id="item-hero-price">As low as ₱85.00</span>
+          <button class="btn btn-primary item-hero-cta" id="item-hero-cta">
+            <i class="fas fa-paint-brush"></i> Request a Quote
+          </button>
+        </div>
+      </div>
+      <div class="item-hero-img-wrap">
+        <img src="" alt="" id="item-hero-img" class="item-hero-img" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ITEM VARIANTS FILTER TABS
+       (e.g., for Car Charger Adapters: Single Port | Dual Port | Fast Charge)
+       JS renders these from ITEM_DATA
+       ============================================================ -->
+  <div class="item-variants-tabs-wrapper" id="item-variants-tabs-wrapper">
+    <div class="container" id="item-variants-tabs-container">
+      <!-- Tabs injected by JS (items-page.js) -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ITEMS LISTING SECTION
+       ============================================================ -->
+  <section class="items-listing-section">
+    <div class="container">
+
+      <!-- Sort / results bar -->
+      <div class="items-sort-bar">
+        <div class="items-sort-left">
+          Showing <strong id="items-showing-count">all</strong> variants of
+          <strong id="items-showing-name">Car Charger Adapters</strong>
+        </div>
+        <div class="items-sort-right">
+          <label for="items-sort-select" style="font-size:0.8rem;color:var(--grey-mid);font-weight:600;">Sort by:</label>
+          <select class="sort-select" id="items-sort-select" aria-label="Sort items">
+            <option value="default">Default</option>
+            <option value="name-asc">Name A–Z</option>
+            <option value="name-desc">Name Z–A</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Items grid (JS renders cards here) -->
+      <div class="items-grid" id="items-grid">
+        <!-- Item cards injected by items-page.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       "YOU MAY ALSO LIKE" — Related products from same subcategory
+       JS populates this section with sibling sub-category cards
+       ============================================================ -->
+  <section class="related-section" id="related-section">
+    <div class="container">
+      <h2 class="related-heading">You May Also Like</h2>
+      <div class="related-grid" id="related-grid">
+        <!-- Related sibling sub-category cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER  (identical to category-page.html footer)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="/" aria-label="CreativeKit3A home"><span class="logo-text">CreativeKit3A</span></a>
+            <p class="tagline">VAT registered company<br>2779B R. FERNANDEZ ST. CORNER BENITA ST. GAGALANGIN, TONDO, MANILA, Philippines, 1013</p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/profile.php?id=100063787431490" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h5>Contact Information</h5>
+            <p><i class="fas fa-envelope"></i> salesandmarketing@creativekit3a.com</p>
+            <p><i class="fas fa-mobile-alt"></i> +63 917 714 2774</p>
+            <p><i class="fas fa-phone"></i> +63 933 992 7410</p>
+          </div>
+          <div class="footer-col">
+            <h5>Quick Links</h5>
+            <a href="/faq/">About Us</a>
+            <a href="/all-categories/">All Categories</a>
+            <a href="/contact-us/">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2024 CreativeKit3A. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       AUTH MODAL  (same as category-page.html)
+       ============================================================ -->
+  <div class="lm-overlay" id="lm-overlay" onclick="closeModal('login-modal')" aria-hidden="true"></div>
+  <div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="lm-modal-title">
+    <div class="lm-card">
+      <button class="lm-close" onclick="closeModal('login-modal')" aria-label="Close">&times;</button>
+      <div class="lm-header">
+        <span class="lm-brand">CreativeKit3A</span>
+        <p class="lm-tagline">Your Corporate Giveaways Partner</p>
+      </div>
+      <div class="lm-tabs" role="tablist">
+        <button class="lm-tab active" id="tab-login" role="tab" aria-selected="true" onclick="switchTab('login')">Sign In</button>
+        <button class="lm-tab" id="tab-register" role="tab" aria-selected="false" onclick="switchTab('register')">Register</button>
+      </div>
+      <div class="lm-panel" id="panel-login" role="tabpanel">
+        <div class="lm-field">
+          <label for="lm-login-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-login-email" placeholder="you@email.com" autocomplete="email" required>
+        </div>
+        <div class="lm-field">
+          <label for="lm-login-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-login-password" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-login-password', this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="lm-msg lm-msg--error" id="lm-login-error" hidden></div>
+        <button class="btn btn-primary lm-submit" id="lm-login-btn" onclick="submitLogin()">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <p class="lm-switch">Don't have an account? <a href="#" onclick="switchTab('register'); return false;">Register here</a></p>
+      </div>
+      <div class="lm-panel" id="panel-register" role="tabpanel" hidden>
+        <div class="lm-field-row">
+          <div class="lm-field">
+            <label for="lm-reg-firstname"><i class="fas fa-user"></i> First Name</label>
+            <input type="text" id="lm-reg-firstname" placeholder="Juan" autocomplete="given-name" required>
+          </div>
+          <div class="lm-field">
+            <label for="lm-reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+            <input type="text" id="lm-reg-lastname" placeholder="Dela Cruz" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="lm-field">
+          <label for="lm-reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-reg-email" placeholder="you@email.com" autocomplete="email" required>
+        </div>
+        <div class="lm-field">
+          <label for="lm-reg-phone"><i class="fas fa-mobile-alt"></i> Mobile <span class="lm-optional">(optional)</span></label>
+          <input type="tel" id="lm-reg-phone" placeholder="+63 917 000 0000" autocomplete="tel">
+        </div>
+        <div class="lm-field">
+          <label for="lm-reg-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-password" placeholder="Min. 8 characters" autocomplete="new-password" required>
+            <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-reg-password', this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        <div class="lm-msg lm-msg--error" id="lm-reg-error" hidden></div>
+        <div class="lm-msg lm-msg--success" id="lm-reg-success" hidden></div>
+        <button class="btn btn-primary lm-submit" id="lm-reg-btn" onclick="submitRegister()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <p class="lm-switch">Already have an account? <a href="#" onclick="switchTab('login'); return false;">Sign in here</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       Load shared main.js first (hamburger, modal, auth logic),
+       then items-page.js (items-specific data + rendering).
+       ============================================================ -->
+  <script src="/main.js"></script>
+  <script src="/product/car-charger-adapters.js"></script>
+
+</body>
+</html>

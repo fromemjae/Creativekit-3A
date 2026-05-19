@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Categories | CreativeKit3A</title>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Shared stylesheet (same one used by index.html) -->
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- ============================================================
+       INLINE STYLES — Only for this page's category list
+       (keeps style.css clean; these classes are page-specific)
+       ============================================================ -->
+  <style>
+    /* ---- Page Header ---- */
+    .cat-page-header {
+      background: var(--gradient-hero);
+      padding: 40px 20px 32px;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .cat-page-header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .cat-page-header p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(black);
+      padding: 14px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: var(--orange-mid);
+      font-weight: 600;
+    }
+
+    .breadcrumb a:hover { color: var(--orange-primary); }
+    .breadcrumb .sep { color: var(--grey-mid); }
+
+    /* ---- Category List Wrapper ---- */
+    .cat-list-section {
+      padding: 40px 0 60px;
+    }
+
+    /* ---- Each Category Group ---- */
+    /*
+     * .cat-group          — outer wrapper per main category
+     * .cat-group-toggle   — the clickable main category row (like "Wristbands")
+     * .cat-group-body     — hidden/shown sub-category links
+     * .sub-cat-link       — each sub-category link (like "Silicone Wristbands")
+     */
+
+    .cat-group {
+      border: 1px solid var(--orange-pale);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      background: var(--white);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: box-shadow 0.25s ease;
+    }
+
+    .cat-group:hover {
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Main category toggle row */
+    .cat-group-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      cursor: pointer;
+      user-select: none;
+      background: var(--white);
+      transition: background 0.2s ease;
+      border: none;
+      width: 100%;
+      text-align: left;
+      gap: 12px;
+    }
+
+    .cat-group.open .cat-group-toggle {
+      background: linear-gradient(135deg, #FFF3E8 0%, #FFE0B2 100%);
+      border-bottom: 2px solid var(--orange-pale);
+    }
+
+    .cat-group-toggle:hover {
+      background: var(--white-off);
+    }
+
+    /* Left side: icon + label */
+    .cat-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--gradient-hero);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cat-group.open .cat-icon {
+      background: var(--orange-primary);
+    }
+
+    .cat-group-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--grey-dark);
+      letter-spacing: 0.2px;
+    }
+
+    .cat-group.open .cat-group-name {
+      color: var(--orange-primary);
+    }
+
+    /* Sub-count badge */
+    .cat-count-badge {
+      font-size: 0.7rem;
+      background: var(--orange-pale);
+      color: var(--orange-primary);
+      border-radius: var(--radius-pill);
+      padding: 2px 9px;
+      font-weight: 700;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* Chevron arrow */
+    .cat-chevron {
+      color: var(--grey-mid);
+      font-size: 0.85rem;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .cat-group.open .cat-chevron {
+      transform: rotate(180deg);
+      color: var(--orange-primary);
+    }
+
+    /* ---- Subcategory Body (collapsed by default) ---- */
+    .cat-group-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cat-group-body-inner {
+      padding: 10px 22px 18px 76px; /* indent to align with label */
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* ---- Sub-category section heading (e.g. "Silicone", "Other Types") ---- */
+    .sub-cat-heading {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--orange-primary);
+      font-weight: 700;
+      margin: 14px 0 6px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--orange-pale);
+    }
+
+    .sub-cat-heading:first-child {
+      margin-top: 8px;
+    }
+
+    /* ---- Individual sub-category link ---- */
+    .sub-cat-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--grey-dark);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .sub-cat-link::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--orange-pale);
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .sub-cat-link:hover {
+      background: var(--orange-pale);
+      color: var(--orange-primary);
+      padding-left: 16px;
+    }
+
+    .sub-cat-link:hover::before {
+      background: var(--orange-primary);
+    }
+
+    /* ---- "View All in X" footer link inside each group ---- */
+    .cat-view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 10px 0 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange-primary);
+      transition: var(--transition);
+    }
+
+    .cat-view-all:hover {
+      gap: 10px;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+      .cat-group-body-inner {
+        padding-left: 22px;
+      }
+      .cat-group-name {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       TOP BAR  (same as main site)
+       ============================================================ -->
+  <div class="top-bar">
+    <div class="container">
+      <ul class="top-bar-social">
+        <li><a href="https://www.facebook.com/profile.php?id=100063787431490" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+        <!-- Auth buttons — CHANGED: now open SEPARATE modals (login-modal / register-modal) -->
+        <li class="top-bar-auth">
+          <button class="btn btn-outline btn-sm" onclick="openModal('login-modal')">Sign In</button>
+          <!-- CHANGED: Register now opens its own dedicated modal -->
+          <button class="btn btn-primary btn-sm" onclick="openModal('register-modal');">Register</button>
+        </li>
+      </ul>
+      <div class="top-bar-contact">
+        <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope icon"></i> salesandmarketing@creativekit3a.com</a>
+        <a href="tel:+639177142774"><i class="fas fa-mobile-alt icon"></i> +63 917 714 2774</a>
+        <a href="tel:+639339927410"><i class="fas fa-phone icon"></i> +63 933 992 7410</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN NAVBAR  (same as main site)
+       ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidenav">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="/" class="navbar-logo" aria-label="CreativeKit3A home">
+        <img src="/2.png" alt="CreativeKit3A Logo" class="logo-img">
+        <span class="logo-text">CreativeKit3A</span>
+      </a>
+      <div class="navbar-search" role="search">
+        <input type="search" placeholder="What are you looking for?" aria-label="Search products">
+        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      </div>
+      <div class="navbar-right">
+        <nav class="navbar-links" aria-label="Secondary navigation">
+          <a href="/faq/">About</a>
+          <a href="/all-categories/" style="color:var(--orange-primary)">Category</a>
+          <a href="/contact-us/">Contact Us</a>
+        </nav>
+        <button class="btn-chat" aria-label="Request a Quote">Request a Quote</button>
+        <a href="/cart/" class="navbar-cart" aria-label="Shopping cart">
+          <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+          <span>Cart</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       PAGE HEADER
+       ============================================================ -->
+  <div class="cat-page-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep"><i class="fas fa-chevron-right" style="font-size:0.65rem"></i></span>
+        <span>All Categories</span>
+      </nav>
+      <h1 style="margin-top:14px;">All Categories</h1>
+      <p>Browse everything we offer — click any category to see its products.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CATEGORY LIST
+       ============================================================ -->
+  <section class="cat-list-section">
+    <div class="container">
+
+      <!-- ========================
+           1. ACCESSORIES & GADGETS
+           ======================== -->
+      <div class="cat-group" id="cat-accessories">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-accessories">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-mobile-alt"></i></span>
+            <span class="cat-group-name">
+              ACCESSORIES &amp; GADGETS
+              <span class="cat-count-badge">12 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-accessories">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">Car Accessories</p>
+            <a class="sub-cat-link" href="/product/car-charger-adapters.html">Car Charger Adapters</a>
+            <a class="sub-cat-link" href="/product/car-organizers.html">Car Organizers & Holders</a>
+            <a class="sub-cat-link" href="/product/car-dashcams">Dash Cams</a>
+            
+            <p class="sub-cat-heading">Computer Accessories</p>
+            <a class="sub-cat-link" href="/custom-lapel-pins">Audio Accessories</a>
+            <a class="sub-cat-link" href="/custom-cuff-links">Laptop & Keyboard Accesories</a>
+            
+            <p class="sub-cat-heading">Desk Accessories</p>
+            <a class="sub-cat-link" href="/custom-tech-products">Clocks & Timepieces</a>
+            <a class="sub-cat-link" href="/custom-drinkware">Desk Organizers & Pen Holders</a>
+
+            <p class="sub-cat-heading">Mobile Accessories</p>
+            <a class="sub-cat-link" href="/custom-lapel-pins">Mobile Power Banks</a>
+            <a class="sub-cat-link" href="/custom-cuff-links">Mobile Stands</a>
+            
+            <p class="sub-cat-heading">Gadgets</p>
+            <a class="sub-cat-link" href="/custom-tech-products">Charging Devices</a>
+            <a class="sub-cat-link" href="/custom-drinkware">Portable Fans</a>
+            <a class="sub-cat-link" href="/custom-drinkware">Power Banks</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================
+           2. APPAREL
+           ======================== -->
+      <div class="cat-group" id="cat-apparel">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-apparel">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-tshirt"></i></span>
+            <span class="cat-group-name">
+              APPAREL
+              <span class="cat-count-badge">6 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-apparel">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">Caps</p>
+            <a class="sub-cat-link" href="/product/debossed/">Baseball Cap</a>
+            <a class="sub-cat-link" href="/product/imprinted/">Bucket Hat</a>
+            
+            <p class="sub-cat-heading">Jackets </p>
+            <a class="sub-cat-link" href="/product/blank/">Corporate Jackets </a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Hoodies</a>
+
+            <p class="sub-cat-heading">Shirts </p>
+            <a class="sub-cat-link" href="/product/blank/">Collared Shirt </a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Dri Fit Shirt</a>
+            
+        </div>
+      </div>
+
+      <!-- ========================
+           3. BAGS & POUCHES
+           ======================== -->
+      <div class="cat-group" id="cat-bags">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-bags">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-shopping-bag"></i></span>
+            <span class="cat-group-name">
+              BAGS &amp; POUCHES
+              <span class="cat-count-badge">16 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-bags">
+          <div class="cat-group-body-inner">
+
+            <p class="sub-cat-heading">Backpacks</p>
+            <a class="sub-cat-link" href="/product/debossed/">Sports Backpacks</a>
+            <a class="sub-cat-link" href="/product/imprinted/">Travel Backpacks</a>
+
+            <p class="sub-cat-heading">Eco Bags</p>
+            <a class="sub-cat-link" href="/product/debossed/">Foldable Shopping Totes</a>
+            <a class="sub-cat-link" href="/product/imprinted/">Non Woven Shopping Bags</a>
+            
+            <p class="sub-cat-heading">Foldable Bags </p>
+            <a class="sub-cat-link" href="/product/blank/">Foldable Backpacks</a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Foldable Tote Bags</a>
+
+            <p class="sub-cat-heading">Laptop Bags </p>
+            <a class="sub-cat-link" href="/product/blank/">Laptop Backpacks </a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Laptop Hand Carry Bags</a>
+
+            <p class="sub-cat-heading">Lunch Bags</p>
+            <a class="sub-cat-link" href="/product/debossed/">Hand Carry Lunch Bags</a>
+            <a class="sub-cat-link" href="/product/imprinted/">Tote Lunch Bags</a>
+            
+            <p class="sub-cat-heading">Organizer Pouches </p>
+            <a class="sub-cat-link" href="/product/blank/">Cable Organizer Pouches </a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Clutch Pouches</a>
+
+            <p class="sub-cat-heading">Travel Bags </p>
+            <a class="sub-cat-link" href="/product/blank/">Duffel Travel Bags </a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Tote Travel Bag</a>
+
+            <p class="sub-cat-heading">Tote Bags </p>
+            <a class="sub-cat-link" href="/product/blank/">Classic Zip Totes </a>
+            <a class="sub-cat-link" href="/product/fabric-wristbands/">Foldable Totes</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================
+           4. DRINKWARE
+           ======================== -->
+      <div class="cat-group" id="cat-drinkware">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-drinkware">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-coffee"></i></span>
+            <span class="cat-group-name">
+              DRINKWARE
+              <span class="cat-count-badge">10 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-drinkware">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">Tumbler & Flasks</p>
+            <a class="sub-cat-link" href="/product/polyster-lanyard/">Bamboo Tumblers</a>
+            <a class="sub-cat-link" href="/product/tubular-lanyards/">Tumblers </a>
+            <a class="sub-cat-link" href="/product/nylon-lanyards/">Stainless Steel Tumblers</a>
+        
+            <p class="sub-cat-heading">Mugs & Cups</p>
+            <a class="sub-cat-link" href="/product/silicone-id-badge-holder/">Ceramic Mugs</a>
+            <a class="sub-cat-link" href="/product/acrylic-badge-holder/">Coffee Mugs</a>
+            <a class="sub-cat-link" href="/product/lanyard-with-pen/">Glass Mugs</a>
+            <a class="sub-cat-link" href="/product/glitter-lanyards/">Stainless Steel Mugs</a>
+           
+            <p class="sub-cat-heading">Water Bottles</p>
+            <a class="sub-cat-link" href="/product/silicone-id-badge-holder/">Collapsible Bottless</a>
+            <a class="sub-cat-link" href="/product/acrylic-badge-holder/">Sports Bottles</a>
+
+            <p class="sub-cat-heading">Eco-Friendly Options</p>
+            <a class="sub-cat-link" href="/product/silicone-id-badge-holder/">Bamboo Drinkware</a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================
+           5. GIFT SET
+           ======================== -->
+      <div class="cat-group" id="cat-giftset">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-giftset">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-gift"></i></span>
+            <span class="cat-group-name">
+              GIFT SET
+              <span class="cat-count-badge">5 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-giftset">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">Gift Sets</p>
+            <a class="sub-cat-link" href="/gift-sets/corporate/">Desk Essentials Gift Sets</a>
+            <a class="sub-cat-link" href="/gift-sets/premium/">Employee Onboarding Gift Sets</a>
+            <a class="sub-cat-link" href="/gift-sets/souvenir/">Health & Wellness Gift Sets</a>
+            <a class="sub-cat-link" href="/gift-sets/event/">Travel Executive Gift Sets</a>
+            <a class="sub-cat-link" href="/gift-sets/christmas/">Work From Home Gift Sets</a>
+            
+        </div>
+      </div>
+
+      <!-- ========================
+           6. HOME LIVING
+           ======================== -->
+      <div class="cat-group" id="cat-homeliving">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-homeliving">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-home"></i></span>
+            <span class="cat-group-name">
+              HOME LIVING
+              <span class="cat-count-badge">5 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-homeliving">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">Home Living</p>
+            <a class="sub-cat-link" href="/home-living/mugs/">Cleaning Essentials</a>
+            <a class="sub-cat-link" href="/home-living/tumblers/">Cutlery Sets</a>
+            <a class="sub-cat-link" href="/home-living/coasters/">Gourmet</a>
+            <a class="sub-cat-link" href="/home-living/placemats/">Personal Care</a>
+            <a class="sub-cat-link" href="/home-living/pillows/">Pillows</a>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================
+           7. PEN & PAPER
+           ======================== -->
+      <div class="cat-group" id="cat-penpaper">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-penpaper">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-pen"></i></span>
+            <span class="cat-group-name">
+              PEN &amp; PAPER
+              <span class="cat-count-badge">9 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-penpaper">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">Pen</p>
+            <a class="sub-cat-link" href="/pen-paper/ballpens/">Bamboo Pens</a>
+            <a class="sub-cat-link" href="/pen-paper/gel-pens/">Metal Pens</a>
+            <a class="sub-cat-link" href="/pen-paper/stylus-pens/">Multi-Functional Pens</a>
+            <a class="sub-cat-link" href="/pen-paper/markers/">Sign Pens</a>
+            <p class="sub-cat-heading">Paper</p>
+            <a class="sub-cat-link" href="/pen-paper/notebooks/">Custom Desk Calendars</a>
+            <a class="sub-cat-link" href="/pen-paper/notepads/">Custom Notebooks & Journals</a>
+            <a class="sub-cat-link" href="/pen-paper/sticky-notes/">Office Stationery</a>
+            <a class="sub-cat-link" href="/pen-paper/planners/">Padfolios</a>
+             <a class="sub-cat-link" href="/pen-paper/planners/">Wired Notebooks</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================
+           8. PU LEATHER
+           ======================== -->
+      <div class="cat-group" id="cat-puleather">
+        <button class="cat-group-toggle" aria-expanded="false" aria-controls="body-puleather">
+          <span class="cat-toggle-left">
+            <span class="cat-icon"><i class="fas fa-briefcase"></i></span>
+            <span class="cat-group-name">
+              PU LEATHER
+              <span class="cat-count-badge">7 items</span>
+            </span>
+          </span>
+          <i class="fas fa-chevron-down cat-chevron" aria-hidden="true"></i>
+        </button>
+        <div class="cat-group-body" id="body-puleather">
+          <div class="cat-group-body-inner">
+            <p class="sub-cat-heading">PU Leather</p>
+            <a class="sub-cat-link" href="/pu-leather/wallets/">Card Cases</a>
+            <a class="sub-cat-link" href="/pu-leather/cardholders/">Desk Mats</a>
+            <a class="sub-cat-link" href="/pu-leather/key-pouches/">Leather Pouches</a>
+            <a class="sub-cat-link" href="/pu-leather/passport-holders/"> Passport</a>
+            <a class="sub-cat-link" href="/pu-leather/portfolios/">Luggage Tags</a>
+            <a class="sub-cat-link" href="/pu-leather/document-folders/"> Organizers</a>
+            <a class="sub-cat-link" href="/pu-leather/laptop-sleeves/"> Wallets</a>
+            
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+  </section>
+<!-- ============================================================
+       ADDED: LOGIN / REGISTER MODAL  (#login-modal)
+       One modal, two tabs: "login" and "register".
+       Opened by:  openModal('login-modal')
+       Tab switch: switchTab('login') | switchTab('register')
+       Both functions are defined in main.js (AuthModal module).
+       Backend endpoints expected:
+         POST /api/auth/login    → { email, password }
+         POST /api/auth/register → { first_name, last_name, email, phone, password }
+       ============================================================ -->
+ 
+  <div class="lm-overlay" id="lm-overlay" onclick="closeAllModals()" aria-hidden="true"></div>
+
+<div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+  <div class="lm-card">
+    <button class="lm-close" onclick="closeModal('login-modal')" aria-label="Close">×</button>
+
+    <div class="lm-header">
+      <span class="lm-brand">CreativeKit3A</span>
+      <p class="lm-tagline">Sign in to your account</p>
+    </div>
+
+    <div class="lm-panel" id="panel-login">
+      <div class="lm-field">
+        <label for="lm-login-email"><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="lm-login-email" placeholder="you@email.com" required>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-login-password"><i class="fas fa-lock"></i> Password</label>
+        <div class="lm-pw-wrap">
+          <input type="password" id="lm-login-password" placeholder="••••••••" required>
+          <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-login-password', this)"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="lm-extras">
+        <label class="lm-remember"><input type="checkbox"> Remember me</label>
+        <a href="#" class="lm-forgot">Forgot password?</a>
+      </div>
+
+      <div class="lm-msg lm-msg--error" id="lm-login-error" hidden></div>
+
+      <button class="btn btn-primary lm-submit" onclick="submitLogin()">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+
+      <p class="lm-switch">
+        Don't have an account? 
+        <a href="#" onclick="closeModal('login-modal'); openModal('register-modal'); return false;">Register here</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="lm-modal" id="register-modal" role="dialog" aria-modal="true" aria-labelledby="register-title">
+  <div class="lm-card">
+    <button class="lm-close" onclick="closeModal('register-modal')" aria-label="Close">×</button>
+
+    <div class="lm-header">
+      <span class="lm-brand">CreativeKit3A</span>
+      <p class="lm-tagline">Create your account</p>
+    </div>
+
+    <div class="lm-panel" id="panel-register">
+      <div class="lm-field-row">
+        <div class="lm-field">
+          <label for="lm-reg-firstname"><i class="fas fa-user"></i> First Name</label>
+          <input type="text" id="lm-reg-firstname" placeholder="Juan" required>
+        </div>
+        <div class="lm-field">
+          <label for="lm-reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+          <input type="text" id="lm-reg-lastname" placeholder="Dela Cruz" required>
+        </div>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="lm-reg-email" placeholder="you@email.com" required>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-password"><i class="fas fa-lock"></i> Password</label>
+        <div class="lm-pw-wrap">
+          <input type="password" id="lm-reg-password" placeholder="At least 8 characters" required>
+          <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-reg-password', this)"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="lm-terms">
+        <label><input type="checkbox" id="lm-reg-terms" required> I agree to the <a href="#">Terms & Conditions</a></label>
+      </div>
+
+      <div class="lm-msg lm-msg--error" id="lm-reg-error" hidden></div>
+      <div class="lm-msg lm-msg--success" id="lm-reg-success" hidden></div>
+
+      <button class="btn btn-primary lm-submit" onclick="submitRegister()">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+
+      <p class="lm-switch">
+        Already have an account? 
+        <a href="#" onclick="closeModal('register-modal'); openModal('login-modal'); return false;">Sign in here</a>
+      </p>
+    </div>
+  </div>
+</div>
+  <!-- ============================================================
+       INLINE JAVASCRIPT — Category Page Accordion
+       (self-contained; does NOT need main.js)
+       ============================================================ -->
+  <script>
+    /**
+     * WHAT THIS DOES:
+     * When a .cat-group-toggle button is clicked:
+     *  1. Reads its parent .cat-group
+     *  2. Toggles the "open" class on that group
+     *  3. Animates .cat-group-body height from 0 → scrollHeight (expand)
+     *     or scrollHeight → 0 (collapse)
+     *  4. Updates aria-expanded for accessibility
+     *
+     * Click same category again = collapses it.
+     * Click a different category = collapses the previous one first.
+     */
+    (function () {
+      'use strict';
+
+      const groups = document.querySelectorAll('.cat-group');
+
+      groups.forEach(function (group) {
+        const toggle = group.querySelector('.cat-group-toggle');
+        const body   = group.querySelector('.cat-group-body');
+
+        if (!toggle || !body) return;
+
+        toggle.addEventListener('click', function () {
+          const isOpen = group.classList.contains('open');
+
+          // --- Collapse ALL groups first ---
+          groups.forEach(function (g) {
+            g.classList.remove('open');
+            const b = g.querySelector('.cat-group-body');
+            const t = g.querySelector('.cat-group-toggle');
+            if (b) b.style.maxHeight = '0px';
+            if (t) t.setAttribute('aria-expanded', 'false');
+          });
+
+          // --- If this one was NOT already open, open it ---
+          if (!isOpen) {
+            group.classList.add('open');
+            body.style.maxHeight = body.scrollHeight + 'px';
+            toggle.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

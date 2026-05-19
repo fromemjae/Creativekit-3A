@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse our complete collection — Corporate Giveaways Philippines | CreativeKit3A">
+  <title>Accessories & Gadgets | CreativeKit3A</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ============================================================
+       CATEGORY PAGE — INLINE STYLES (page-specific only)
+       ============================================================ -->
+  <style>
+
+    /* ── Category Hero Banner ───────────────────────────────── */
+    
+
+    .cat-breadcrumb-bar {
+      background: var(--gray-off);
+      border-bottom: 1px solid var(--orange-pale);
+      padding: 10px 20px;
+    }
+
+    /* Breadcrumb */
+    .cat-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      opacity: 0.9;
+      
+    }
+
+    .cat-breadcrumb a { color: rgba(0, 0, 0, 0.85); font-weight: 600; }
+    .cat-breadcrumb a:hover { color: var(--white); }
+    .cat-breadcrumb .sep { font-size: 0.6rem; opacity: 0.6; }
+    .cat-breadcrumb .current { color: var(--black); font-weight: 700; }    
+
+    
+
+    /* ── Subcategory Filter Tabs ──────── */
+    .subcat-tabs-wrapper {
+      background: var(--white);
+      border-bottom: 2px solid var(--orange-pale);
+      position: sticky;
+      /* CHANGED: was top:0 which caused the tab bar to stick at the very top of the
+         viewport and visually overlap/slide through the mega-menu-bar labels when
+         scrolling. Now uses --navbar-h (set by JS in main.js) so the tab bar always
+         sticks exactly at the bottom edge of the sticky navbar, not behind it.
+         Fallback of 72px covers the default navbar height before JS runs. */
+      top: var(--navbar-h, 72px);
+      z-index: 90;
+      box-shadow: 0 2px 12px rgba(255,107,0,0.08);
+    }
+
+    .subcat-tabs-wrapper .container {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .subcat-tabs-wrapper .container::-webkit-scrollbar { display: none; }
+
+    /* "All" + each subcategory tab */
+    .subcat-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 18px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--grey-dark);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: var(--transition);
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: var(--font-display);
+      letter-spacing: 0.3px;
+    }
+
+    .subcat-tab:hover {
+      color: var(--orange-primary);
+      background: var(--white-off);
+    }
+
+    .subcat-tab.active {
+      color: var(--orange-primary);
+      border-bottom-color: var(--orange-primary);
+      background: var(--white-off);
+    }
+
+    .subcat-tab .tab-count {
+      background: var(--orange-pale);
+      color: var(--orange-primary);
+      border-radius: var(--radius-pill);
+      padding: 1px 7px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .subcat-tab.active .tab-count {
+      background: var(--orange-primary);
+      color: var(--white);
+    }
+
+    /* ── Product Listing Area ─────────────────────────────── */
+    .cat-listing-section {
+      padding: 36px 0 60px;
+    }
+
+    /* Sort bar (above product grid) */
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sort-bar-left {
+      font-size: 0.85rem;
+      color: var(--grey-mid);
+    }
+
+    .sort-bar-left strong {
+      color: var(--grey-dark);
+    }
+
+    .sort-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sort-select {
+      border: 1px solid var(--orange-pale);
+      border-radius: var(--radius-sm);
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--grey-dark);
+      background: var(--white);
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .sort-select:focus {
+      border-color: var(--orange-primary);
+    }
+
+    /* ── Product Grid (category page version) ─────────────── */
+    /* Reuses .product-card from style.css but overrides grid  */
+    .cat-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    /* Subcategory section divider inside the grid */
+    .subcat-section-heading {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0 6px;
+      border-bottom: 2px solid var(--orange-pale);
+      margin-top: 12px;
+    }
+
+    .subcat-section-heading:first-child { margin-top: 0; }
+
+    .subcat-section-heading h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .subcat-section-heading .count-tag {
+      font-size: 0.72rem;
+      background: var(--orange-pale);
+      color: var(--orange-primary);
+      border-radius: var(--radius-pill);
+      padding: 2px 9px;
+      font-weight: 700;
+    }
+
+    /* ── "No results" state ───────────────────────────────── */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--grey-mid);
+    }
+
+    .no-results i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+      color: var(--orange-pale);
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .cat-hero { padding: 36px 16px 28px; }
+      .cat-product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+      .sort-bar { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .cat-product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       TOP BAR
+       ============================================================ -->
+  <div class="top-bar">
+    <div class="container">
+      <ul class="top-bar-social">
+        <li><a href="https://www.facebook.com/profile.php?id=100063787431490" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+        <!-- ADDED: Auth buttons — call global openModal() / switchTab() defined in main.js -->
+        <li class="top-bar-auth">
+          <button class="btn btn-outline btn-sm" onclick="openModal('login-modal')">Sign In</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('login-modal'); switchTab('register')">Register</button>
+        </li>
+        <!-- END ADDED -->
+      </ul>
+      <div class="top-bar-contact">
+        <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope icon"></i> salesandmarketing@creativekit3a.com</a>
+        <a href="tel:+639177142774"><i class="fas fa-mobile-alt icon"></i> +63 917 714 2774</a>
+        <a href="tel:+639339927410"><i class="fas fa-phone icon"></i> +63 933 992 7410</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN NAVBAR
+       ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidenav">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="/" class="navbar-logo" aria-label="CreativeKit3A home">
+        <img src="2.png" alt="CreativeKit3A Logo" class="logo-img">
+        <span class="logo-text">CreativeKit3A</span>
+      </a>
+      <div class="navbar-search" role="search">
+        <input type="search" placeholder="What are you looking for?" aria-label="Search products" id="cat-search-input">
+        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      </div>
+      <div class="navbar-right">
+        <nav class="navbar-links" aria-label="Secondary navigation">
+          <a href="/faq/">About</a>
+          <a href="/all-categories/" style="color:var(--orange-primary); font-weight:700;">Category</a>
+          <a href="/contact-us/">Contact Us</a>
+        </nav>
+        <button class="btn-chat" aria-label="Request a Quote">Request a Quote</button>
+        <a href="/cart/" class="navbar-cart" aria-label="Shopping cart">
+          <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+          <span>Cart</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MEGA MENU BAR (same as index.html)
+       ============================================================ -->
+  <div class="mega-menu-bar" role="navigation" aria-label="Category navigation">
+    <ul class="mega-menu-nav">
+
+      <li class="mega-menu-item active-cat">
+        <a href="/product-category/accessories-gadgets">ACCESSORIES & GADGETS <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Car Accessories</h4>
+            <a href="items-page.html">Car Charger Adapters</a>
+            <a href="/product/car-organizers">Car Organizers & Holders</a>
+            <a href="/product/car-tools">Car Tools & Emergency Gear</a>
+            <a href="/product/car-dashcams">Dash Cams</a>
+            <a href="/product/car-dashboard">Dashboard Tools</a>
+            <a href="/product/car-flashlights">Flash Lights</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Computer Accessories</h4>
+            <a href="/product/computer-audio">Audio Accessories</a>
+            <a href="/product/computer-laptop-keyboard">Laptop & Keyboard Accessories</a>
+            <a href="/product/computer-mouse">Mouse & Mouse Pads</a>
+            <a href="/product/computer-usb">USB Hub & Connectors</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Desk Accessories</h4>
+            <a href="/product/desk-clocks">Clocks & Timepieces</a>
+            <a href="/product/desk-organizers">Desk Organizers & Pen Holders</a>
+            <a href="/product/desk-memo-holders">Memo Holders & Memo Cubes</a>
+            <a href="/product/desk-mobile-stands">Mobile & Gadget Stands</a>
+            <a href="/product/desk-portable-fans">Portable Fans & Lights</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Mobile Accessories</h4>
+            <a href="/product/mobile-adapters">Adapters</a>
+            <a href="/product/mobile-cables">Cables & Connectors</a>
+            <a href="/product/mobile-powerbanks">Mobile Power Banks</a>
+            <a href="/product/mobile-stands">Mobile Stands</a>
+            <a href="/product/mobile-speakers">Speakers</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Gadgets</h4>
+            <a href="/product/gadgets-audio-music">Audio & Music Accessories</a>
+            <a href="/product/gadgets-charging-devices">Charging Devices</a>
+            <a href="/product/gadgets-portable-fans">Portable Fans</a>
+            <a href="/product/gadgets-portable-lights">Portable Lights</a>
+            <a href="/product/gadgets-powerbanks">Power Banks</a>
+            <a href="/product/gadgets-tools">Tools</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/apparel">APPAREL <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Caps</h4>
+            <a href="/product/cap-baseball/">Baseball Cap</a>
+            <a href="/product/cap-bucket-hat/">Bucket Hat</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Jackets</h4>
+            <a href="/product/jacket-bomber/">Bomber Jackets</a>
+            <a href="/product/jackets-corporate/">Corporate Jackets</a>
+            <a href="/product/jacket-hoodies/">Hoodies</a>
+            <a href="/product/jacket-sports/">Sports & Windbreaker Jackets</a>
+            <a href="/product/jacket-varsity-jackets/">Varsity Jackets</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Shirts</h4>
+            <a href="/product/shirt-collared/">Collared Shirt</a>
+            <a href="/product/shirt-dri-fit/">Dri Fit Shirt</a>
+            <a href="/product/shirt-golf/">Golf Shirt</a>
+            <a href="/product/shirt-honeycomb/">Honeycomb Shirt</a>
+            <a href="/product/shirt-round-neck/">Round Neck Shirt</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/bags-pouches">BAGS & POUCHES <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Backpacks</h4>
+            <a href="/product/backpacks-computer/">Computer Backpacks</a>
+            <a href="/product/backpacks-sports/">Sports Backpacks</a>
+            <a href="/product/backpacks-travel/">Travel Backpacks</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Eco Bags</h4>
+            <a href="/product/ecobags-shopping-tote/">Foldable Shopping Totes</a>
+            <a href="/product/ecobags-non-woven/">Non Woven Shopping Bags</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Laptop Bags</h4>
+            <a href="/product/laptop-backpack/">Laptop Backpacks</a>
+            <a href="/product/laptop-shoulder-bag/">Laptop Shoulder Bags</a>
+            <a href="/product/laptop-hand-carry-bag/">Laptop Hand Carry Bags</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Tote Bags</h4>
+            <a href="/product/tote-bag-classic-zip/">Classic Zip Totes</a>
+            <a href="/product/tote-bag-foldable-zip/">Foldable Totes</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Travel Bags</h4>
+            <a href="/product/travel-bag-backpack/">Back Pack Travel Bags</a>
+            <a href="/product/travel-bag-duffel/">Duffel Travel Bags</a>
+            <a href="/product/travel-bag-tote/">Tote Travel Bag</a>
+            <a href="/product/travel-bag-weekender/">Weekender Travel Bag</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/drinkware">DRINKWARE <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Tumbler & Flasks</h4>
+            <a href="/product/tumbler-bamboo/">Bamboo Tumblers</a>
+            <a href="/product/tumbler-insulated/">Insulated & Double-Walled</a>
+            <a href="/product/tumbler-tumblers/">Tumblers</a>
+            <a href="/product/tumbler-stainless/">Stainless Steel Tumblers</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Mugs & Cups</h4>
+            <a href="/product/mugs-ceramic/">Ceramic Mugs</a>
+            <a href="/product/mugs-coffee/">Coffee Mugs</a>
+            <a href="/product/mugs-stainless/">Stainless Steel Mugs</a>
+            <a href="/product/mugs-travel-mugs/">Travel Mugs with Lids</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Water Bottles</h4>
+            <a href="/product/water-bottle-bpa/">BPA-Free Bottles</a>
+            <a href="/product/water-bottle-sports/">Sports Bottles</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/giftset">GIFT SET <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <a href="/product/gift-set-active-outdoors/">Active Outdoors Gift Sets</a>
+            <a href="/product/gift-set-desk-essentials/">Desk Essentials Gift Sets</a>
+            <a href="/product/gift-set-employee-onboarding/">Employee Onboarding Sets</a>
+            <a href="/product/gift-set-gadget/">Gadget Gift Sets</a>
+            <a href="/product/gift-set-health-wellness/">Health & Wellness Gift Sets</a>
+            <a href="/product/gift-set-sustainable/">Sustainable Gift Sets</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/home-living">HOME LIVING <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <a href="/product/home-living-cleaning-essentials/">Cleaning Essentials</a>
+            <a href="/product/home-living-cutlery-sets/">Cutlery Sets</a>
+            <a href="/product/home-living-hand-towels/">Hand Towels</a>
+            <a href="/product/home-living-outdoor-chairs/">Outdoor Chairs</a>
+            <a href="/product/home-living-personal-care/">Personal Care</a>
+            <a href="/product/home-living-pillows/">Pillows</a>
+            <a href="/product/home-living-portable-fans/">Portable Fans</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/pen-paper/">PEN & PAPER <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Pen</h4>
+            <a href="/product/pen-bamboo/">Bamboo Pens</a>
+            <a href="/product/pen-metal/">Metal Pens</a>
+            <a href="/product/pen-plastic/">Plastic Pens</a>
+            <a href="/product/pen-gift-set/">Pen Gift Sets</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Paper</h4>
+            <a href="/product/paper-boxed-notes/">Boxed Notes</a>
+            <a href="/product/paper-desk-calendars/">Custom Desk Calendars</a>
+            <a href="/product/paper-notebooks-journals">Custom Notebooks & Journals</a>
+            <a href="/product/paper-memo-solutions/">Memo Solutions</a>
+            <a href="/product/paper-stationery-sets/">Stationery Sets</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category-pu-leather/">PU LEATHER <i class="fas fa-chevron-down chevron"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <a href="/product/pu-leather-card-cases/">Card Cases</a>
+            <a href="/product/pu-leather-desk-mats/">Desk Mats</a>
+            <a href="/product/pu-leather-pouches/">Leather Pouches</a>
+            <a href="/product/pu-leather-keychains/">Keychains</a>
+            <a href="/product/pu-leather-organizers/">Organizers</a>
+            <a href="/product/pu-leather-wallets/">Wallets</a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Sidenav Overlay -->
+  <div class="sidenav-overlay" aria-hidden="true"></div>
+
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav" role="complementary" aria-label="Mobile navigation">
+    <div class="sidenav-header">
+      <span class="logo-text">CreativeKit3A</span>
+      <button class="sidenav-close" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="sidenav-body">
+      <p class="sidenav-section-title">Categories</p>
+      <a href="/product-category/accessories-gadgets">ACCESSORIES & GADGETS</a>
+      <a href="/product-category/apparel">APPAREL</a>
+      <a href="/product-category/bags-pouches">BAGS & POUCHES</a>
+      <a href="/product-category/drinkware">DRINKWARE</a>
+      <a href="/product-category/giftset">GIFT SET</a>
+      <a href="/product-category/home-living">HOME LIVING</a>
+      <a href="/product-category/pen-paper/">PEN & PAPER</a>
+      <a href="/product-category-pu-leather/">PU LEATHER</a>
+      <p class="sidenav-section-title">Help</p>
+      <a href="/faq/">About</a>
+      <a href="/all-categories/">All Categories</a>
+      <a href="/contact-us/">Contact Us</a>
+      <p class="sidenav-section-title">Contact</p>
+      <a href="tel:+639177142774"><i class="fas fa-mobile-alt"></i> +63 917 714 2774</a>
+      <a href="tel:+639339927410"><i class="fas fa-phone"></i> +63 933 992 7410</a>
+      <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope"></i> salesandmarketing@creativekit3a.com</a>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       CATEGORY HERO BANNER
+       (JS will replace the text/icon based on URL/slug)
+       ============================================================ -->
+  
+  <div class="cat-breadcrumb-bar">
+    <div class="container">
+      <nav class="cat-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <span class="sep"><i class="fas fa-chevron-right"></i></span>
+        <!-- JS (renderHero) updates this text to the active category name -->
+        <span class="current" id="hero-breadcrumb-current">Accessories Gadgets</span>
+      </nav>
+    </div>
+  </div>
+
+  <span id="hero-title"          style="display:none;"></span>
+  <span id="hero-desc"           style="display:none;"></span>
+  <span id="hero-icon"           style="display:none;"></span>
+  <span id="hero-product-count"  style="display:none;"></span>
+
+  <!-- ============================================================
+       SUBCATEGORY FILTER TABS
+       (JS renders tabs from category data)
+       ============================================================ -->
+  <div class="subcat-tabs-wrapper" id="subcat-tabs-wrapper">
+    <div class="container" id="subcat-tabs-container">
+      <!-- Tabs injected by JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PRODUCT LISTING
+       ============================================================ -->
+  <section class="cat-listing-section">
+    <div class="container">
+
+      <!-- Sort bar -->
+      <div class="sort-bar">
+        <div class="sort-bar-left">
+          Showing <strong id="showing-count">all</strong> products
+          <span id="showing-in"> in <strong id="showing-subcat">Accessories & Gadgets</strong></span>
+        </div>
+        <div class="sort-bar-right">
+          <label for="sort-select" style="font-size:0.8rem;color:var(--grey-mid);font-weight:600;">Sort by:</label>
+          <select class="sort-select" id="sort-select" aria-label="Sort products">
+            <option value="default">Default</option>
+            <option value="name-asc">Name A–Z</option>
+            <option value="name-desc">Name Z–A</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Product grid (injected by JS) -->
+      <div class="cat-product-grid" id="cat-product-grid">
+        <!-- Products rendered by JS based on active tab -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER (same as index.html)
+       ============================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="/" aria-label="CreativeKit3A home"><span class="logo-text">CreativeKit3A</span></a>
+            <p class="tagline">VAT registered company<br>2779B R. FERNANDEZ ST. CORNER BENITA ST. GAGALANGIN, TONDO, MANILA, Philippines, 1013</p>
+            <div class="footer-social">
+              <a href="https://www.facebook.com/profile.php?id=100063787431490" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h5>Contact Information</h5>
+            <div class="footer-contact-item"><i class="fas fa-envelope icon"></i><a href="mailto:salesandmarketing@creativekit3a.com">salesandmarketing@creativekit3a.com</a></div>
+            <div class="footer-contact-item"><i class="fas fa-mobile-alt icon"></i><a href="tel:+639177142774">+63 917 714 2774</a></div>
+            <div class="footer-contact-item"><i class="fas fa-phone icon"></i><a href="tel:+639339927410">+63 933 992 7410</a></div>
+          </div>
+          
+          <div class="footer-col">
+            <h5>Customer Help</h5>
+            <ul>
+              <li><a href="/faq/">About</a></li>
+              <li><a href="/all-categories/">All Categories</a></li>
+              <li><a href="/contact-us/">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; Copyright 2026. CreativeKit3A.shop All Rights Reserved.</p>
+        <div class="footer-payments">
+          <img src="https://pinoyballers.com/wp-content/uploads/2024/04/mastercard.png" alt="Mastercard">
+          <img src="https://pinoyballers.com/wp-content/uploads/2024/04/visa.png" alt="Visa">
+          <img src="https://pinoyballers.com/wp-content/uploads/2024/04/paypal-new.png" alt="PayPal">
+          <img src="https://pinoyballers.com/wp-content/uploads/2024/04/BPI.png" alt="BPI">
+          <img src="https://pinoyballers.com/wp-content/uploads/2024/04/paymongo_gcash.png" alt="GCash">
+          <img src="https://pinoyballers.com/wp-content/uploads/2024/04/paymongo_paymaya.png" alt="Maya">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       ADDED: LOGIN / REGISTER MODAL  (#login-modal)
+       One modal, two tabs: "login" and "register".
+       Opened by:  openModal('login-modal')
+       Tab switch: switchTab('login') | switchTab('register')
+       Both functions are defined in main.js (AuthModal module).
+       Backend endpoints expected:
+         POST /api/auth/login    → { email, password }
+         POST /api/auth/register → { first_name, last_name, email, phone, password }
+       ============================================================ -->
+ 
+  <!-- Dark overlay — clicking closes the modal -->
+  <div class="lm-overlay" id="lm-overlay" onclick="closeModal('login-modal')" aria-hidden="true"></div>
+ 
+  <div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="lm-modal-title">
+    <div class="lm-card">
+ 
+      <!-- Close button -->
+      <button class="lm-close" onclick="closeModal('login-modal')" aria-label="Close">&times;</button>
+ 
+      <!-- Modal header / brand -->
+      <div class="lm-header">
+        <span class="lm-brand">CreativeKit3A</span>
+        <p class="lm-tagline">Your Corporate Giveaways Partner</p>
+      </div>
+ 
+      <!-- Tab switcher -->
+      <div class="lm-tabs" role="tablist">
+        <button class="lm-tab active" id="tab-login"    role="tab" aria-selected="true"
+                onclick="switchTab('login')">Sign In</button>
+        <button class="lm-tab"        id="tab-register" role="tab" aria-selected="false"
+                onclick="switchTab('register')">Register</button>
+      </div>
+ 
+      <!-- ── SIGN IN PANEL ──────────────────────────────────── -->
+      <div class="lm-panel" id="panel-login" role="tabpanel">
+ 
+        <div class="lm-field">
+          <label for="lm-login-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-login-email" placeholder="you@email.com"
+                 autocomplete="email" required>
+        </div>
+ 
+        <div class="lm-field">
+          <label for="lm-login-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-login-password" placeholder="••••••••"
+                   autocomplete="current-password" required>
+            <button type="button" class="lm-pw-toggle"
+                    onclick="togglePw('lm-login-password', this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+ 
+        <div class="lm-extras">
+          <label class="lm-remember">
+            <input type="checkbox" id="lm-remember"> Remember me
+          </label>
+          <a href="/forgot-password/" class="lm-forgot">Forgot password?</a>
+        </div>
+ 
+        <!-- Error message (shown by JS on failure) -->
+        <div class="lm-msg lm-msg--error" id="lm-login-error" hidden></div>
+ 
+        <button class="btn btn-primary lm-submit" id="lm-login-btn" onclick="submitLogin()">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+ 
+        <p class="lm-switch">
+          Don't have an account?
+          <a href="#" onclick="switchTab('register'); return false;">Register here</a>
+        </p>
+      </div>
+      <!-- ── END SIGN IN PANEL ──────────────────────────────── -->
+ 
+      <!-- ── REGISTER PANEL ─────────────────────────────────── -->
+      <div class="lm-panel" id="panel-register" role="tabpanel" hidden>
+ 
+        <div class="lm-field-row">
+          <div class="lm-field">
+            <label for="lm-reg-firstname"><i class="fas fa-user"></i> First Name</label>
+            <input type="text" id="lm-reg-firstname" placeholder="Juan"
+                   autocomplete="given-name" required>
+          </div>
+          <div class="lm-field">
+            <label for="lm-reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+            <input type="text" id="lm-reg-lastname" placeholder="Dela Cruz"
+                   autocomplete="family-name" required>
+          </div>
+        </div>
+ 
+        <div class="lm-field">
+          <label for="lm-reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-reg-email" placeholder="you@email.com"
+                 autocomplete="email" required>
+        </div>
+ 
+        <div class="lm-field">
+          <label for="lm-reg-phone">
+            <i class="fas fa-mobile-alt"></i> Mobile
+            <span class="lm-optional">(optional)</span>
+          </label>
+          <input type="tel" id="lm-reg-phone" placeholder="+63 917 000 0000"
+                 autocomplete="tel">
+        </div>
+ 
+        <div class="lm-field">
+          <label for="lm-reg-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-password" placeholder="At least 8 characters"
+                   autocomplete="new-password" required>
+            <button type="button" class="lm-pw-toggle"
+                    onclick="togglePw('lm-reg-password', this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <!-- Password strength bar (filled by JS) -->
+          <div class="lm-strength-bar"><div class="lm-strength-fill" id="lm-strength-fill"></div></div>
+          <span class="lm-strength-label" id="lm-strength-label"></span>
+        </div>
+ 
+        <div class="lm-field">
+          <label for="lm-reg-confirm"><i class="fas fa-lock"></i> Confirm Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-confirm" placeholder="Repeat your password"
+                   autocomplete="new-password" required>
+            <button type="button" class="lm-pw-toggle"
+                    onclick="togglePw('lm-reg-confirm', this)" aria-label="Show confirm password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+ 
+        <div class="lm-terms">
+          <label>
+            <input type="checkbox" id="lm-reg-terms" required>
+            I agree to the <a href="/terms-conditions/" target="_blank">Terms &amp; Conditions</a>
+          </label>
+        </div>
+ 
+        <!-- Error / success messages -->
+        <div class="lm-msg lm-msg--error"   id="lm-reg-error"   hidden></div>
+        <div class="lm-msg lm-msg--success"  id="lm-reg-success" hidden></div>
+ 
+        <button class="btn btn-primary lm-submit" id="lm-reg-btn" onclick="submitRegister()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+ 
+        <p class="lm-switch">
+          Already have an account?
+          <a href="#" onclick="switchTab('login'); return false;">Sign in here</a>
+        </p>
+      </div>
+      <!-- ── END REGISTER PANEL ─────────────────────────────── -->
+ 
+    </div>
+  </div>
+  <!-- END ADDED: LOGIN / REGISTER MODAL -->
+
+  <!-- main.js for navbar/sidenav/cart behavior -->
+  <script src="main.js"></script>
+
+  <!-- ============================================================
+       CATEGORY PAGE — INLINE JAVASCRIPT
+       
+       HOW IT WORKS:
+       1. CATEGORY_DATA defines all 8 categories, their subcategories,
+          and their products. This is your "data layer" — update
+          products here when you add new ones.
+       2. On page load, the script reads the URL path to detect
+          which category is active (e.g. /product-category/drinkware).
+       3. It then renders: hero banner, subcategory tabs, product grid.
+       4. Clicking a tab filters the grid to show only that subcategory.
+       5. The sort dropdown re-orders the visible cards.
+       ============================================================ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ============================================================
+       CATEGORY DATA
+       — Add / edit / remove products here.
+       Each product: { id, name, price, img, url, subcat }
+       subcat must match a key in subcats[].
+       ============================================================ */
+    const CATEGORY_DATA = {
+
+      'accessories-gadgets': {
+        name:    'Accessories & Gadgets',
+        icon:    'fas fa-mobile-alt',
+        desc:    'Browse our full range of custom accessories, gadgets, tech items, and desk essentials — perfect for corporate giveaways and events.',
+        count:   '25+',
+        subcats: [
+          { key: 'car',      label: 'Car Accessories' },
+          { key: 'computer', label: 'Computer Accessories' },
+          { key: 'desk',     label: 'Desk Accessories' },
+          { key: 'mobile',   label: 'Mobile Accessories' },
+          { key: 'gadgets',  label: 'Gadgets' },
+        ],
+        products: [
+          { id:1,  name:'Car Charger Adapters',         price:'As low as ₱85.00',  img:'/assets/car-charger-adapters.png',                                                                            url:'/product/car-charger-adapter',          subcat:'car'      },
+          { id:2,  name:'Car Organizers & Holders',     price:'As low as ₱120.00', img:'/assets/car-organizer.png',                                                                       url:'/product/car-organizers',               subcat:'car'      },
+          { id:3,  name:'Dash Cams',                    price:'As low as ₱450.00', img:'/assets/dash-cam.png',                                         url:'/product/car-dashcams',                 subcat:'car'      },
+          { id:4,  name:'Audio Accessories',            price:'As low as ₱95.00',  img:'/assets/audio-accessories.png',                                                            url:'/product/computer-audio',               subcat:'computer' },
+          { id:5,  name:'Mouse & Mouse Pads',           price:'As low as ₱75.00',  img:'/assets/mouse-pad.png',                                          url:'/product/computer-mouse',               subcat:'computer' },
+          { id:7,  name:'Desk Organizers & Pen Holders',price:'As low as ₱95.00',  img:'/assets/desk-organizer.png',                                                                   url:'/product/desk-organizers',              subcat:'desk'     },
+          { id:8,  name:'Clocks & Timepieces',          price:'As low as ₱220.00', img:'/assets/wooven-clock.png',                                    url:'/product/desk-clocks',                  subcat:'desk'     },
+          { id:9,  name:'Mobile Power Banks',           price:'As low as ₱350.00', img:'/assets/mobile-powerbank.png',                                                                            url:'/product/mobile-powerbanks',            subcat:'mobile'   },
+          { id:10, name:'Mobile Stands',                price:'As low as ₱65.00',  img:'/assets/mobile-stand.png',                                                                       url:'/product/mobile-stands',                subcat:'mobile'   },
+          { id:11, name:'Portable Fans',                price:'As low as ₱180.00', img:'/assets/portable-fan.png',                                         url:'/product/gadgets-portable-fans',        subcat:'gadgets'  },
+          { id:12, name:'Power Banks',                  price:'As low as ₱380.00', img:'/assets/power-banks.png',                                                            url:'/product/gadgets-powerbanks',           subcat:'gadgets'  },
+        ]
+      },
+
+      'apparel': {
+        name:  'Apparel',
+        icon:  'fas fa-tshirt',
+        desc:  'Custom-printed caps, jackets, shirts, and uniforms for your brand, team, or event.',
+        count: '20+',
+        subcats: [
+          { key: 'caps',     label: 'Caps' },
+          { key: 'jackets',  label: 'Jackets' },
+          { key: 'shirts',   label: 'Shirts' },
+        ],
+        products: [
+          { id:1, name:'Baseball Cap',                price:'As low as ₱180.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',                                                url:'/product/cap-baseball/',           subcat:'caps'    },
+          { id:2, name:'Bucket Hat',                  price:'As low as ₱190.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',                                         url:'/product/cap-bucket-hat/',         subcat:'caps'    },
+          { id:3, name:'Bomber Jackets',              price:'As low as ₱650.00', img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg',           url:'/product/jacket-bomber/',          subcat:'jackets' },
+          { id:4, name:'Corporate Jackets',           price:'As low as ₱720.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png',                              url:'/product/jackets-corporate/',      subcat:'jackets' },
+          { id:5, name:'Hoodies',                     price:'As low as ₱480.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png',            url:'/product/jacket-hoodies/',         subcat:'jackets' },
+          { id:6, name:'Varsity Jackets',             price:'As low as ₱800.00', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',                                     url:'/product/jacket-varsity-jackets/', subcat:'jackets' },
+          { id:7, name:'Collared Shirt',              price:'As low as ₱280.00', img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg',        url:'/product/shirt-collared/',         subcat:'shirts'  },
+          { id:8, name:'Dri Fit Shirt',               price:'As low as ₱250.00', img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg',      url:'/product/shirt-dri-fit/',          subcat:'shirts'  },
+          { id:9, name:'Round Neck Shirt',            price:'As low as ₱220.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',                                               url:'/product/shirt-round-neck/',       subcat:'shirts'  },
+        ]
+      },
+
+      'bags-pouches': {
+        name:  'Bags & Pouches',
+        icon:  'fas fa-shopping-bag',
+        desc:  'Custom bags for every purpose — from backpacks to eco bags, laptop bags, totes, and travel luggage.',
+        count: '18+',
+        subcats: [
+          { key: 'backpacks',  label: 'Backpacks' },
+          { key: 'ecobags',    label: 'Eco Bags' },
+          { key: 'laptop',     label: 'Laptop Bags' },
+          { key: 'tote',       label: 'Tote Bags' },
+          { key: 'travel',     label: 'Travel Bags' },
+          { key: 'lunch',      label: 'Lunch Bags' },
+          { key: 'organizer',  label: 'Organizer Pouches' },
+        ],
+        products: [
+          { id:1, name:'Computer Backpacks',        price:'As low as ₱480.00', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',     url:'/product/backpacks-computer/',       subcat:'backpacks' },
+          { id:2, name:'Sports Backpacks',          price:'As low as ₱420.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',               url:'/product/backpacks-sports/',         subcat:'backpacks' },
+          { id:3, name:'Travel Backpacks',          price:'As low as ₱550.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',         url:'/product/backpacks-travel/',         subcat:'backpacks' },
+          { id:4, name:'Foldable Shopping Totes',   price:'As low as ₱95.00',  img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg',  url:'/product/ecobags-shopping-tote/',    subcat:'ecobags'   },
+          { id:5, name:'Non Woven Shopping Bags',   price:'As low as ₱75.00',  img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/ecobags-non-woven/',        subcat:'ecobags'   },
+          { id:6, name:'Laptop Backpacks',          price:'As low as ₱520.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png', url:'/product/laptop-backpack/',          subcat:'laptop'    },
+          { id:7, name:'Laptop Shoulder Bags',      price:'As low as ₱450.00', img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg', url:'/product/laptop-shoulder-bag/',      subcat:'laptop'    },
+          { id:8, name:'Classic Zip Totes',         price:'As low as ₱120.00', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',     url:'/product/tote-bag-classic-zip/',     subcat:'tote'      },
+          { id:9, name:'Foldable Totes',            price:'As low as ₱95.00',  img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg', url:'/product/tote-bag-foldable-zip/',    subcat:'tote'      },
+          { id:10,name:'Duffel Travel Bags',        price:'As low as ₱680.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',               url:'/product/travel-bag-duffel/',        subcat:'travel'    },
+          { id:11,name:'Weekender Travel Bag',      price:'As low as ₱750.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',         url:'/product/travel-bag-weekender/',     subcat:'travel'    },
+          { id:12,name:'Hand Carry Lunch Bags',     price:'As low as ₱180.00', img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg', url:'/product/lunch-bag-hand-carry/',     subcat:'lunch'     },
+          { id:13,name:'Clutch Pouches',            price:'As low as ₱95.00',  img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/organizer-clutch-pouche/', subcat:'organizer' },
+        ]
+      },
+
+      'drinkware': {
+        name:  'Drinkware',
+        icon:  'fas fa-coffee',
+        desc:  'Custom tumblers, mugs, water bottles, and drinkware — great for corporate gifts, events, and everyday use.',
+        count: '18+',
+        subcats: [
+          { key: 'tumbler',     label: 'Tumblers & Flasks' },
+          { key: 'mugs',        label: 'Mugs & Cups' },
+          { key: 'bottles',     label: 'Water Bottles' },
+          { key: 'eco',         label: 'Eco-Friendly' },
+        ],
+        products: [
+          { id:1, name:'Bamboo Tumblers',            price:'As low as ₱220.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/tumbler-bamboo/',       subcat:'tumbler' },
+          { id:2, name:'Insulated & Double-Walled',  price:'As low as ₱280.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/tumbler-insulated/',    subcat:'tumbler' },
+          { id:3, name:'Stainless Steel Tumblers',   price:'As low as ₱310.00', img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg', url:'/product/tumbler-stainless/',    subcat:'tumbler' },
+          { id:4, name:'Ceramic Mugs',               price:'As low as ₱95.00',  img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/mugs-ceramic/',         subcat:'mugs'    },
+          { id:5, name:'Coffee Mugs',                price:'As low as ₱110.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png', url:'/product/mugs-coffee/',          subcat:'mugs'    },
+          { id:6, name:'Travel Mugs with Lids',      price:'As low as ₱195.00', img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg', url:'/product/mugs-travel-mugs/',     subcat:'mugs'    },
+          { id:7, name:'Stainless Steel Mugs',       price:'As low as ₱165.00', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',    url:'/product/mugs-stainless/',       subcat:'mugs'    },
+          { id:8, name:'BPA-Free Bottles',           price:'As low as ₱120.00', img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg', url:'/product/water-bottle-bpa/',     subcat:'bottles' },
+          { id:9, name:'Sports Bottles',             price:'As low as ₱140.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/water-bottle-sports/',  subcat:'bottles' },
+          { id:10,name:'Bamboo Drinkware',           price:'As low as ₱195.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/eco-friendly-bamboo/',  subcat:'eco'     },
+        ]
+      },
+
+      'giftset': {
+        name:  'Gift Set',
+        icon:  'fas fa-gift',
+        desc:  'Curated gift sets for corporate events, onboarding, wellness, travel, and occasions — fully branded for your company.',
+        count: '12+',
+        subcats: [
+          { key: 'corporate',  label: 'Corporate' },
+          { key: 'lifestyle',  label: 'Lifestyle' },
+          { key: 'wellness',   label: 'Health & Wellness' },
+        ],
+        products: [
+          { id:1, name:'Active Outdoors Gift Sets',       price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/gift-set-active-outdoors/',      subcat:'lifestyle'  },
+          { id:2, name:'Desk Essentials Gift Sets',       price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/gift-set-desk-essentials/',      subcat:'corporate'  },
+          { id:3, name:'Employee Onboarding Sets',        price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg', url:'/product/gift-set-employee-onboarding/', subcat:'corporate'  },
+          { id:4, name:'Gadget Gift Sets',                price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/gift-set-gadget/',              subcat:'corporate'  },
+          { id:5, name:'Health & Wellness Gift Sets',     price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png', url:'/product/gift-set-health-wellness/',      subcat:'wellness'   },
+          { id:6, name:'Sustainable Gift Sets',           price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg', url:'/product/gift-set-sustainable/',         subcat:'lifestyle'  },
+          { id:7, name:'Work From Home Gift Sets',        price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',    url:'/product/gift-set-work-from-home/',       subcat:'corporate'  },
+          { id:8, name:'Travel Executive Gift Sets',      price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg', url:'/product/gift-set-travel-executive/',    subcat:'lifestyle'  },
+        ]
+      },
+
+      'home-living': {
+        name:  'Home Living',
+        icon:  'fas fa-home',
+        desc:  'Branded home & lifestyle items — from cleaning essentials and outdoor chairs to personal care and portable fans.',
+        count: '14+',
+        subcats: [
+          { key: 'kitchen',   label: 'Kitchen & Dining' },
+          { key: 'personal',  label: 'Personal Care' },
+          { key: 'outdoor',   label: 'Outdoor & Lifestyle' },
+        ],
+        products: [
+          { id:1, name:'Cleaning Essentials',     price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/home-living-cleaning-essentials/', subcat:'kitchen'  },
+          { id:2, name:'Cutlery Sets',            price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/home-living-cutlery-sets/',        subcat:'kitchen'  },
+          { id:3, name:'Hand Towels',             price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg', url:'/product/home-living-hand-towels/',        subcat:'personal' },
+          { id:4, name:'Personal Care',           price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/home-living-personal-care/',      subcat:'personal' },
+          { id:5, name:'Pillows',                 price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png', url:'/product/home-living-pillows/',            subcat:'personal' },
+          { id:6, name:'Outdoor Chairs',          price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg', url:'/product/home-living-outdoor-chairs/',     subcat:'outdoor'  },
+          { id:7, name:'Portable Fans',           price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',    url:'/product/home-living-portable-fans/',      subcat:'outdoor'  },
+          { id:8, name:'Lifestyle Gift Sets',     price:'Ask for Quote', img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg', url:'/product/home-living-lifestyle/',         subcat:'outdoor'  },
+        ]
+      },
+
+      'pen-paper': {
+        name:  'Pen & Paper',
+        icon:  'fas fa-pen',
+        desc:  'Custom pens, notebooks, journals, planners, and stationery sets — ideal for corporate giveaways and office use.',
+        count: '16+',
+        subcats: [
+          { key: 'pen',   label: 'Pens' },
+          { key: 'paper', label: 'Paper & Notebooks' },
+        ],
+        products: [
+          { id:1, name:'Bamboo Pens',                  price:'As low as ₱35.00',  img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/pen-bamboo/',              subcat:'pen'   },
+          { id:2, name:'Metal Pens',                   price:'As low as ₱55.00',  img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/pen-metal/',               subcat:'pen'   },
+          { id:3, name:'Multi-Functional Pens',        price:'As low as ₱75.00',  img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg', url:'/product/pen-multi-functional/',    subcat:'pen'   },
+          { id:4, name:'Plastic Pens',                 price:'As low as ₱22.00',  img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/pen-plastic/',             subcat:'pen'   },
+          { id:5, name:'Pen Gift Sets',                price:'As low as ₱120.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png', url:'/product/pen-gift-set/',            subcat:'pen'   },
+          { id:6, name:'Custom Notebooks & Journals',  price:'As low as ₱95.00',  img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg', url:'/product/paper-notebooks-journals', subcat:'paper' },
+          { id:7, name:'Custom Desk Calendars',        price:'As low as ₱120.00', img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',    url:'/product/paper-desk-calendars/',    subcat:'paper' },
+          { id:8, name:'Stationery Sets',              price:'As low as ₱145.00', img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg', url:'/product/paper-stationery-sets/',   subcat:'paper' },
+          { id:9, name:'Memo Solutions',               price:'As low as ₱55.00',  img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/paper-memo-solutions/',    subcat:'paper' },
+          { id:10,name:'Padfolios',                    price:'As low as ₱195.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/paper-padfolios',          subcat:'paper' },
+        ]
+      },
+
+      'pu-leather': {
+        name:  'PU Leather',
+        icon:  'fas fa-briefcase',
+        desc:  'Elegant PU leather products for corporate gifting — wallets, card cases, organizers, keychains, and more.',
+        count: '10+',
+        subcats: [
+          { key: 'wallets',    label: 'Wallets & Cases' },
+          { key: 'organizers', label: 'Organizers & Bags' },
+          { key: 'keychains',  label: 'Keychains & Tags' },
+        ],
+        products: [
+          { id:1, name:'Wallets',                      price:'As low as ₱195.00', img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/pu-leather-wallets/',          subcat:'wallets'    },
+          { id:2, name:'Card Cases',                   price:'As low as ₱120.00', img:'https://pinoyballers.com/wp-content/uploads/2025/03/Silicone_Wristband-300x130.png',        url:'/product/pu-leather-card-cases/',       subcat:'wallets'    },
+          { id:3, name:'Leather Pouches',              price:'As low as ₱145.00', img:'https://pinoyballers.com/wp-content/uploads/2017/11/Custom-Baller-Bands-Xavier-Ateneo-High-School-2-300x182.jpeg', url:'/product/pu-leather-pouches/',          subcat:'wallets'    },
+          { id:4, name:'Desk Mats',                    price:'As low as ₱220.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/Soft-Enamel-Lapel-Pins-001-1-300x300.png', url:'/product/pu-leather-desk-mats/',        subcat:'organizers' },
+          { id:5, name:'Organizers',                   price:'As low as ₱175.00', img:'https://pinoyballers.com/wp-content/uploads/2019/08/ID-Lace-Lanyards-AIFUL-FINANCE-PHILIPPINES-INC-300x142.png', url:'/product/pu-leather-organizers/',       subcat:'organizers' },
+          { id:6, name:'Gift Sets',                    price:'Ask for Quote',     img:'https://pinoyballers.com/wp-content/uploads/2025/09/Elections-Ballers-Gov-Jerry-Singson-ONE-ILOCOS-SUR-300x209.jpg', url:'/product/pu-leather-gift-sets/',        subcat:'organizers' },
+          { id:7, name:'Travel-Related Leather Gifts', price:'Ask for Quote',     img:'https://pinoyballers.com/wp-content/uploads/2019/10/Custom-Tote-Bags-0422-194x300.png',    url:'/product/pu-leather-travel-related/',   subcat:'organizers' },
+          { id:8, name:'Keychains',                    price:'As low as ₱65.00',  img:'https://pinoyballers.com/wp-content/uploads/2019/11/Fabric-Wristbands-International-School-Manila-Inc-1-298x300.jpeg', url:'/product/pu-leather-keychains/',        subcat:'keychains'  },
+          { id:9, name:'Luggage Tags',                 price:'As low as ₱95.00',  img:'https://pinoyballers.com/wp-content/uploads/2021/12/pb-016-1-min-300x192.jpg',              url:'/product/pu-leather-luggage-tags/',     subcat:'keychains'  },
+        ]
+      }
+
+    };
+
+    /* ============================================================
+       DETECT WHICH CATEGORY WE'RE ON
+       Reads the URL: /product-category/drinkware → 'drinkware'
+       Also handles /product-category-pu-leather/ → 'pu-leather'
+       ============================================================ */
+    function getCategorySlug() {
+      const path = window.location.pathname;
+      // Try /product-category/SLUG pattern first
+      const m = path.match(/\/product-category\/([^/]+)/);
+      if (m) return m[1];
+      // Special case for PU leather URL
+      if (path.includes('pu-leather')) return 'pu-leather';
+      // Fallback: show accessories
+      return 'accessories-gadgets';
+    }
+
+    /* ============================================================
+       RENDER HERO BANNER
+       ============================================================ */
+    function renderHero(cat) {
+      document.title = cat.name + ' | CreativeKit3A';
+      document.getElementById('hero-title').textContent         = cat.name;
+      document.getElementById('hero-breadcrumb-current').textContent = cat.name;
+      document.getElementById('hero-desc').textContent          = cat.desc;
+      document.getElementById('hero-product-count').textContent = cat.count;
+      document.getElementById('hero-icon').innerHTML            = '<i class="' + cat.icon + '"></i>';
+    }
+
+    /* ============================================================
+       RENDER SUBCATEGORY TABS
+       ============================================================ */
+    function renderTabs(cat, activeSubcat) {
+      const container = document.getElementById('subcat-tabs-container');
+      container.innerHTML = '';
+
+      // "All" tab
+      const allBtn = document.createElement('button');
+      allBtn.className   = 'subcat-tab' + (!activeSubcat ? ' active' : '');
+      allBtn.dataset.key = '';
+      allBtn.innerHTML   = 'All <span class="tab-count">' + cat.products.length + '</span>';
+      allBtn.addEventListener('click', () => { renderPage(slugKey, ''); });
+      container.appendChild(allBtn);
+
+      // One tab per subcategory
+      cat.subcats.forEach(sc => {
+        const count = cat.products.filter(p => p.subcat === sc.key).length;
+        const btn = document.createElement('button');
+        btn.className   = 'subcat-tab' + (activeSubcat === sc.key ? ' active' : '');
+        btn.dataset.key = sc.key;
+        btn.innerHTML   = sc.label + ' <span class="tab-count">' + count + '</span>';
+        btn.addEventListener('click', () => { renderPage(slugKey, sc.key); });
+        container.appendChild(btn);
+      });
+    }
+
+    /* ============================================================
+       BUILD A PRODUCT CARD (matches the style in index.html)
+       ============================================================ */
+    function buildCard(product) {
+      // ADDED: Build the items-page URL from the product's existing fields.
+      // Strips the leading /product/ from product.url to get the item slug,
+      // then constructs: items-page.html?cat=SLUG&subcat=SUBCAT&item=ITEM_SLUG
+      // This replaces the old direct product.url so clicking a sub-category
+      // card opens items-page.html showing the individual variants.
+      const itemSlug  = product.url.replace(/^\/product\//, '').replace(/\/$/, '');
+      const itemsUrl  = `items-page.html?cat=${slugKey}&subcat=${product.subcat}&item=${itemSlug}`;
+
+      return `
+        <div class="product-card" data-product-id="${product.id}" data-url="${itemsUrl}">
+          <div class="product-card-img">
+            <img src="${product.img}" alt="${product.name}" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-title">${product.name}</p>
+            <div class="product-card-price">${product.price}</p>
+          </div>
+         
+        </div>`;
+    }
+
+    /* ============================================================
+       RENDER PRODUCT GRID
+       ============================================================ */
+    function renderGrid(cat, activeSubcat, sortVal) {
+      const grid = document.getElementById('cat-product-grid');
+      grid.innerHTML = '';
+
+      let products = activeSubcat
+        ? cat.products.filter(p => p.subcat === activeSubcat)
+        : cat.products;
+
+      // Sort
+      if (sortVal === 'name-asc')   products = [...products].sort((a,b) => a.name.localeCompare(b.name));
+      if (sortVal === 'name-desc')  products = [...products].sort((a,b) => b.name.localeCompare(a.name));
+
+      // Update count label
+      const subLabel = activeSubcat
+        ? cat.subcats.find(s => s.key === activeSubcat)?.label || cat.name
+        : cat.name;
+      document.getElementById('showing-count').textContent  = products.length;
+      document.getElementById('showing-subcat').textContent = subLabel;
+
+      if (!products.length) {
+        grid.innerHTML = '<div class="no-results"><i class="fas fa-box-open"></i><p>No products found in this category yet.</p></div>';
+        return;
+      }
+
+      // If showing all, group by subcategory
+      if (!activeSubcat) {
+        cat.subcats.forEach(sc => {
+          const group = products.filter(p => p.subcat === sc.key);
+          if (!group.length) return;
+
+          // Section heading
+          const heading = document.createElement('div');
+          heading.className = 'subcat-section-heading';
+          heading.innerHTML = `<h3>${sc.label}</h3><span class="count-tag">${group.length}</span>`;
+          grid.appendChild(heading);
+
+          group.forEach(p => {
+            grid.insertAdjacentHTML('beforeend', buildCard(p));
+          });
+        });
+      } else {
+        products.forEach(p => {
+          grid.insertAdjacentHTML('beforeend', buildCard(p));
+        });
+      }
+
+      // Re-attach click → navigate on each card
+      grid.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', () => {
+          window.location.href = card.dataset.url;
+        });
+      });
+    }
+
+    /* ============================================================
+       FULL PAGE RENDER  (hero + tabs + grid)
+       ============================================================ */
+    let currentSubcat = '';
+
+    function renderPage(slug, subcatKey) {
+      const cat = CATEGORY_DATA[slug];
+      if (!cat) return;
+      currentSubcat = subcatKey;
+      const sortVal = document.getElementById('sort-select')?.value || 'default';
+      renderHero(cat);
+      renderTabs(cat, subcatKey);
+      renderGrid(cat, subcatKey, sortVal);
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    const slugKey = getCategorySlug();
+
+    // Sort change listener
+    document.getElementById('sort-select').addEventListener('change', function () {
+      renderGrid(CATEGORY_DATA[slugKey], currentSubcat, this.value);
+    });
+
+    // Search input (live filter)
+    document.getElementById('cat-search-input').addEventListener('input', function () {
+      const q = this.value.trim().toLowerCase();
+      if (!q) {
+        renderPage(slugKey, currentSubcat);
+        return;
+      }
+      const cat     = CATEGORY_DATA[slugKey];
+      const grid    = document.getElementById('cat-product-grid');
+      const results = cat.products.filter(p => p.name.toLowerCase().includes(q));
+      grid.innerHTML = '';
+      if (!results.length) {
+        grid.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>No products match "<strong>' + q + '</strong>"</p></div>';
+        return;
+      }
+      results.forEach(p => grid.insertAdjacentHTML('beforeend', buildCard(p)));
+      grid.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', () => { window.location.href = card.dataset.url; });
+      });
+    });
+
+    // Initial render
+    renderPage(slugKey, '');
+
+  })();
+  </script>
+
+</body>
+</html>
