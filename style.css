@@ -94,42 +94,58 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---- Buttons ---- */
 /* REFRESHED TOP BAR CONTAINER RULES */
-.top-bar .container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: row-reverse; /* Pushes auth left, contact right */
-  justify-content: space-between; 
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-/* Auth Group Wrapper Alignment Rules */
-.auth-container {
-  display: flex;
-  align-items: center;
-  margin-right: auto; /* Pulls it tightly to the left-most edge */
-  flex-shrink: 0;
-}
-
-/* Individual Auth State Blocks */
-.auth-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  white-space: nowrap;
-}
-
-/* Contact Links Configuration */
-.top-bar-contact {
-  font-family: sans-serif;
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
-  margin: 0;
-  flex-wrap: nowrap;
-}
+/* ============================================================
+   CLEAN TOP BAR LAYOUT REWRITE
+   ============================================================ */
+   .top-bar {
+    background: var(--black);
+    color: var(--white);
+    padding: 8px 0;
+    font-size: 0.82rem;
+    width: 100%;
+  }
+  
+  .top-bar .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex !important;
+    flex-direction: row-reverse !important; /* Forces Auth to the left, Contact to the right */
+    justify-content: space-between !important; 
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+  }
+  
+  /* Auth Container */
+  .auth-container {
+    display: flex !important;
+    align-items: center !important;
+    margin-right: auto !important; /* Pulls everything to the left-most edge */
+    flex-shrink: 0 !important;
+  }
+  
+  /* CRITICAL: Force non-active auth groups to remain strictly invisible */
+  .auth-group {
+    display: none !important; /* Hidden by default */
+    align-items: center !important;
+    gap: 12px !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Only show the group if it does NOT have the hide class */
+  .auth-group:not(.auth-hide) {
+    display: inline-flex !important;
+  }
+  
+  /* Contact Details Wrapper */
+  .top-bar-contact {
+    font-family: sans-serif;
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    margin: 0 !important;
+    flex-wrap: nowrap !important;
+  }
 
 
 .admin-status-span .fa-caret-down, 
