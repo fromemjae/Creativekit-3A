@@ -482,7 +482,7 @@
 
 <div class="lm-overlay" id="lm-overlay" onclick="closeAllModals()" aria-hidden="true"></div>
 
-<div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+<div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-title" hidden>
   <div class="lm-card">
     <button class="lm-close" onclick="window.closeModal('login-modal')" aria-label="Close">×</button>
 
@@ -519,34 +519,44 @@
       </button>
 
       <p class="lm-switch">
-        Don't have an account? 
-        <a href="#" onclick="closeModal('login-modal'); openModal('register-modal'); return false;">Register here</a>
+        <a href="#" onclick="switchModal('login-modal', 'forgot-password-modal'); return false;">Forgot Password?</a>
       </p>
+
+
+
     </div>
+  </div>
+</div>
+  
 
-    <div class="lm-panel" id="panel-forgot" style="display: none;">
-      <p style="font-size: 0.85rem; margin-bottom: 15px; color: #666; line-height: 1.45;">
-        Enter your registered email address below, and we will send you instructions to reset your password.
-      </p>
-
-      <div class="lm-field">
-        <label for="lm-forgot-email"><i class="fas fa-envelope"></i> Email Address</label>
-        <input type="email" id="lm-forgot-email" placeholder="you@email.com" required>
-      </div>
-
+  <div id="forgot-password-modal" class="lm-modal" style="display: none;">
+    <div class="lm-modal-content auth-card">
+      <span class="lm-close" onclick="closeModal('forgot-password-modal')">&times;</span>
+      
+      <h2>Reset Password</h2>
+      <p class="auth-subtitle">Enter your email to receive a reset link</p>
+      
       <div class="lm-msg lm-msg--error" id="lm-forgot-error" hidden></div>
       <div class="lm-msg lm-msg--success" id="lm-forgot-success" hidden></div>
 
-      <button type="button" class="btn btn-primary lm-submit" id="lm-forgot-btn" onclick="submitForgotPassword(); return false;">
-        <i class="fas fa-paper-plane"></i> Send Reset Link
-      </button>
+      <form class="auth-form" onsubmit="handleForgotPassword(event)">
+        <div class="lm-field">
+          <label for="forgot-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <div class="auth-input-wrap">
+            <input type="email" id="forgot-email" placeholder="example@company.com" required>
+          </div>
+        </div>
 
-      <p class="lm-switch">
+        <button type="submit" class="auth-submit-btn">
+          <i class="fas fa-paper-plane"></i> Send Reset Link
+        </button>
+      </form>
+
+      <p class="auth-switch-text">
         Remembered your password? 
-        <a href="#" onclick="document.getElementById('panel-forgot').style.display='none'; document.getElementById('panel-login').style.display='block'; return false;">Sign in here</a>
+        <a href="#" onclick="switchModal('forgot-password-modal', 'login-modal'); return false;">Sign In here</a>
       </p>
     </div>
-
   </div>
 </div>
 
@@ -619,6 +629,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module" src="main.js"></script>
+<script src="auth.js"></script>
 
 </body>
 </html>
