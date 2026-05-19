@@ -48,23 +48,25 @@ function closeModal(modalId) {
  */
 async function handleSignIn(event) {
     event.preventDefault();
-    
-    const email = document.getElementById('login-email').value;
+
+    const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-    });
+    const { data: user, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .eq('password', password)
+        .single();
 
-    if (error) {
-        console.error('Login Error:', error.message);
-        alert(error.message);
+    if (error || !user) {
+        alert('Invalid email or password.');
         return;
     }
-    
-    // CHANGED: Redirect cleanly back to the landing page instead of reloading
-    window.location.href = 'index.html'; 
+
+    // Store user in sessionStorage to persist login state
+    sessionStorage.setItem('currentUser', JSON.stringify(user));
+    window.location.href = 'index.html';
 }
 /**
  * Listen for authentication changes to update the UI
@@ -91,24 +93,43 @@ async function initAuth() {
  */
 async function handleRegister(event) {
     event.preventDefault();
-    
-    const email = document.getElementById('reg-email').value;
-    const password = document.getElementById('reg-password').value;
 
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-    });
+    const firstName = document.getElementById('reg-firstname').value.trim();
+    const lastName  = document.getElementById('reg-lastname').value.trim();
+    const email     = document.getElementById('reg-email').value.trim();
+    const password  = document.getElementById('reg-password').value;
+    const phone     = document.getElementById('reg-phone')?.value.trim() || null;
 
-    if (error) {
-        console.error('Registration Error:', error.message);
-        alert(error.message);
+    // Check if email already exists
+    const { data: existing } = await supabase
+        .from('users')
+        .select('id')
+        .eq('email', email)
+        .single();
+
+    if (existing) {
+        alert('An account with this email already exists.');
         return;
     }
 
-    alert('Registration successful! Please check your email.');
-    
-    // CHANGED: Optional - Redirect to login page after successful registration
+    // Insert directly into public.users
+    const { data, error } = await supabase
+        .from('users')
+        .insert({
+            first_name: firstName,
+            last_name:  lastName,
+            email:      email,
+            password:   password,   // ⚠️ see note below
+            phone:      phone
+        });
+
+    if (error) {
+        console.error('Registration Error:', error.message);
+        alert('Registration failed: ' + error.message);
+        return;
+    }
+
+    alert('Registration successful!');
     window.location.href = 'login.html';
 }
 /* ============================================================
