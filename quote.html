@@ -1,3 +1,11 @@
+<html>
+  <head>
+    <title>
+
+    </title>
+    <link rel="stylesheet" href="style.css"
+  </head>
+  <body>
 <main class="quote-main">
   <div class="container quote-container">
     
@@ -93,8 +101,99 @@
 
   </div>
 </main>
+<script>
+// Append clean dynamic lookup maps directly into main.js or quote.html script structures
+const categoryHierarchyTree = {
+  'accessories-gadgets': {
+    name: 'Accessories & Gadgets',
+    subcategories: {
+      'car': { name: 'Car Accessories', types: { 'dashcam': 'Dash Cams', 'charger': 'Car Charger Adapters' } },
+      'computer': { name: 'Computer Accessories', types: { 'mouse': 'Mouse & Mouse Pads' } }
+    }
+  },
+  'drinkware': {
+    name: 'Drinkware',
+    subcategories: {
+      'tumbler': { name: 'Tumblers & Flasks', types: { 'bamboo': 'Bamboo Tumblers' } }
+    }
+  }
+};
 
+function updateLvl2Dropdown() {
+  const lvl1 = document.getElementById('q_lvl1').value;
+  const lvl2 = document.getElementById('q_lvl2');
+  const lvl3 = document.getElementById('q_lvl3');
+  
+  lvl2.innerHTML = '<option value="">-- Select Sub-Category --</option>';
+  lvl3.innerHTML = '<option value="">-- Choose Sub-Cat First --</option>';
+  lvl2.disabled = true;
+  lvl3.disabled = true;
 
+  if (lvl1 && categoryHierarchyTree[lvl1]) {
+    const subcats = categoryHierarchyTree[lvl1].subcategories;
+    for (const key in subcats) {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = subcats[key].name;
+      lvl2.appendChild(opt);
+    }
+    lvl2.disabled = false;
+  }
+}
 
+function updateLvl3Dropdown() {
+  const lvl1 = document.getElementById('q_lvl1').value;
+  const lvl2 = document.getElementById('q_lvl2').value;
+  const lvl3 = document.getElementById('q_lvl3');
+  
+  lvl3.innerHTML = '<option value="">-- Select Product Type --</option>';
+  lvl3.disabled = true;
 
+  if (lvl1 && lvl2 && categoryHierarchyTree[lvl1].subcategories[lvl2]) {
+    const types = categoryHierarchyTree[lvl1].subcategories[lvl2].types;
+    for (const key in types) {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = types[key];
+      lvl3.appendChild(opt);
+    }
+    lvl3.disabled = false;
+  }
+}
+
+async function transmitQuotationProposal(event) {
+  event.preventDefault();
+  const activeBtn = document.getElementById('submitQuoteFormBtn');
+  const errAlert = document.getElementById('quote-error-box');
+  const succAlert = document.getElementById('quote-success-box');
+  
+  errAlert.hidden = true;
+  succAlert.hidden = true;
+  activeBtn.disabled = true;
+  
+  // Package definitions directly into clean table matrix payloads 
+  const payload = {
+    full_name: document.getElementById('q_name').value.trim(),
+    email: document.getElementById('q_email').value.trim(),
+    phone: document.getElementById('q_phone').value.trim(),
+    quantity: parseInt(document.getElementById('q_qty').value) || 0,
+    notes: document.getElementById('q_notes').value.trim(),
+    deadline: document.getElementById('q_deadline').value
+  };
+
+  const { data, error } = await supabase.from('quotations').insert([payload]);
+
+  if (error) {
+    errAlert.innerText = "⚠️ " + error.message;
+    errAlert.hidden = false;
+    activeBtn.disabled = false;
+  } else {
+    succAlert.innerText = "🎉 Quotation request dispatched cleanly directly to Supabase storage architecture records.";
+    succAlert.hidden = false;
+    document.getElementById('quoteFormElement').reset();
+    activeBtn.disabled = false;
+  }
+}
+</script>
+</body>
 </html>
