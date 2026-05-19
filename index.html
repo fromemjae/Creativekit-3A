@@ -24,27 +24,27 @@
     <div class="container" style="height: 41px;">
 
       <div class="auth-container">
-        <div id="auth-guest" class="auth-group auth-hide">
-          <button class="login-btn" onclick="openModal('login-modal')">Sign In</button>
-          <button class="register-btn" onclick="openModal('register-modal')">Register</button>
+  
+        <div id="auth-guest" class="auth-group active">
+          <button class="login-btn" onclick="window.openModal('login-modal')">Sign In</button>
+          <button class="register-btn" onclick="window.openModal('register-modal')">Register</button>
         </div>
       
-        <div id="auth-customer" class="auth-group auth-hide">
+        <div id="auth-customer" class="auth-group">
           <span onclick="toggleSidebarMenu()" class="customer-status-span">
              <i class="fas fa-user"></i> Hi, <span id="user-display-name">User</span> <i class="fas fa-caret-down"></i>
           </span>
           <a href="./includes/logout_process.html" class="logout-btn" onclick="handleLogout()">Sign Out</a>
         </div>
       
-        <div id="auth-admin" class="auth-group auth-hide">
+        <div id="auth-admin" class="auth-group">
           <span onclick="toggleSidebarMenu()" class="admin-status-span">
              <i class="fas fa-user-shield"></i> Control Mode Active <i class="fas fa-caret-down"></i>
           </span>
           <a href="./includes/logout_process.html" class="logout-btn" onclick="handleLogout()">Sign Out</a>
         </div>
+        
       </div>
-      
-    </div>
     
     <div class="top-bar-contact">
       <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope icon"></i> salesandmarketing@creativekit3a.com</a>

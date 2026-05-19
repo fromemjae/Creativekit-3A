@@ -141,15 +141,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Modal Group Visibility Base Overrides */
-.auth-group {
+/* ============================================================
+   TOP BAR AUTH STATE VISIBILITY CONTROLLERS
+   ============================================================ */
+
+/* Hide all state layouts by default to prevent clashing content leaks */
+div.auth-container div.auth-group {
   display: none !important;
-  align-items: center !important;
-  gap: 12px !important;
-  white-space: nowrap !important;
 }
 
-.auth-group:not(.auth-hide) {
+/* Force ONLY the group with the active class token to display inline */
+div.auth-container div.auth-group.active {
   display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
 }
   
   /* Contact Details Wrapper */
@@ -3133,7 +3138,56 @@ textarea.quote-input {
 /* ============================================================
    STANDALONE AUTHENTICATION PAGE STRUCTURES (NEW)
    ============================================================ */
+/* ============================================================
+   TOP BAR AUTHENTICATION BLOCK ARCHITECTURE — INLINE FLOW
+   ============================================================ */
 
+/* Restructure parent wrapper container to lock alignment metrics */
+div.top-bar div.container {
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  display: flex !important;
+  flex-direction: row !important; /* Locks left-to-right orientation sequence */
+  justify-content: space-between !important; /* Pushes child elements to structural opposites */
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  height: 41px !important;
+}
+
+/* Force Auth wrapper container flush along the left-most edge layout */
+div.top-bar div.auth-container {
+  display: flex !important;
+  align-items: center !important;
+  margin-right: auto !important; /* Force pushes phone/email links to the right */
+  margin-left: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hide all structural session layouts by default to prevent overlapping leaks */
+div.auth-container div.auth-group {
+  display: none !important;
+}
+
+/* Force ONLY the active session layout block to reveal itself inline */
+div.auth-container div.auth-group.active {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  white-space: nowrap !important;
+}
+
+/* Force contact nodes completely flush against the right-most edge layout */
+div.top-bar div.top-bar-contact {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+  margin-left: auto !important; /* Tight snap lock against the container wall */
+  margin-right: 0 !important;
+  padding: 0 !important;
+  flex-wrap: nowrap !important;
+}
    /* Authentication block alignment context layout rules */
 .auth-container {
   display: inline-flex;
