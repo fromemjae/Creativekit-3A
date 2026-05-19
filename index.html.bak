@@ -1,0 +1,726 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Customized Corporate Giveaways">
+  <title></title>
+
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="menu.css">
+</head>
+
+<body>
+
+  
+  <!-- ============================================================
+       TOP BAR
+       ============================================================ -->
+       
+  <div class="top-bar">
+    <div class="container" style="height: 41px;">
+
+      <div class="auth-container">
+  
+        <div id="auth-guest" class="auth-group active">
+          <button class="login-btn" onclick="window.openModal('login-modal')">Sign In</button>
+          
+          <button class="register-btn" onclick="window.openModal('login-modal'); window.switchTab('register');">Register</button>
+        </div>
+      
+        <div id="auth-customer" class="auth-group">
+          <span onclick="toggleSidebarMenu()" class="customer-status-span">
+             <i class="fas fa-user"></i> Hi, <span id="user-display-name">User</span> <i class="fas fa-caret-down"></i>
+          </span>
+          <a href="./includes/logout_process.html" class="logout-btn" onclick="handleLogout()">Sign Out</a>
+        </div>
+      
+        <div id="auth-admin" class="auth-group">
+          <span onclick="toggleSidebarMenu()" class="admin-status-span">
+             <i class="fas fa-user-shield"></i> Control Mode Active <i class="fas fa-caret-down"></i>
+          </span>
+          <a href="./includes/logout_process.html" class="logout-btn" onclick="handleLogout()">Sign Out</a>
+        </div>
+        
+      </div>
+    
+    <div class="top-bar-contact">
+      <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope icon"></i> salesandmarketing@creativekit3a.com</a>
+      <a href="tel:+639177142774"><i class="fas fa-mobile-alt icon"></i> +63 917 714 2774</a>
+      <a href="tel:+639339927410"><i class="fas fa-phone icon"></i> +63 933 992 7410</a>
+    </div>
+  </div>
+</li>
+      
+      
+
+  
+  <!-- ============================================================
+       MAIN NAVBAR
+       ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+
+      <!-- Hamburger (mobile) -->
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidenav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Logo -->
+      <!-- AFTER -->
+<a href="index.html" class="navbar-logo">
+  <img src="2.png" alt="CreativeKit3A Logo" class="logo-img">
+  <span class="logo-text">CreativeKit3A</span>
+</a>
+
+      <!-- Search -->
+      <div class="navbar-search" role="search">
+        <input type="search" placeholder="What are you looking for?" aria-label="Search products">
+        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      </div>
+
+      <!-- Right side -->
+      <div class="navbar-right">
+        <nav class="navbar-links" aria-label="Secondary navigation">
+          <a href="about.html">About</a>
+          <a href="accessories.html">Category</a>
+          <a href="./includes/footer.html">Contact Us</a>
+        </nav>
+
+        <button class="rfq-btn" aria-label="Request a Quote" onclick="window.location.href='quote.html'">Request a Quote</button>
+       
+        
+        <a href="/cart/" class="navbar-cart" aria-label="Shopping cart">
+          <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+          <span>Cart</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </a>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MEGA MENU BAR
+       ============================================================ -->
+  <div class="mega-menu-bar" role="navigation" aria-label="Category navigation">
+    <ul class="mega-menu-nav">
+
+      <li class="mega-menu-item">
+        <a href="category-page.html">ACCESSORIES & GADGETS <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Car Accessories</h4>
+            <a href="/product/car-charger-adapters.html">Car Charger Adapters</a>
+            <a href="/product/car-organizers.html">Car Organizers & Holders</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Computer Accessories</h4>
+            <a href="/product/computer-audio">Audio Accessories</a>
+            <a href="/product/computer-laptop-keyboard">Laptop & Keyboard Accessories</a>
+
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Desk Accessories</h4>
+            <a href="/product/desk-clocks">Clocks & Timepieces</a>
+            <a href="/product/desk-organizers">Desk Organizers & Pen Holders</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/apparel">APPAREL <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Caps</h4>
+            <a href="/product/cap-baseball/">Baseball Cap</a>
+            <a href="/product/cap-bucket-hat/">Bucket Hat</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Jackets</h4>
+            <a href="/product/jackets-corporate/">Corporate Jackets</a>
+            <a href="/product/jacket-hoodies/">Hoodies </a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Shirts</h4>
+            <a href="/product/shirt-collared/">Collared Shirt</a>
+            <a href="/product/shirt-dri-fit/">Dri Fit Shirt</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/bags-pouches">BAGS & POUCHES<i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Backpacks</h4>
+            <a href="/product/backpacks-sports/">Sports Backpacks</a>
+            <a href="/product/backpacks-travel/">Travel Backpacks</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Eco Bags</h4>
+            <a href="/product/ecobags-shopping-tote/">Foldable Shopping Totes</a>
+            <a href="/product/ecobags-non-woven/">Non Woven Shopping Bags</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Laptop Bags</h4>
+            <a href="/product/laptop-backpack/">Laptop Backpacks</a>
+            <a href="/product/laptop-hand-carry-bag/">Laptop Hand Carry Bags</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Tote Bags</h4>
+            <a href="/product/tote-bag-classic-zip/">Classic Zip Totes</a>
+            <a href="/product/tote-bag-foldable-zip/">Foldable Totes</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/drinkware">DRINKWARE <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Tumbler & Flasks</h4>
+            <a href="/product/tumbler-tumblers/">Tumblers </a>
+             <a href="/product/tumbler-stainless/">Stainless Steel Tumblers</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Mugs & Cups</h4>
+            <a href="/product/mugs-coffee/">Coffee Mugs</a>
+            <a href="/product/mugs-stainless/">Stainless Steel Mugs</a>
+          </div>
+          <div class="mega-dropdown-col">
+            <h4>Water Bottles</h4>
+            <a href="/product/water-bottle-sports/">Sports Bottles</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/giftset">GIFT SET  <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+         <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Gift Set</h4>
+            <a href="/product/gift-set-desk-essentials/">Desk Essentials Gift Sets</a>
+            <a href="/product/gift-set-employee-onboarding/">Employee Onboarding Sets </a>
+          </div>
+      </li>
+
+      <li class="mega-menu-item">
+        <a href="/product-category/home-living">HOME LIVING <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>Home Living</h4>
+            <a href="/product/home-living-cutlery-sets/">Cutlery Sets</a>
+            <a href="/product/home-living-personal-care/">Personal Care</a>
+            <a href="/product/home-living-pillows/">Pillows</a>
+          </div>
+      </li>
+      <li class="mega-menu-item">
+        <a href="/product-category/pen-paper/">PEN & PAPER <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+            <div class="mega-dropdown-col">
+            <h4>Pen</h4>
+            <a href="/product/pen-bamboo/">Bamboo Pens</a>
+            <a href="/product/pen-metal/">Metal Pens </a>
+          </div>
+           <div class="mega-dropdown-col">
+            <h4>Paper</h4>
+            <a href="/product/paper-desk-calendars/">Custom Desk Calendars </a>
+            <a href="/product/paper-notebooks-journals">Custom Notebooks & Journals</a>
+            <a href="/product/paper-padfolios">Padfolios</a>
+          </div>
+      </li>
+
+       <li class="mega-menu-item">
+        <a href="/product-category-pu-leather/">PU LEATHER<i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+        <div class="mega-dropdown">
+          <div class="mega-dropdown-col">
+            <h4>PU Leather</h4>
+            <a href="/product/pu-leather-card-cases/">Card Cases</a>
+            <a href="/product/pu-leather-desk-mats/">Desk Mats</a>
+            <a href="/product/pu-leather-pouches/">Leather Pouches</a>
+            <a href="/product/pu-leather-keychains/">Keychains</a>
+            <a href="/product/pu-leather-luggage-tags/">Luggage Tags</a>
+            <a href="/product/pu-leather-organizers/">Organizers</a>
+            <a href="/product/pu-leather-wallets/">Wallets</a>
+          </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <!-- Mobile Sidenav Overlay -->
+  <div class="sidenav-overlay" aria-hidden="true"></div>
+
+  <!-- Mobile Sidenav -->
+  <aside class="sidenav" id="sidenav" role="complementary" aria-label="Dynamic Sidenav Layout Container">
+    <div class="sidenav-header">
+      <div>
+        
+          <span class="sidenav-admin-lbl"><i class="fas fa-user-shield"></i> </span>
+          <span class="sidenav-admin-name"></span>
+        
+          <span class="sidenav-cust-lbl">Welcome, Customer</span>
+          <span class="sidenav-cust-name"><i class="fas fa-user"></i> </span>
+        
+          <span class="sidenav-guest-name">CreativeKit3A Menu</span>
+        
+      </div>
+      <button class="sidenav-close" aria-label="Close menu" onclick="toggleSidebarMenu()">&times;</button>
+    </div>
+    
+    <div class="sidenav-body">
+      
+      
+        <p class="sidenav-section-title sec-exec"></i> Executive Controls</p>
+        <a href="./admin/dashboard.html" class="sidenav-admin-dash"><i class="fas fa-chart-line"></i> Open Admin Dashboard</a>
+      
+
+      <p class="sidenav-section-title sec-cat">Product Categories</p>
+      <div class="sidenav-cat-box">
+        
+              <a href="accessories.php?cat=" class="sidenav-cat-link"><i class="fas fa-angle-right" style="color: #ff6b00; margin-right: 5px;"></i> </a>
+            
+      </div>
+
+      <p class="sidenav-section-title sec-nav">Navigation Menu</p>
+      <a href="about.html" class="sidenav-nav-link"><i class="fas fa-info-circle" style="width: 16px; color: #64748b;"></i> About Us</a>
+      <a href="accessories.html" class="sidenav-nav-link"><i class="fas fa-th-large" style="width: 16px; color: #64748b;"></i> View Full Category</a>
+      <a href="/contact-us/" class="sidenav-nav-link"><i class="fas fa-paper-plane" style="width: 16px; color: #64748b;"></i> Contact Us</a>
+
+      <p class="sidenav-section-title sec-help">Corporate Help Desk</p>
+      <div class="sidenav-help-box">
+        <div class="sidenav-help-row"><i class="fas fa-envelope" style="color: #ff6b00; width:14px;"></i> <a href="mailto:salesandmarketing@creativekit3a.com" style="color: inherit; text-decoration: none;">salesandmarketing@creativekit3a.com</a></div>
+        <div class="sidenav-help-row"><i class="fas fa-mobile-alt" style="color: #ff6b00; width:14px;"></i> <a href="tel:+639177142774" style="color: inherit; text-decoration: none;">+63 917 714 2774</a></div>
+        <div class="sidenav-help-row"><i class="fas fa-phone" style="color: #ff6b00; width:14px;"></i> <a href="tel:+639339927410" style="color: inherit; text-decoration: none;">+63 933 992 7410</a></div>
+      </div>
+
+      
+        <a href="./includes/logout_process.html" class="sidenav-logout-link"><i class="fas fa-sign-out-alt"></i> Account Sign Out</a>
+      
+    </div>
+  </aside>
+
+  <main>
+  <section class="hero-section" aria-label="Hero banner">
+    <div class="hero-carousel">
+
+      <div class="hero-slide active">
+        <div class="hero-slide-img">
+          <img data-src="" src="assets/email.png" alt="SOUVENIR GIFT SETS">
+        </div>
+        <div class="hero-slide-content">
+          <span class="eyebrow">Customize Your</span>
+          <h1>SOUVENIR GIFT SETS</h1>
+          <p>We specialize in custom item personalization, made quick and easy.</p>
+          <a href="accessories.php?item=bamboo-tumbler" class="btn btn-white btn-large">BROWSE CATALOG</a>
+        </div>
+      </div>
+
+      <div class="hero-slide">
+        <div class="hero-slide-img">
+          <img data-src="" src="assets/hero2.png" alt="FOLDABLE TOTE BAGS">
+        </div>
+        <div class="hero-slide-content">
+          <span class="eyebrow">Showcase Your Brand with</span>
+          <h1>FOLDABLE TOTE BAGS</h1>
+          <p>Stylish and durable custom foldable tote bags for events, recognition, and giveaways.</p>
+          <a href="accessories.html" class="btn btn-white btn-large">BROWSE CATALOG</a>
+        </div>
+      </div>
+
+      <div class="hero-slide">
+        <div class="hero-slide-img">
+          <img data-src=""
+               src="assets/hero3.png" alt="Custom Logo Tote Bags">
+        </div>
+        <div class="hero-slide-content">
+          <span class="eyebrow">ELEVATE YOUR BRAND IDENTITY</span>
+          <h1>EMPLOYEE ONBOARDING GIFT SETS</h1>
+          <p>Premium custom employee onboarding gift sets tailored for your company's needs.</p>
+          <a href="accessories.html" class="btn btn-white btn-large">BROWSE CATALOG</a>
+        </div>
+      </div>
+
+      <button class="carousel-btn prev" aria-label="Previous slide"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+      <button class="carousel-btn next" aria-label="Next slide"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+
+      <div class="carousel-dots" role="tablist" aria-label="Slide indicators">
+        <button class="carousel-dot active" role="tab" aria-label="Slide 1" aria-selected="true"></button>
+        <button class="carousel-dot" role="tab" aria-label="Slide 2" aria-selected="false"></button>
+        <button class="carousel-dot" role="tab" aria-label="Slide 3" aria-selected="false"></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="products-section" aria-labelledby="products-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title" id="products-heading">OUR PRODUCTS</h2>
+        <a href="accessories.html" class="view-all-link">View All <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="product-grid">
+       
+        
+          
+            
+            <div class="product-card" data-product-id="" data-url="">
+              <div class="product-card-img">
+                <img src="?t=" alt="">
+              </div>
+              <div class="product-card-body">
+                <p class="product-card-title"></p>
+                <p class="product-card-price">As low as ₱ ea</p>
+              </div>
+              <div class="product-card-footer">
+                <span class="customize-btn"><i class="fas fa-chevron-right" aria-hidden="true"></i> CUSTOMIZE</span>
+              </div>
+            </div>
+          
+        
+          <p style="text-align: center; color: #64748b; font-style: italic; grid-column: 1 / -1; padding: 40px 0;">No featured products are currently active.</p>
+        
+        
+      </div>
+
+    </div>
+  </section>
+
+  <section class="corporate-section" aria-labelledby="corporate-heading">
+    <div class="container">
+      <div class="corporate-inner">
+        <div class="corporate-img"><img src="assets/hero.jpg" alt="Custom Corporate Items"></div>
+        <div class="corporate-text">
+          <h3>CreativeKit 3A — Your Trusted Partner for Custom Corporate Giveaways</h3>
+          <p>Discover premium customized giveaways with CreativeKit 3A, your reliable source for personalized wristbands, promotional items, and branded accessories.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" aria-labelledby="contact-heading">
+    <div class="container">
+      <h6 id="contact-heading">CONTACT US</h6>
+      <div class="contact-numbers">
+        <a href="tel:+639177142774"><i class="fas fa-mobile-alt" aria-hidden="true"></i> +63 917 714 2774</a>
+        <a href="tel:+639339927410"><i class="fas fa-phone" aria-hidden="true"></i> +63 933 992 7410</a>
+      </div>
+      <p class="contact-email">Email us at <a href="mailto:salesandmarketing@creativekit3a.com">salesandmarketing@creativekit3a.com</a></p>
+      <a href="/contact-us/" class="btn btn-primary btn-large">Contact Us</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="container">
+        <div class="footer-grid">
+
+          <div class="footer-brand">
+            <a href="/" aria-label="Pinoyballers home"><span class="logo-text">CreativeKit3A</span></a>
+            <p class="tagline">VAT registered company<br>2779B R. FERNANDEZ ST. CORNER BENITA ST. GAGALANGIN, TONDO, MANILA, Manila, Philippines, 1013</p>
+            <div class="footer-social" aria-label="Social media links">
+              <a href="https://www.facebook.com/profile.php?id=100063787431490" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              </div>
+          </div>
+
+          <div class="footer-col">
+            <h5>Contact Information</h5>
+            <div class="footer-contact-item">
+              <i class="fas fa-envelope icon" aria-hidden="true"></i>
+              <a href="mailto:salesandmarketing@creativekit3a.com">salesandmarketing@creativekit3a.com</a>
+            </div>
+            <div class="footer-contact-item">
+              <i class="fas fa-mobile-alt icon" aria-hidden="true"></i>
+              <a href="tel:+639177142774">+63 917 714 2774</a>
+            </div>
+            <div class="footer-contact-item">
+              <i class="fas fa-phone icon" aria-hidden="true"></i>
+              <a href="tel:+639339927410">+63 933 992 7410</a>
+            </div>
+          </div>
+
+         
+          <div class="footer-col">
+            <h5>Customer Help</h5>
+            <ul>
+              <li><a href="/about.html">About</a></li>
+              <li><a href="/accessories-gadgets/index2.html">Category</a></li>
+              <li><a href="/contact-us/">Contact Us</a></li>
+              </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; Copyright 2026. CreativeKit3A.shop All Rights Reserved.</p>
+        <div class="footer-payments" aria-label="Accepted payment methods">
+          <img src="https://.com/wp-content/uploads/2024/04/mastercard.png" alt="Mastercard">
+          <img src="https://.com/wp-content/uploads/2024/04/visa.png" alt="Visa">
+          <img src="https://.com/wp-content/uploads/2024/04/paypal-new.png" alt="PayPal">
+          <img src="https://.com/wp-content/uploads/2024/04/BPI.png" alt="BPI">
+          <img src="https://.com/wp-content/uploads/2024/04/paymongo_gcash.png" alt="GCash">
+          <img src="https://.com/wp-content/uploads/2024/04/paymongo_paymaya.png" alt="Maya">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+
+  <div class="lm-overlay" id="lm-overlay" onclick="window.closeAllModals()" aria-hidden="true"></div>
+ 
+  <div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="lm-modal-title" onclick="window.closeModal('login-modal')">
+    <div class="lm-card" onclick="event.stopPropagation()">
+   
+      <button class="lm-close" onclick="window.closeModal('login-modal')" aria-label="Close">&times;</button>
+   
+      <div class="lm-header">
+        <span class="lm-brand">CreativeKit3A</span>
+        <p class="lm-tagline">Your Corporate Giveaways Partner</p>
+      </div>
+   
+      <div class="lm-tabs" role="tablist">
+        <button class="lm-tab active" id="tab-login" role="tab" aria-selected="true" onclick="window.switchTab('login')">Sign In</button>
+        <button class="lm-tab" id="tab-register" role="tab" aria-selected="false" onclick="window.switchTab('register')">Register</button>
+      </div>
+   
+      <div class="lm-panel" id="panel-login" role="tabpanel">
+        <div class="lm-field">
+          <label for="lm-login-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-login-email" placeholder="you@email.com" autocomplete="email" required>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-login-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-login-password" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-login-password', this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+   
+        <div class="lm-extras">
+          <label class="lm-remember">
+            <input type="checkbox" id="lm-remember"> Remember me
+          </label>
+          <a href="#" class="lm-forgot" onclick="document.getElementById('panel-login').classList.add('panel-hidden'); document.getElementById('panel-forgot').classList.remove('panel-hidden'); return false;">Forgot password?</a>
+        </div>
+   
+        <div class="lm-msg lm-msg--error" id="lm-login-error" hidden></div>
+   
+        <button class="btn btn-primary lm-submit" id="lm-login-btn" onclick="submitLogin()">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+   
+        <p class="lm-switch">
+          Don't have an account?
+          <a href="#" onclick="window.switchTab('register'); return false;">Register here</a>
+        </p>
+      </div>
+   
+      <div class="lm-panel panel-hidden" id="panel-register" role="tabpanel">
+        <div class="lm-field-row">
+          <div class="lm-field">
+            <label for="lm-reg-firstname"><i class="fas fa-user"></i> First Name</label>
+            <input type="text" id="lm-reg-firstname" placeholder="Juan" autocomplete="given-name" required>
+          </div>
+          <div class="lm-field">
+            <label for="lm-reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+            <input type="text" id="lm-reg-lastname" placeholder="Dela Cruz" autocomplete="family-name" required>
+          </div>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-reg-email" placeholder="you@email.com" autocomplete="email" required>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-phone"><i class="fas fa-mobile-alt"></i> Mobile <span class="lm-optional">(optional)</span></label>
+          <input type="tel" id="lm-reg-phone" placeholder="+63 917 000 0000" autocomplete="tel">
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-password" placeholder="At least 8 characters" autocomplete="new-password" required oninput="updateStrength(this.value)">
+          </div>
+          <div class="lm-strength-bar"><div class="lm-strength-fill" id="lm-strength-fill"></div></div>
+          <span class="lm-strength-label" id="lm-strength-label"></span>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-confirm"><i class="fas fa-lock"></i> Confirm Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-confirm" placeholder="Repeat your password" autocomplete="new-password" required>
+            <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-reg-confirm', this)" aria-label="Show confirm password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+   
+        <div class="lm-terms">
+          <label><input type="checkbox" id="lm-reg-terms" required> I agree to the <a href="about.html" target="_blank">Terms &amp; Conditions</a></label>
+        </div>
+   
+        <div class="lm-msg lm-msg--error" id="lm-reg-error" hidden></div>
+        <div class="lm-msg lm-msg--success" id="lm-reg-success" hidden></div>
+   
+        <button class="btn btn-primary lm-submit" id="lm-reg-btn" onclick="submitRegister()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+   
+        <p class="lm-switch">
+          Already have an account?
+          <a href="#" onclick="window.switchTab('login'); return false;">Sign in here</a>
+        </p>
+      </div>
+   
+      <div class="lm-panel panel-hidden" id="panel-forgot" role="tabpanel">
+        <p style="font-size: 0.85rem; margin-bottom: 15px; color: #666; line-height: 1.45;">
+          Enter your registered email address below, and we will send you instructions to reset your password.
+        </p>
+   
+        <div class="lm-field">
+          <label for="lm-forgot-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-forgot-email" placeholder="you@email.com" required>
+        </div>
+   
+        <div class="lm-msg lm-msg--error" id="lm-forgot-error" hidden></div>
+        <div class="lm-msg lm-msg--success" id="lm-forgot-success" hidden></div>
+   
+        <button type="button" class="btn btn-primary lm-submit" id="lm-forgot-btn" onclick="submitForgotPassword(); return false;">
+          <i class="fas fa-paper-plane"></i> Send Reset Link
+        </button>
+   
+        <p class="lm-switch">
+          Remembered your password?
+          <a href="#" onclick="document.getElementById('panel-forgot').classList.add('panel-hidden'); document.getElementById('panel-login').classList.remove('panel-hidden'); return false;">Sign in here</a>
+        </p>
+      </div>
+   
+    </div>
+  </div>
+  
+
+  <div id="forgot-password-modal" class="lm-modal" style="display: none;">
+    <div class="lm-modal-content auth-card">
+      <span class="lm-close" onclick="closeModal('forgot-password-modal')">&times;</span>
+      
+      <h2>Reset Password</h2>
+      <p class="auth-subtitle">Enter your email to receive a reset link</p>
+      
+      <div class="lm-msg lm-msg--error" id="lm-forgot-error" hidden></div>
+      <div class="lm-msg lm-msg--success" id="lm-forgot-success" hidden></div>
+
+      <form class="auth-form" onsubmit="handleForgotPassword(event)">
+        <div class="lm-field">
+          <label for="forgot-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <div class="auth-input-wrap">
+            <input type="email" id="forgot-email" placeholder="example@company.com" required>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-submit-btn">
+          <i class="fas fa-paper-plane"></i> Send Reset Link
+        </button>
+      </form>
+
+      <p class="auth-switch-text">
+        Remembered your password? 
+        <a href="#" onclick="switchModal('forgot-password-modal', 'login-modal'); return false;">Sign In here</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="lm-modal" id="register-modal" role="dialog" aria-modal="true" aria-labelledby="register-title">
+  <div class="lm-card">
+    
+    <button class="lm-close" onclick="window.closeModal('register-modal')" aria-label="Close">×</button>
+
+    <div class="lm-header">
+      <span class="lm-brand">CreativeKit3A</span>
+      <p class="lm-tagline">Create your account</p>
+    </div>
+
+   <div class="lm-panel" id="panel-register" role="tabpanel" aria-labelledby="tab-register">
+      
+      <div class="lm-field">
+        <label for="lm-reg-firstname"><i class="fas fa-user"></i> First Name</label>
+        <input type="text" id="lm-reg-firstname" placeholder="First Name" required>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+        <input type="text" id="lm-reg-lastname" placeholder="Last Name" required>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" id="lm-reg-email" placeholder="you@email.com" required>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-phone"><i class="fas fa-phone"></i> Phone Number</label>
+        <input type="text" id="lm-reg-phone" placeholder="0917XXXXXXX">
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-password"><i class="fas fa-lock"></i> Password</label>
+        <div class="lm-pw-wrap">
+          <input type="password" id="lm-reg-password" placeholder="At least 8 characters" required>
+          <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-reg-password', this)"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="lm-field">
+        <label for="lm-reg-confirm"><i class="fas fa-lock"></i> Confirm Password</label>
+        <div class="lm-pw-wrap">
+          <input type="password" id="lm-reg-confirm" placeholder="Repeat your password" required>
+          <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-reg-confirm', this)"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+
+      <div class="lm-terms">
+        <label><input type="checkbox" id="lm-reg-terms" required> I agree to the <a href="about.html">Terms & Conditions</a></label>
+      </div>
+
+      <div class="lm-msg lm-msg--error" id="lm-reg-error" hidden></div>
+      <div class="lm-msg lm-msg--success" id="lm-reg-success" hidden></div>
+
+      <button type="button" class="btn btn-primary lm-submit" id="lm-reg-btn" onclick="submitRegister(); return false;">
+        <i class="fas fa-user-plus"></i> Create Account
+      </button>
+
+      <p class="lm-switch">
+        Already have an account? 
+        <a href="#" onclick="closeModal('register-modal'); openModal('login-modal'); switchTab('login'); return false;">Sign in here</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module" src="main.js"></script>
+<script src="menu.js"></script>
+<script src="auth.js"></script>
+
+</body>
+</html>
