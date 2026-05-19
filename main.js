@@ -682,31 +682,39 @@ const ScrollReveal = (() => {
    ============================================================ */
 const AuthModal = (() => {
 
-  window.switchTab = (tab) => {
-    const tabs = {
-      login:    { btn: 'tab-login',    panel: 'panel-login'    },
-      register: { btn: 'tab-register', panel: 'panel-register' },
-    };
-
-    Object.values(tabs).forEach(({ btn, panel }) => {
-      const b = document.getElementById(btn);
-      const p = document.getElementById(panel);
-      if (b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); }
-      if (p) p.hidden = true;
-    });
-
-    const target = tabs[tab];
-    if (!target) return;
-    const activeBtn   = document.getElementById(target.btn);
-    const activePanel = document.getElementById(target.panel);
-    if (activeBtn)   { activeBtn.classList.add('active'); activeBtn.setAttribute('aria-selected', 'true'); }
-    if (activePanel) activePanel.hidden = false;
-
-    ['lm-login-error', 'lm-reg-error', 'lm-reg-success'].forEach((msgId) => {
-      const el = document.getElementById(msgId);
-      if (el) el.hidden = true;
-    });
+  // UPDATE THIS INSIDE YOUR main.js FILE
+window.switchTab = (tab) => {
+  const tabs = {
+    login:    { btn: 'tab-login',    panel: 'panel-login'    },
+    register: { btn: 'tab-register', panel: 'panel-register' },
   };
+
+  // Base Reset: Strip active focus states and hide standard fields using our CSS classes
+  Object.values(tabs).forEach(({ btn, panel }) => {
+    const b = document.getElementById(btn);
+    const p = document.getElementById(panel);
+    if (b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); }
+    if (p) p.classList.add('panel-hidden'); // Handled via utility classes now
+  });
+
+  // Safety Pass: Always make sure the forgot-password panel gets tucked away when changing modes
+  const forgotPanel = document.getElementById('panel-forgot');
+  if (forgotPanel) forgotPanel.classList.add('panel-hidden');
+
+  // Activate the user's selected component panel view
+  const target = tabs[tab];
+  if (!target) return;
+  const activeBtn   = document.getElementById(target.btn);
+  const activePanel = document.getElementById(target.panel);
+  if (activeBtn)   { activeBtn.classList.add('active'); activeBtn.setAttribute('aria-selected', 'true'); }
+  if (activePanel) activePanel.classList.remove('panel-hidden'); // Displays cleanly
+
+  // Clear obsolete warning logs from layout nodes
+  ['lm-login-error', 'lm-reg-error', 'lm-reg-success'].forEach((msgId) => {
+    const el = document.getElementById(msgId);
+    if (el) el.hidden = true;
+  });
+};
 
   window.togglePw = (inputId, btn) => {
     const input = document.getElementById(inputId);

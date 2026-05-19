@@ -3311,3 +3311,18 @@ div.top-bar div.top-bar-contact {
 [hidden] {
   display: none !important;
 }
+
+/* ============================================================
+   FLUID COMPONENT VIEWPORT VISIBILITY TOGGLES
+   ============================================================ */
+
+/* Force inner modal forms out of sight when not active */
+div.lm-card div.lm-panel.panel-hidden {
+  display: none !important;
+}
+
+/* Ensure active panels use the fluid vertical layout structure safely */
+div.lm-card div.lm-panel:not(.panel-hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+}
