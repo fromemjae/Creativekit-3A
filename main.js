@@ -14,9 +14,9 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 'use strict';
 
 /* ============================================================
-   MODAL CONTROL FUNCTIONS
+   MODAL CONTROL FUNCTIONS (GLOBALLY EXPOSED)
    ============================================================ */
-   function openModal(modalId) {
+   window.openModal = function(modalId) {
     console.log("Attempting to open modal target ID:", modalId);
     const modal = document.getElementById(modalId);
     const overlay = document.getElementById('lm-overlay');
@@ -27,18 +27,17 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
     } else {
         console.error("Could not find modal layout element with ID:", modalId);
     }
-}
+};
 
-function closeModal(modalId) {
+window.closeModal = function(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
         
-        // Safety: Only shut off the background overlay frame if no other modals are active
         const overlay = document.getElementById('lm-overlay');
         if (overlay) overlay.style.display = 'none';
     }
-}
+};
 /* ============================================================
    AUTH: SUPABASE INTEGRATION
    ============================================================ */
@@ -1139,47 +1138,6 @@ document.addEventListener('DOMContentLoaded', function() {
 /* ==========================================
    Extracted from quote.php
    ========================================== */
-const initialHtmlStr = activeBtn.innerHTML;
-  
-  activeBtn.innerHTML = '<span class="quote-btn-spinner"></span> Transmitting Proposal Criteria...';
-
-  try {
-    // REMOVED: fetch('includes/quote_process.php') because PHP is no longer being used.
-    // ADDED: Simulated frontend success response to prevent JSON parsing errors.
-    
-    // Simulate a brief network delay (1 second)
-    await new Promise(resolve => setTimeout(resolve, 1000)); 
-
-    // Create a mock successful response
-    const parsedJson = { 
-      success: true, 
-      message: "Proposal Criteria Transmitted Successfully!" 
-    };
-
-    // CHANGED: Removed the 'rawRes.ok' check since we are simulating the response directly
-    if (parsedJson.success) {
-      succAlert.innerText = "🎉 " + parsedJson.message;
-      succAlert.hidden = false;
-      document.getElementById('quoteFormElement').reset();
-      
-      l2.innerHTML = '<option value="">-- Choose Category First --</option>';
-      l3.innerHTML = '<option value="">-- Choose Sub-Cat First --</option>';
-      l2.disabled = true;
-      l3.disabled = true;
-      
-      document.getElementById('logo-field-display-text').textContent = "Click or Drop your design file here";
-      document.getElementById('logo-field-display-text').classList.remove('asset-selected');
-
-      window.scrollTo({ top: succAlert.offsetTop - 120, behavior: 'smooth' });
-    } else {
-      errAlert.innerText = "⚠️ " + (parsedJson.message || "An unhandled processing error occurred.");
-      errAlert.hidden = false;
-    }
-  } catch (netErr) {
-    console.error('[Quote Pipeline Fault]', netErr);
-    errAlert.innerText = "⚠️ Network error. Please check your connection.";
-    errAlert.hidden = false;
-  }
 
 function updateLvl2Dropdown() {
   const lvl1Select = document.getElementById('q_lvl1');
