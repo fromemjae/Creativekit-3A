@@ -1,0 +1,199 @@
+<html>
+  <head>
+    <title>
+
+    </title>
+    <link rel="stylesheet" href="style.css"
+  </head>
+  <body>
+<main class="quote-main">
+  <div class="container quote-container">
+    
+    <div class="quote-header">
+      <h1 class="quote-title">Request A Quotation</h1>
+      <p class="quote-subtitle">
+        Tell us about your corporate giveaway needs, custom branding parameters, and timeline. Our marketing team will compile an official proposal strategy for you.
+      </p>
+    </div>
+
+    <div class="quote-card">
+      
+      <div id="quote-error-box" class="lm-msg lm-msg--error quote-error-box" hidden></div>
+      <div id="quote-success-box" class="lm-msg lm-msg--success quote-success-box" hidden></div>
+
+      <form id="quoteFormElement" onsubmit="transmitQuotationProposal(event)">
+        
+        <div class="quote-grid-2">
+          <div>
+            <label class="quote-label">Full Name <span class="quote-req">*</span></label>
+            <input type="text" id="q_name" class="quote-input" required value="">
+          </div>
+          <div>
+            <label class="quote-label">Email Address <span class="quote-req">*</span></label>
+            <input type="email" id="q_email" class="quote-input" required value="">
+          </div>
+        </div>
+
+        <div class="quote-grid-2">
+          <div>
+            <label class="quote-label">Contact Number</label>
+            <input type="text" id="q_phone" class="quote-input" placeholder="e.g. +63 917 123 4567">
+          </div>
+          <div>
+            <label class="quote-label">Target Order Quantity <span class="quote-req">*</span></label>
+            <input type="number" id="q_qty" class="quote-input" min="1" required placeholder="Enter volume size">
+          </div>
+        </div>
+
+        <div class="quote-grid-3">
+          <div>
+            <label class="quote-label">Category (Lvl 1) <span class="quote-req">*</span></label>
+            <select id="q_lvl1" class="quote-input" required onchange="updateLvl2Dropdown()">
+              <option value="">-- Select Category --</option>
+              
+                <option value=""></option>
+              
+            </select>
+          </div>
+          <div>
+            <label class="quote-label">Sub-Category (Lvl 2)</label>
+            <select id="q_lvl2" class="quote-input" onchange="updateLvl3Dropdown()" disabled>
+              <option value="">-- Choose Category First --</option>
+            </select>
+          </div>
+          <div>
+            <label class="quote-label">Product Type (Lvl 3)</label>
+            <select id="q_lvl3" class="quote-input" disabled>
+              <option value="">-- Choose Sub-Cat First --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="quote-group">
+          <label class="quote-label">Preferred Handover Target Delivery Date</label>
+          <input type="date" id="q_deadline" class="quote-input" min="">
+        </div>
+
+        <div class="quote-group-large">
+          <span class="quote-label">Corporate Logo / Design Brand Asset (Optional)</span>
+          
+          <label for="q_logo" class="quote-dropzone">
+            <i class="fas fa-cloud-upload-alt quote-dropzone-icon"></i>
+            <span id="logo-field-display-text" class="quote-dropzone-text">Click or Drop your design file here</span>
+          </label>
+          
+          <input type="file" id="q_logo" class="quote-file-input" accept="image/*,.pdf" onchange="displaySelectedFilename()">
+          
+          <small class="quote-help-text">Accepted formats: PNG, JPG, JPEG, or PDF assets (Max size parameters apply).</small>
+        </div>
+
+        <div class="quote-group-large">
+          <label class="quote-label">Custom Print &amp; Specifications Requests</label>
+          <textarea id="q_notes" class="quote-input" rows="5" placeholder="Describe layout specifications: custom color match settings, laser engravings criteria, text placements, embroidery threads options..."></textarea>
+        </div>
+
+        <button type="submit" id="submitQuoteFormBtn" class="quote-submit-btn">
+          Dispatch Corporate Quote Request
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</main>
+<script>
+// Append clean dynamic lookup maps directly into main.js or quote.html script structures
+const categoryHierarchyTree = {
+  'accessories-gadgets': {
+    name: 'Accessories & Gadgets',
+    subcategories: {
+      'car': { name: 'Car Accessories', types: { 'dashcam': 'Dash Cams', 'charger': 'Car Charger Adapters' } },
+      'computer': { name: 'Computer Accessories', types: { 'mouse': 'Mouse & Mouse Pads' } }
+    }
+  },
+  'drinkware': {
+    name: 'Drinkware',
+    subcategories: {
+      'tumbler': { name: 'Tumblers & Flasks', types: { 'bamboo': 'Bamboo Tumblers' } }
+    }
+  }
+};
+
+function updateLvl2Dropdown() {
+  const lvl1 = document.getElementById('q_lvl1').value;
+  const lvl2 = document.getElementById('q_lvl2');
+  const lvl3 = document.getElementById('q_lvl3');
+  
+  lvl2.innerHTML = '<option value="">-- Select Sub-Category --</option>';
+  lvl3.innerHTML = '<option value="">-- Choose Sub-Cat First --</option>';
+  lvl2.disabled = true;
+  lvl3.disabled = true;
+
+  if (lvl1 && categoryHierarchyTree[lvl1]) {
+    const subcats = categoryHierarchyTree[lvl1].subcategories;
+    for (const key in subcats) {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = subcats[key].name;
+      lvl2.appendChild(opt);
+    }
+    lvl2.disabled = false;
+  }
+}
+
+function updateLvl3Dropdown() {
+  const lvl1 = document.getElementById('q_lvl1').value;
+  const lvl2 = document.getElementById('q_lvl2').value;
+  const lvl3 = document.getElementById('q_lvl3');
+  
+  lvl3.innerHTML = '<option value="">-- Select Product Type --</option>';
+  lvl3.disabled = true;
+
+  if (lvl1 && lvl2 && categoryHierarchyTree[lvl1].subcategories[lvl2]) {
+    const types = categoryHierarchyTree[lvl1].subcategories[lvl2].types;
+    for (const key in types) {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = types[key];
+      lvl3.appendChild(opt);
+    }
+    lvl3.disabled = false;
+  }
+}
+
+async function transmitQuotationProposal(event) {
+  event.preventDefault();
+  const activeBtn = document.getElementById('submitQuoteFormBtn');
+  const errAlert = document.getElementById('quote-error-box');
+  const succAlert = document.getElementById('quote-success-box');
+  
+  errAlert.hidden = true;
+  succAlert.hidden = true;
+  activeBtn.disabled = true;
+  
+  // Package definitions directly into clean table matrix payloads 
+  const payload = {
+    full_name: document.getElementById('q_name').value.trim(),
+    email: document.getElementById('q_email').value.trim(),
+    phone: document.getElementById('q_phone').value.trim(),
+    quantity: parseInt(document.getElementById('q_qty').value) || 0,
+    notes: document.getElementById('q_notes').value.trim(),
+    deadline: document.getElementById('q_deadline').value
+  };
+
+  const { data, error } = await supabase.from('quotations').insert([payload]);
+
+  if (error) {
+    errAlert.innerText = "⚠️ " + error.message;
+    errAlert.hidden = false;
+    activeBtn.disabled = false;
+  } else {
+    succAlert.innerText = "🎉 Quotation request dispatched cleanly directly to Supabase storage architecture records.";
+    succAlert.hidden = false;
+    document.getElementById('quoteFormElement').reset();
+    activeBtn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>

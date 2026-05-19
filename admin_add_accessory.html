@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+<main style="padding: 50px 0; background-color: var(--white-off);">
+  <div class="container" style="max-width: 900px; margin: 0 auto;">
+    
+    <div style="margin-bottom: 35px; border-bottom: 2px solid var(--grey-light); padding-bottom: 15px;">
+      <span style="color: var(--orange-primary); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">CreativeKit3A Operations Dashboard</span>
+      <h1 style="font-family: 'Poppins', sans-serif; font-size: 2.3rem; font-weight: 900; color: var(--black); margin-top: 5px;">Accessory Catalog Manager</h1>
+      <p style="color: var(--grey-dark); margin-top: 5px;">Welcome back. Use this secure control terminal to extend website listings instantly.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+      
+      <div style="background: var(--white); padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 4px solid var(--orange-primary);">
+        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 20px;">
+          <i class="fas fa-plus-circle" style="color: var(--orange-primary); margin-right: 6px;"></i> Create Main Product
+        </h3>
+        
+        <form id="addProductForm">
+          <div class="adm-field" style="margin-bottom: 18px;">
+            <label style="display:block; font-weight:600; font-size:0.88rem; margin-bottom:6px; color:var(--grey-dark);">Assign Target Category Layer *</label>
+            <select id="prod_category" required style="width:100%; padding:10px 12px; border:1px solid var(--grey-mid); border-radius:4px; background:var(--white);">
+              <option value="" disabled selected>-- Choose Parent Section --</option>
+              <option value="accessories-gadgets">Accessories & Gadgets</option>
+              <option value="apparel">Apparel</option>
+              <option value="drinkware">Drinkware</option>
+            </select>
+          </div>
+
+          <div class="adm-field" style="margin-bottom: 18px;">
+            <label style="display:block; font-weight:600; font-size:0.88rem; margin-bottom:6px; color:var(--grey-dark);">Product Display Name *</label>
+            <input type="text" id="prod_name" required placeholder="e.g., Premium Dash Cam" style="width:100%; padding:10px 12px; border:1px solid var(--grey-mid); border-radius:4px;">
+          </div>
+
+          <div class="adm-field" style="margin-bottom: 18px;">
+            <label style="display:block; font-weight:600; font-size:0.88rem; margin-bottom:6px; color:var(--grey-dark);">Starting Pricing Base Label *</label>
+            <input type="text" id="prod_price" required placeholder="e.g., ₱450.00" style="width:100%; padding:10px 12px; border:1px solid var(--grey-mid); border-radius:4px;">
+          </div>
+
+          <div class="adm-field" style="margin-bottom: 25px;">
+            <label style="display:block; font-weight:600; font-size:0.88rem; margin-bottom:6px; color:var(--grey-dark);">Product Display Photo URL *</label>
+            <input type="text" id="prod_img" required placeholder="e.g., /assets/dash-cam.png" style="width:100%; padding:10px 12px; border:1px solid var(--grey-mid); border-radius:4px;">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; font-weight:700;">
+            <i class="fas fa-save"></i> Save Product To Database
+          </button>
+        </form>
+      </div>
+
+      <div style="background: var(--white); padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 4px solid var(--black);">
+        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 20px;">
+          <i class="fas fa-sliders-h" style="color: var(--black); margin-right: 6px;"></i> Append Sub-Variant Type
+        </h3>
+
+        <form id="addVariantForm">
+          <div class="adm-field" style="margin-bottom: 18px;">
+            <label style="display:block; font-weight:600; font-size:0.88rem; margin-bottom:6px; color:var(--grey-dark);">Select Parent Product Item *</label>
+            <select id="variant_parent" required style="width:100%; padding:10px 12px; border:1px solid var(--grey-mid); border-radius:4px; background:var(--white);">
+              <option value="" disabled selected>-- Fetching Products... --</option>
+            </select>
+          </div>
+
+          <div class="adm-field" style="margin-bottom: 18px;">
+            <label style="display:block; font-weight:600; font-size:0.88rem; margin-bottom:6px; color:var(--grey-dark);">Variant Model Name *</label>
+            <input type="text" id="variant_name" required placeholder="e.g., HD Dual Lens WiFi Type" style="width:100%; padding:10px 12px; border:1px solid var(--grey-mid); border-radius:4px;">
+          </div>
+
+          <div style="background:#f9f9f9; padding:15px; border-radius:6px; border:1px dashed var(--grey-mid); margin-bottom:20px;">
+            <div class="adm-field">
+              <label style="display:block; font-weight:600; font-size:0.82rem; margin-bottom:4px; color:var(--grey-dark);">Text Description Parameter</label>
+              <textarea id="variant_desc" rows="3" placeholder="Automated loop clip recording layout with G-sensor analytics profiles..." style="width:100%; padding:8px 10px; border:1px solid var(--grey-mid); border-radius:4px; font-size:0.88rem; font-family:sans-serif; resize:vertical;"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn" style="width:100%; padding:12px; font-weight:700; background:var(--black); color:var(--white);">
+            <i class="fas fa-layer-group"></i> Save Variant Specification
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="main.js"></script>
+<script>
+  // Add direct listeners to process through Supabase infrastructure client context
+  document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { data, error } = await supabase.from('products').insert([{
+      category: document.getElementById('prod_category').value,
+      name: document.getElementById('prod_name').value.trim(),
+      price: document.getElementById('prod_price').value.trim(),
+      img_url: document.getElementById('prod_img').value.trim()
+    }]);
+    if (error) alert('Error: ' + error.message);
+    else { alert('Product added successfully!'); location.reload(); }
+  });
+
+  // Populate dynamic product dropdown loop matrix structure on window init
+  async function loadParentProducts() {
+    const { data, error } = await supabase.from('products').select('id, name');
+    const select = document.getElementById('variant_parent');
+    if (!error && data) {
+      select.innerHTML = '<option value="" disabled selected>-- Choose Product Line --</option>';
+      data.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.name;
+        select.appendChild(opt);
+      });
+    }
+  }
+  window.addEventListener('DOMContentLoaded', loadParentProducts);
+</script>
+</body>
+</html>
