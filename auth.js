@@ -84,12 +84,24 @@ async function handleRegister(event) {
     return;
   }
 
+  const confirm = document.getElementById('lm-reg-confirm')?.value;
+  if (confirm !== undefined && password !== confirm) {
+    showAuthError(errorEl, 'Passwords do not match.');
+    return;
+  }
+
+  const terms = document.getElementById('lm-reg-terms');
+  if (terms && !terms.checked) {
+    showAuthError(errorEl, 'You must accept the Terms & Conditions.');
+    return;
+  }
+
   // Disable button while processing
   if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Registering...'; }
 
   try {
     // Check if email already exists
-    const { data: existing, error: checkError } = await supabase
+    const { data: existing, error: checkError } = await window.supabase
       .from('users')
       .select('id')
       .eq('email', email)
@@ -103,7 +115,7 @@ async function handleRegister(event) {
     }
 
     // Insert new user — password hashed by DB trigger automatically
-    const { error: insertError } = await supabase
+    const { error: insertError } = await window.supabase
       .from('users')
       .insert({
         first_name: firstName,
@@ -158,7 +170,7 @@ async function handleSignIn(event) {
 
   try {
     // Use the login_user RPC which does crypt() comparison server-side
-    const { data, error } = await supabase.rpc('login_user', {
+    const { data, error } = await window.supabase.rpc('login_user', {
       p_email:    email,
       p_password: password
     });

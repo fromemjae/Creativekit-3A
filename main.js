@@ -1,12 +1,13 @@
+'use strict';
+
 /* ==========================================
    Supabase Database Initialization
    ========================================== */
 const supabaseUrl = 'https://bzxpswlhqqolcqcqbddo.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6eHBzd2xocXFvbGNxY3FiZGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjk5ODYsImV4cCI6MjA5NDc0NTk4Nn0.HcnaW445nnPtocalCz5_0J3_AGT6YRC7fK7RGZLbpGQ';
 
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-'use strict';
+// Assign to window so auth.js and all other scripts share the same instance
+window.supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 /* ============================================================
    MODAL CONTROL FUNCTIONS (GLOBALLY EXPOSED)
