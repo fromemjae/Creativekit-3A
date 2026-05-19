@@ -27,7 +27,8 @@
   
         <div id="auth-guest" class="auth-group active">
           <button class="login-btn" onclick="window.openModal('login-modal')">Sign In</button>
-          <button class="register-btn" onclick="window.openModal('register-modal')">Register</button>
+          
+          <button class="register-btn" onclick="window.openModal('login-modal'); window.switchTab('register');">Register</button>
         </div>
       
         <div id="auth-customer" class="auth-group">
