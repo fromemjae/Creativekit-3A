@@ -18,7 +18,7 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
    ============================================================ */
 // Ensure this is in your main.js to handle opening
 function openModal(modalId) {
-    console.log("Attempting to open:", modalId); // This helps debug
+    console.log("Attempting to open:", modalId); 
     const modal = document.getElementById(modalId);
     const overlay = document.getElementById('lm-overlay');
     
@@ -49,11 +49,9 @@ function closeModal(modalId) {
 async function handleSignIn(event) {
     event.preventDefault();
     
-    // Select input values by ID
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    // Database-driven authentication
     const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
@@ -65,10 +63,9 @@ async function handleSignIn(event) {
         return;
     }
     
-    // Success flow
-    location.reload(); 
+    // CHANGED: Redirect cleanly back to the landing page instead of reloading
+    window.location.href = 'index.html'; 
 }
-
 /**
  * Listen for authentication changes to update the UI
  */
@@ -110,7 +107,11 @@ async function handleRegister(event) {
     }
 
     alert('Registration successful! Please check your email.');
-}/* ============================================================
+    
+    // CHANGED: Optional - Redirect to login page after successful registration
+    window.location.href = 'login.html';
+}
+/* ============================================================
    UTILITY HELPERS
    ============================================================ */
 

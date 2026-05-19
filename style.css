@@ -2925,3 +2925,114 @@ textarea.quote-input {
     to { transform: rotate(360deg); }
 }
 
+/* File: style.css */
+
+/* ... (Your existing CSS stays above here) ... */
+
+/* ============================================================
+   STANDALONE AUTHENTICATION PAGE STRUCTURES (NEW)
+   ============================================================ */
+/* Centers the form vertically and horizontally on the standalone pages */
+.auth-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 40px 20px;
+}
+
+/* The white card container for the form */
+.auth-card {
+  background: var(--white);
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border-top: 4px solid var(--orange-primary);
+}
+
+.auth-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: var(--black);
+  text-align: center;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--grey-mid);
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+/* Form inputs spacing and styling */
+.auth-form .lm-field {
+  margin-bottom: 20px;
+}
+
+.auth-form label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--grey-dark);
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  transition: var(--transition);
+  background: #fafafa;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--orange-primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3px var(--orange-pale);
+}
+
+/* The Submit Button inside the auth card */
+.auth-submit-btn {
+  width: 100%;
+  background: var(--gradient-hero);
+  color: var(--white);
+  border: none;
+  padding: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+  margin-top: 10px;
+}
+
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* The text below the form linking back to login/register */
+.auth-switch-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--grey-dark);
+  margin-top: 25px;
+}
+
+.auth-switch-text a {
+  color: var(--orange-primary);
+  font-weight: 700;
+}
+
+.auth-switch-text a:hover {
+  text-decoration: underline;
+}
