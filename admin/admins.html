@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Administrators | CreativeKit 3A</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="admin.css">
+  
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin-elem-11">
+
+  <div class="container admin-elem-12">
+    
+    <div class="admin-elem-13">
+      <a href="dashboard.html" class="admin-elem-14">
+        <i class="fas fa-arrow-left"></i> Back to Main Dashboard
+      </a>
+    </div>
+
+    <div class="admin-elem-15">
+      <h2 class="admin-elem-16">Manage System Administrators</h2>
+      <p class="admin-elem-17">Review, track, and audit all corporate dashboard management profiles saved inside XAMPP.</p>
+    </div>
+
+    <div class="card admin-elem-18">
+      <div class="card-header admin-elem-19">
+        <h3 class="admin-elem-20">
+          <i class="fas fa-users-shield admin-elem-21"></i> Registered Administrator Profiles
+        </h3>
+      </div>
+      
+      <div class="admin-elem-22">
+        <table class="admin-elem-23">
+          <thead>
+            <tr class="admin-elem-24">
+              <th class="admin-elem-25">Admin ID</th>
+              <th class="admin-elem-25">Full Name</th>
+              <th class="admin-elem-25">Email Address</th>
+              <th class="admin-elem-25">Account Privilege</th>
+              <th class="admin-elem-25">Status</th>
+              <th class="admin-elem-25">Date Created</th>
+              <th class="admin-elem-26">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+                <tr class="admin-elem-27">
+                  <td class="admin-elem-28">#</td>
+                  <td class="admin-elem-29"></td>
+                  <td class="admin-elem-30"></td>
+                  <td class="admin-elem-25">
+                    <span class="admin-badge"></span>
+                  </td>
+                  <td class="admin-elem-25">
+                    <span class="status-container">
+                      <span class="status-dot"></span>
+                    </span>
+                  </td>
+                  <td class="admin-elem-30"></td>
+
+                  <td class="admin-elem-31">
+                        <a href="admins.php?delete_id=" class="btn-remove delete-admin-btn">
+                          <i class="fas fa-user-minus"></i> Remove
+                        </a>
+                      
+                        <span class="admin-elem-32"><i class="fas fa-check-circle"></i> You (Active)</span>
+                      <span class="admin-elem-33"><i class="fas fa-lock"></i> Restricted</span>
+                  </td>
+                 </tr>
+              <tr>
+                <td colspan="7" class="admin-elem-34">
+                  No active administrator registry records located inside MySQL database.
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

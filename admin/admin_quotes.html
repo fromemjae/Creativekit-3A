@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel | Corporate Quote Desk</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css?v=">
+</head>
+<body>
+
+<div class="panel-container">
+    <div class="admin-elem-1">
+      <a href="dashboard.html" class="admin-elem-2">
+        <i class="fas fa-arrow-left"></i> Return to Main Admin Dashboard
+      </a>
+    </div>
+  <h2><i class="fas fa-tasks admin-elem-3"></i> Corporate Quote Management Panel (Stripe Flow)</h2>
+  <p class="admin-elem-4">Review customer custom specifications, calculate costs, paste manual Stripe Test Links, and handle final order auditing overrides.</p>
+
+  <div class="admin-elem-5"></div>
+  <div class="admin-elem-6"></div>
+
+  <table class="quote-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Customer &amp; Product Details</th>
+        <th>Customization Surcharge Notes</th>
+        <th>Pricing &amp; Stripe Setup Link</th>
+        <th>Status Tracking</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        
+          
+          <tr>
+            <td><strong>#</strong></td>
+            <td>
+              <strong>Name:</strong> <br>
+              <strong>Email:</strong> <br>
+              <strong>Product:</strong> <span class="admin-elem-7"> ( units)</span>
+            </td>
+            <td>
+              <small class="admin-elem-8"></small>
+            </td>
+            <td>
+              
+                <form method="POST" action="">
+                  <input type="hidden" name="quote_id" value="">
+                  <input type="hidden" name="action_approve" value="1">
+                  
+                  <input type="number" name="total_amount" step="0.01" placeholder="Enter Total Amount (₱)" class="input-field" required>
+                  <input type="url" name="payment_url" placeholder="Paste Stripe Link URL here..." class="input-field" required>
+                  
+                  <button type="submit" class="btn-submit"><i class="fas fa-check"></i> Approve &amp; Send Link</button>
+                </form>
+              
+                <strong class="admin-elem-9">Total: ₱</strong><br>
+                
+                    <a href="" target="_blank" style="color: #ff6b00; font-size: 0.82rem; word-break: break-all; font-weight: 600;"><i class="fas fa-external-link-alt"></i> View Stripe Checkout Page</a>
+                
+              
+            </td>
+            <td>
+              <span class="status-badge status-"></span>
+              <br><br>
+              <strong>Payment:</strong> 
+              <span style="font-weight: 700; color: ;">
+                
+              </span>
+              
+              
+                <br><br>
+                <a href="?mark_paid=" class="btn-paid" onclick="return confirm('Verify that payment has cleared inside your external Stripe window dashboard before continuing?');"><i class="fas fa-cash-register"></i> Mark as Paid</a>
+              
+            </td>
+          </tr>
+        
+      
+        <tr>
+          <td colspan="5" class="admin-elem-10">No corporate quote records found under database arrays.</td>
+        </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

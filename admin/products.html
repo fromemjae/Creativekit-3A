@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Master Control Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css?v=">
+</head>
+<body>
+
+<div class="adm-container">
+  <div class="adm-card">
+    
+    <div class="admin-elem-p2-13">
+      <a href="dashboard.html" class="admin-elem-p2-14">
+        <i class="fas fa-arrow-left"></i> Return to Main Admin Dashboard
+      </a>
+    </div>
+
+    <div class="adm-header">
+      <h2>Unified Master Products Manager</h2>
+      <a href="?add=1" class="btn"><i class="fas fa-plus"></i> Add New Product</a>
+    </div>
+
+    <div class="admin-elem-p2-15"></div>
+    <div class="admin-elem-p2-16"></div>
+
+    
+    <div class="admin-elem-p2-17">
+      <div class="admin-elem-p2-18">
+        <h3 class="admin-elem-p2-19"></h3>
+      </div>
+      
+      <form method="POST" action="products.php" enctype="multipart/form-data" class="admin-elem-p2-20">
+        
+          <input type="hidden" name="id" value="">
+          <input type="hidden" name="existing_image" value="">
+        
+
+        <div class="adm-field">
+          <label>Product Title Name *</label>
+          <input type="text" name="name" required value="">
+        </div>
+
+        <div class="adm-field">
+          <label>Target Inventory Category Section *</label>
+          <select id="main_category_select" name="main_category_id" required>
+            <option value="">Select Primary Classification</option>
+            
+              <option value="" ></option>
+            
+          </select>
+        </div>
+
+        <div class="adm-field" id="sub_category_container">
+          <label>Inventory Sub-Category Section *</label>
+          <select id="sub_category_select" name="sub_category_id" required>
+            <option value="">-- Please select a Main Category first --</option>
+            
+              <option value="" data-parent="" ></option>
+            
+          </select>
+        </div>
+
+        <div class="adm-field" id="type_container">
+          <label>Specific Type Section</label>
+          <select id="type_select" name="type_id">
+            <option value="">-- Please select a Sub-Category first --</option>
+            
+              <option value="" data-parent="" ></option>
+            
+          </select>
+        </div>
+
+        <div class="adm-field">
+          <label>Base Price Value Rate (₱) *</label>
+          <input type="number" name="price" step="0.01" required value="">
+        </div>
+
+        <div class="adm-field">
+          <label>Product Binary Image Upload</label>
+          <div class="adm-upload-box">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Select or drop a photo file directly here</span>
+            <input type="file" name="product_image" accept="image/*" class="admin-elem-p2-21">
+          </div>
+          
+            <p class="admin-elem-p2-22">Current Asset: <code></code></p>
+          
+        </div>
+
+        <div class="adm-field">
+          <label>Public Visibility Accessibility Status</label>
+          <select name="status">
+            <option value="active" >Active / Visible Online</option>
+            <option value="inactive" >Inactive / Hidden Row</option>
+          </select>
+        </div>
+
+        <div class="adm-field">
+          <label>Technical Product Description</label>
+          <textarea name="description" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn">Commit Configurations</button>
+        <a href="products.html" class="btn btn-secondary">Discard Changes</a>
+      </form>
+    </div>
+
+    
+    
+
+    
+    <div class="admin-elem-p2-23">
+      <table class="adm-table">
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Product Identity Label</th>
+            <th>Assigned Core Allocation Hierarchy</th>
+            <th>Base Price</th>
+            <th>Status</th>
+            <th class="admin-elem-p2-24">Controls</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>
+              
+                <img src="../?t=" style="width: 50px; height: 50px; object-fit: contain; border: 1px solid #e2e8f0; padding: 2px; background: #fff; border-radius: 4px;" alt="Thumb">
+              
+                <img src="../assets/default-placeholder.png" class="admin-elem-p2-25" alt="Default Thumb">
+              
+            </td>
+            <td class="admin-elem-p2-26"></td>
+            
+            
+            <td>
+              <span class="admin-elem-p2-27">
+                
+              </span>
+            </td>
+            
+            
+            <td class="admin-elem-p2-29">₱</td>
+            <td>
+              
+                <span class="badge badge-active">Active</span>
+              
+                <span class="badge badge-inactive">Inactive</span>
+              
+            </td>
+
+            <td class="admin-elem-p2-30">
+              <a href="?edit=" class="btn btn-normal btn-sm"><i class="fas fa-edit"></i> Modify</a>
+              <a href="?delete=" class="btn btn-danger btn-sm" onclick="return confirm('Are you completely confident you want to drop this dynamic inventory entry from your database tables completely?')"><i class="fas fa-trash"></i> Drop</a>
+            </td>
+
+          </tr>
+          
+          
+          <tr>
+            <td colspan="6" class="admin-elem-p2-31">
+              No product items have been registered inside the database catalog yet.
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    
+
+  </div>
+</div>
+
+</body>
+</html>

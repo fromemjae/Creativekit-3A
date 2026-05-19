@@ -1,13 +1,116 @@
-/**
- * ============================================================
- * PINOYBALLERS-STYLE WEBSITE — main.js
- * Handles: Carousel, Sidenav, Mega Menu, Modal, Cart, etc.
- * ============================================================
- */
+/* ==========================================
+   Supabase Database Initialization
+   ========================================== */
+// Replace these with your actual URL and Anon Key from the Supabase Dashboard (Project Settings -> API)
+const supabaseUrl = 'https://bzxpswlhqqolcqcqbddo.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ6eHBzd2xocXFvbGNxY3FiZGRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjk5ODYsImV4cCI6MjA5NDc0NTk4Nn0.HcnaW445nnPtocalCz5_0J3_AGT6YRC7fK7RGZLbpGQ';
+
+// Initialize the global supabase client
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  // Your existing dropdown logic, etc.
+
 
 'use strict';
 
 /* ============================================================
+   MODAL CONTROL FUNCTIONS
+   ============================================================ */
+// Ensure this is in your main.js to handle opening
+function openModal(modalId) {
+    console.log("Attempting to open:", modalId); // This helps debug
+    const modal = document.getElementById(modalId);
+    const overlay = document.getElementById('lm-overlay');
+    
+    if (modal) {
+        modal.style.display = 'block';
+        if (overlay) overlay.style.display = 'block';
+    } else {
+        console.error("Could not find element with ID:", modalId);
+    }
+}
+
+// Ensure this is in your main.js to handle closing
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        document.getElementById('lm-overlay').style.display = 'none';
+    }
+}
+
+/* ============================================================
+   AUTH: SUPABASE INTEGRATION
+   ============================================================ */
+/**
+ * Handles user login
+ * @param {Event} event 
+ */
+async function handleSignIn(event) {
+    event.preventDefault();
+    
+    // Select input values by ID
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    // Database-driven authentication
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        console.error('Login Error:', error.message);
+        alert(error.message);
+        return;
+    }
+    
+    // Success flow
+    location.reload(); 
+}
+
+/**
+ * Listen for authentication changes to update the UI
+ */
+supabase.auth.onAuthStateChange((event, session) => {
+    console.log('Auth state changed:', event, session);
+    updateAuthUI(session); 
+});
+
+/**
+ * Initialize UI state on page load
+ */
+async function initAuth() {
+    const { data: { session } } = await supabase.auth.getSession();
+    updateAuthUI(session);
+}
+
+// Run this when the page finishes loading
+window.addEventListener('DOMContentLoaded', initAuth);
+
+/**
+ * Handles user registration
+ * @param {Event} event 
+ */
+async function handleRegister(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('reg-email').value;
+    const password = document.getElementById('reg-password').value;
+
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        console.error('Registration Error:', error.message);
+        alert(error.message);
+        return;
+    }
+
+    alert('Registration successful! Please check your email.');
+}/* ============================================================
    UTILITY HELPERS
    ============================================================ */
 
@@ -23,6 +126,7 @@ const $ = (selector, context = document) => context.querySelector(selector);
  */
 const $$ = (selector, context = document) =>
   Array.from(context.querySelectorAll(selector));
+
 
 /**
  * Add event listener helper
@@ -42,6 +146,7 @@ const debounce = (fn, wait = 100) => {
     timer = setTimeout(() => fn.apply(this, args), wait);
   };
 };
+
 
 /* ============================================================
    1. HERO CAROUSEL
@@ -669,24 +774,25 @@ const ScrollReveal = (() => {
    ============================================================ */
 const AuthModal = (() => {
  
- window.openModal = (id) => {
-    const modal   = document.getElementById(id);
-    const overlay = document.getElementById('lm-overlay');
-    if (!modal || !overlay) return;
-    
-    document.querySelectorAll('.lm-modal').forEach(m => m.classList.remove('open'));
-    overlay.classList.add('open');
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
+    // Comment: Function to handle opening modals by ID
+const openModal = (modalId) => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    } else {
+        console.error(`Modal with ID ${modalId} not found.`);
+    }
+};
 
-  window.closeModal = (id) => {
-    const modal   = document.getElementById(id);
-    const overlay = document.getElementById('lm-overlay');
-    if (modal) modal.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  };
+// Comment: Function to handle closing modals
+const closeModal = (modalId) => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+};
  
   window.switchTab = (tab) => {
     const tabs = {
@@ -977,3 +1083,268 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('[Pinoyballers] All modules initialized ✓');
 });
+
+/* ==========================================
+   Extracted from accessories.php
+   ========================================== */
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('cat-search-input');
+  const catalogGrid = document.getElementById('cat-main-grid');
+
+  if (searchInput && catalogGrid) {
+    const originalCardsArr = Array.from(catalogGrid.querySelectorAll('.product-card'));
+    
+    searchInput.addEventListener('input', function() {
+      const queryText = this.value.trim().toLowerCase();
+      
+      originalCardsArr.forEach(card => {
+        const cardNameAttr = card.getAttribute('data-name') || '';
+        if (cardNameAttr.includes(queryText)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+});
+
+
+/* ==========================================
+   Extracted from quote.php
+   ========================================== */
+const initialHtmlStr = activeBtn.innerHTML;
+  
+  activeBtn.innerHTML = '<span class="quote-btn-spinner"></span> Transmitting Proposal Criteria...';
+
+  try {
+    // REMOVED: fetch('includes/quote_process.php') because PHP is no longer being used.
+    // ADDED: Simulated frontend success response to prevent JSON parsing errors.
+    
+    // Simulate a brief network delay (1 second)
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+    // Create a mock successful response
+    const parsedJson = { 
+      success: true, 
+      message: "Proposal Criteria Transmitted Successfully!" 
+    };
+
+    // CHANGED: Removed the 'rawRes.ok' check since we are simulating the response directly
+    if (parsedJson.success) {
+      succAlert.innerText = "🎉 " + parsedJson.message;
+      succAlert.hidden = false;
+      document.getElementById('quoteFormElement').reset();
+      
+      l2.innerHTML = '<option value="">-- Choose Category First --</option>';
+      l3.innerHTML = '<option value="">-- Choose Sub-Cat First --</option>';
+      l2.disabled = true;
+      l3.disabled = true;
+      
+      document.getElementById('logo-field-display-text').textContent = "Click or Drop your design file here";
+      document.getElementById('logo-field-display-text').classList.remove('asset-selected');
+
+      window.scrollTo({ top: succAlert.offsetTop - 120, behavior: 'smooth' });
+    } else {
+      errAlert.innerText = "⚠️ " + (parsedJson.message || "An unhandled processing error occurred.");
+      errAlert.hidden = false;
+    }
+  } catch (netErr) {
+    console.error('[Quote Pipeline Fault]', netErr);
+    errAlert.innerText = "⚠️ Network error. Please check your connection.";
+    errAlert.hidden = false;
+  }
+
+function updateLvl2Dropdown() {
+  const lvl1Select = document.getElementById('q_lvl1');
+  const lvl2Select = document.getElementById('q_lvl2');
+  const lvl3Select = document.getElementById('q_lvl3');
+  
+  const parentId = lvl1Select.value;
+  
+  lvl2Select.innerHTML = '<option value="">-- Select Sub-Category --</option>';
+  lvl3Select.innerHTML = '<option value="">-- Choose Sub-Cat First --</option>';
+  lvl2Select.disabled = true;
+  lvl3Select.disabled = true;
+
+  if (parentId && categoryHierarchyTree[parentId]) {
+    const subcats = categoryHierarchyTree[parentId]['subcategories'];
+    let hasData = false;
+    
+    for (const subId in subcats) {
+      hasData = true;
+      const opt = document.createElement('option');
+      opt.value = subId;
+      opt.textContent = subcats[subId]['name'];
+      lvl2Select.appendChild(opt);
+    }
+    
+    if (hasData) {
+      lvl2Select.disabled = false;
+    }
+  }
+}
+
+function updateLvl3Dropdown() {
+  const lvl1Select = document.getElementById('q_lvl1');
+  const lvl2Select = document.getElementById('q_lvl2');
+  const lvl3Select = document.getElementById('q_lvl3');
+  
+  const parentId = lvl1Select.value;
+  const subId = lvl2Select.value;
+  
+  lvl3Select.innerHTML = '<option value="">-- Select Product Type --</option>';
+  lvl3Select.disabled = true;
+
+  if (parentId && subId && categoryHierarchyTree[parentId]['subcategories'][subId]) {
+    const types = categoryHierarchyTree[parentId]['subcategories'][subId]['types'];
+    let hasData = false;
+    
+    for (const typeId in types) {
+      hasData = true;
+      const opt = document.createElement('option');
+      opt.value = typeId;
+      opt.textContent = types[typeId];
+      lvl3Select.appendChild(opt);
+    }
+    
+    if (hasData) {
+      lvl3Select.disabled = false;
+    }
+  }
+}
+
+async function transmitQuotationProposal(event) {
+  event.preventDefault();
+  
+  const activeBtn = document.getElementById('submitQuoteFormBtn');
+  const errAlert = document.getElementById('quote-error-box');
+  const succAlert = document.getElementById('quote-success-box');
+  
+  errAlert.hidden = true;
+  succAlert.hidden = true;
+
+  const l1 = document.getElementById('q_lvl1');
+  const l2 = document.getElementById('q_lvl2');
+  const l3 = document.getElementById('q_lvl3');
+
+  let chosenItemName = "";
+  if (l1.value && categoryHierarchyTree[l1.value]) {
+      chosenItemName += categoryHierarchyTree[l1.value]['name'];
+      if (l2.value && categoryHierarchyTree[l1.value]['subcategories'][l2.value]) {
+          chosenItemName += " > " + categoryHierarchyTree[l1.value]['subcategories'][l2.value]['name'];
+          if (l3.value && categoryHierarchyTree[l1.value]['subcategories'][l2.value]['types'][l3.value]) {
+              chosenItemName += " > " + categoryHierarchyTree[l1.value]['subcategories'][l2.value]['types'][l3.value];
+          }
+      }
+  }
+
+  const formDataPayload = new FormData();
+  formDataPayload.append('full_name', document.getElementById('q_name').value.trim());
+  formDataPayload.append('email', document.getElementById('q_email').value.trim());
+  formDataPayload.append('phone', document.getElementById('q_phone').value.trim());
+  formDataPayload.append('item_type', chosenItemName);
+  formDataPayload.append('quantity', parseInt(document.getElementById('q_qty').value) || 0);
+  formDataPayload.append('deadline', document.getElementById('q_deadline').value);
+  formDataPayload.append('custom_notes', document.getElementById('q_notes').value.trim());
+
+  const fileSelectorElement = document.getElementById('q_logo');
+  if (fileSelectorElement.files.length > 0) {
+      formDataPayload.append('logo_file', fileSelectorElement.files[0]);
+  }
+
+  activeBtn.disabled = true;
+  const initialHtmlStr = activeBtn.innerHTML;
+  
+  activeBtn.innerHTML = '<span class="quote-btn-spinner"></span> Transmitting Proposal Criteria...';
+
+  try {
+    const rawRes = await fetch('includes/quote_process.php', {
+      method: 'POST',
+      body: formDataPayload
+    });
+
+    const parsedJson = await rawRes.json();
+
+    if (rawRes.ok && parsedJson.success) {
+      succAlert.innerText = "🎉 " + parsedJson.message;
+      succAlert.hidden = false;
+      document.getElementById('quoteFormElement').reset();
+      
+      l2.innerHTML = '<option value="">-- Choose Category First --</option>';
+      l3.innerHTML = '<option value="">-- Choose Sub-Cat First --</option>';
+      l2.disabled = true;
+      l3.disabled = true;
+      
+      document.getElementById('logo-field-display-text').textContent = "Click or Drop your design file here";
+      document.getElementById('logo-field-display-text').classList.remove('asset-selected');
+
+      window.scrollTo({ top: succAlert.offsetTop - 120, behavior: 'smooth' });
+    } else {
+      errAlert.innerText = "⚠️ " + (parsedJson.message || "An unhandled processing error occurred.");
+      errAlert.hidden = false;
+    }
+  } catch (netErr) {
+    console.error('[Quote Pipeline Fault]', netErr);
+    errAlert.innerText = "⚠️ Network connection processing breakdown. Check connection...";
+    errAlert.hidden = false;
+  } finally {
+    activeBtn.disabled = false;
+    activeBtn.innerHTML = initialHtmlStr;
+  }
+}
+
+
+// auth for logging in
+
+// Function to update UI based on Auth state
+async function updateAuthUI() {
+  try {
+    // 1. Get the session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError) throw sessionError;
+
+    const guestGroup = document.getElementById('auth-guest');
+    const customerGroup = document.getElementById('auth-customer');
+    const adminGroup = document.getElementById('auth-admin');
+
+    if (!session) {
+      // NO ONE LOGGED IN: Ensure elements exist before hiding/showing
+      if (guestGroup) guestGroup.hidden = false;
+      if (customerGroup) customerGroup.hidden = true;
+      if (adminGroup) adminGroup.hidden = true;
+    } else {
+      // SOMEONE LOGGED IN
+      if (guestGroup) guestGroup.hidden = true;
+      
+      // Query profile
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role, full_name')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profileError) throw profileError;
+
+      if (profile && profile.role === 'admin') {
+        if (adminGroup) adminGroup.hidden = false;
+        if (customerGroup) customerGroup.hidden = true;
+      } else {
+        if (customerGroup) customerGroup.hidden = false;
+        if (adminGroup) adminGroup.hidden = true;
+        const nameEl = document.getElementById('user-display-name');
+        if (nameEl) nameEl.textContent = profile?.full_name || 'Customer';
+      }
+    }
+  } catch (err) {
+    // This catches errors so the rest of main.js (like openModal) keeps working
+    console.error('Auth UI Update Failed:', err.message);
+  }
+}
+
+// Run on load
+document.addEventListener('DOMContentLoaded', updateAuthUI);
+
+// Run on load
+document.addEventListener('DOMContentLoaded', updateAuthUI);

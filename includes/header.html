@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Customized Corporate Giveaways">
+  <title></title>
+
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="style.css?v=">
+  
+</head>
+
+<body>
+
+  
+  <!-- ============================================================
+       TOP BAR
+       ============================================================ -->
+       
+  <div class="top-bar">
+    <div class="container" style="height: 41px;">
+
+      
+      
+      <div class="admin-auth-group">
+         <span onclick="toggleSidebarMenu()" class="admin-status-span">
+           <i class="fas fa-user-shield"></i>: Control Mode Active <i class="fas fa-caret-down" style="font-size: 0.75rem;"></i>
+         </span>
+         <a href="includes/logout_process.html" class="logout-btn">Sign Out
+         </a>
+      </div>
+
+  
+      <div  class="customer-auth-group">
+      <span onclick="toggleSidebarMenu()" class="customer-status-span">
+          <i class="fas fa-user"></i> Hi,  <i class="fas fa-caret-down" style="font-size: 0.75rem;"></i>
+      </span>
+      <a href="includes/logout_process.html" class="logout-btn">Sign Out
+      </a>
+      </div>
+
+  
+    <div class="guest-auth-group">
+      <button class="login-btn" onclick="openModal('login-modal')">Sign In</button>
+      <button class="register-btn" onclick="openModal('register-modal');">Register</button>
+    </div>
+  
+  <div class="top-bar-contact">
+        <a href="mailto:salesandmarketing@creativekit3a.com"><i class="fas fa-envelope icon"></i> salesandmarketing@creativekit3a.com</a>
+        <a href="tel:+639177142774"><i class="fas fa-mobile-alt icon"></i> +63 917 714 2774</a>
+        <a href="tel:+639339927410"><i class="fas fa-phone icon"></i> +63 933 992 7410</a>
+      </div>
+</li>
+      
+      </div>
+    </div>
+
+  
+  <!-- ============================================================
+       MAIN NAVBAR
+       ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+
+      <!-- Hamburger (mobile) -->
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sidenav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Logo -->
+      <!-- AFTER -->
+<a href="index.html" class="navbar-logo">
+  <img src="2.png" alt="CreativeKit3A Logo" class="logo-img">
+  <span class="logo-text">CreativeKit3A</span>
+</a>
+
+      <!-- Search -->
+      <div class="navbar-search" role="search">
+        <input type="search" placeholder="What are you looking for?" aria-label="Search products">
+        <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      </div>
+
+      <!-- Right side -->
+      <div class="navbar-right">
+        <nav class="navbar-links" aria-label="Secondary navigation">
+          <a href="about.html">About</a>
+          <a href="accessories.html">Category</a>
+          <a href="includes/footer.html">Contact Us</a>
+        </nav>
+
+        <button class="rfq-btn" aria-label="Request a Quote" onclick="window.location.href='quote.html'">Request a Quote</button>
+       
+        
+        <a href="/cart/" class="navbar-cart" aria-label="Shopping cart">
+          <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+          <span>Cart</span>
+          <span class="cart-count" aria-live="polite">0</span>
+        </a>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MEGA MENU BAR
+       ============================================================ -->
+  <div class="mega-menu-bar" role="navigation" aria-label="Category navigation">
+    <ul class="mega-menu-nav">
+
+      
+        <li class="mega-menu-item">
+          <a href="accessories.php?cat="> <i class="fas fa-chevron-down chevron" aria-hidden="true"></i></a>
+          <div class="mega-dropdown">
+            
+              <div class="mega-dropdown-col">
+                <h4></h4>
+                
+                  <a href="accessories.php?cat="></a>
+                
+              </div>
+            
+          </div>
+        </li>
+      
+      
+
+    </ul>
+  </div>
+
+  <!-- Mobile Sidenav Overlay -->
+  <div class="sidenav-overlay" aria-hidden="true"></div>
+
+  <!-- Mobile Sidenav -->
+  <aside class="sidenav" id="sidenav" role="complementary" aria-label="Dynamic Sidenav Layout Container">
+    <div class="sidenav-header">
+      <div>
+        
+          <span class="sidenav-admin-lbl"><i class="fas fa-user-shield"></i> </span>
+          <span class="sidenav-admin-name"></span>
+        
+          <span class="sidenav-cust-lbl">Welcome, Customer</span>
+          <span class="sidenav-cust-name"><i class="fas fa-user"></i> </span>
+        
+          <span class="sidenav-guest-name">CreativeKit3A Menu</span>
+        
+      </div>
+      <button class="sidenav-close" aria-label="Close menu" onclick="toggleSidebarMenu()">&times;</button>
+    </div>
+    
+    <div class="sidenav-body">
+      
+      
+        <p class="sidenav-section-title sec-exec"></i> Executive Controls</p>
+        <a href="admin/dashboard.html" class="sidenav-admin-dash"><i class="fas fa-chart-line"></i> Open Admin Dashboard</a>
+      
+
+      <p class="sidenav-section-title sec-cat">Product Categories</p>
+      <div class="sidenav-cat-box">
+        
+              <a href="accessories.php?cat=" class="sidenav-cat-link"><i class="fas fa-angle-right" style="color: #ff6b00; margin-right: 5px;"></i> </a>
+            
+      </div>
+
+      <p class="sidenav-section-title sec-nav">Navigation Menu</p>
+      <a href="about.html" class="sidenav-nav-link"><i class="fas fa-info-circle" style="width: 16px; color: #64748b;"></i> About Us</a>
+      <a href="accessories.html" class="sidenav-nav-link"><i class="fas fa-th-large" style="width: 16px; color: #64748b;"></i> View Full Category</a>
+      <a href="/contact-us/" class="sidenav-nav-link"><i class="fas fa-paper-plane" style="width: 16px; color: #64748b;"></i> Contact Us</a>
+
+      <p class="sidenav-section-title sec-help">Corporate Help Desk</p>
+      <div class="sidenav-help-box">
+        <div class="sidenav-help-row"><i class="fas fa-envelope" style="color: #ff6b00; width:14px;"></i> <a href="mailto:salesandmarketing@creativekit3a.com" style="color: inherit; text-decoration: none;">salesandmarketing@creativekit3a.com</a></div>
+        <div class="sidenav-help-row"><i class="fas fa-mobile-alt" style="color: #ff6b00; width:14px;"></i> <a href="tel:+639177142774" style="color: inherit; text-decoration: none;">+63 917 714 2774</a></div>
+        <div class="sidenav-help-row"><i class="fas fa-phone" style="color: #ff6b00; width:14px;"></i> <a href="tel:+639339927410" style="color: inherit; text-decoration: none;">+63 933 992 7410</a></div>
+      </div>
+
+      
+        <a href="includes/logout_process.html" class="sidenav-logout-link"><i class="fas fa-sign-out-alt"></i> Account Sign Out</a>
+      
+    </div>
+  </aside>
+
+  
+  
+  
+
+<div id="forgot-modal" class="forgot-form">
+  <div class="forgot-form-header">
+    <h3>Reset Password</h3>
+    <button type="button" class="lm-close" onclick="closeModal('forgot-modal')">&times;</button>
+  </div>
+  <div class="forgot-form-body">
+    <div id="lm-forgot-error" class="lm-msg lm-msg--error" hidden></div>
+    <div id="lm-forgot-success" class="lm-msg lm-msg--success" hidden></div>
+
+    <p class="forgot-desc" style="font-size: 0.85rem; margin-bottom: 20px; color: #666; line-height: 1.45;">
+      Enter your registered email address below, and we will send you instructions to reset your password.
+    </p>
+
+    <div class="forgot-group" style="margin-bottom: 20px;">
+      <label class="forgot-label">Email Address</label>
+      <div class="forgot-input-wrap">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="forgot-forgot-email" class="forgot-input" placeholder="yourname@example.com">
+      </div>
+    </div>
+
+    <button type="button" id="forgot-btn-form" class="forgot-btn" onclick="submitForgotPassword()">
+      <i class="fas fa-paper-plane"></i> Send Reset Link
+    </button>
+
+    <p class="forgot-switch" style="margin-top: 20px; text-align: center; font-size: 0.88rem;">
+      Remembered your password? 
+      <a href="#" onclick="closeModal('forgot-modal'); openModal('login-modal'); return false;" style="color: var(--orange-primary, #FF6B00); font-weight:600;">Sign in here</a>
+    </p>
+  </div>
+</div>

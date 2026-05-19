@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | CreativeKit3A Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css?v=">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-brand">CreativeKit3A <span>Admin Panel</span></div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <div class="nav-section">Manage</div>
+    <a href="products.html"><i class="fas fa-box"></i> Products</a>
+    <a href="orders.html"><i class="fas fa-shopping-bag"></i> Orders</a>
+    <a href="users.html"><i class="fas fa-users"></i> Users</a>
+    <a href="messages.html" class="active"><i class="fas fa-envelope"></i> Messages</a>
+    <a href="admin_quotes.html"><i class="fas fa-comments-dollar"></i> Quotes
+      <span class="unread-badge"></span>
+    </a>
+    
+    <div class="nav-section">Super Admin</div>
+    <a href="admins.html"><i class="fas fa-user-shield"></i> Manage Admins</a>
+    
+    <div class="nav-section">Account</div>
+    <a href="/CREATIVEKIT3A-WEBSITE/" target="_blank"><i class="fas fa-globe"></i> View Website</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </nav>
+  <div class="sidebar-footer">Logged in as <strong class="admin-elem-p2-1"></strong></div>
+</aside>
+
+<main class="main">
+  <div class="page-header">
+    <h2>Messages & Inquiries</h2>
+  </div>
+
+  <div class="alert alert-success"><i class="fas fa-check-circle"></i> </div>
+
+  <!-- VIEW SINGLE MESSAGE -->
+  
+  <div class="msg-view">
+    <h3></h3>
+    <div class="meta">
+      <span><i class="fas fa-user"></i> </span>
+      <span><i class="fas fa-envelope"></i> </span>
+      <span><i class="fas fa-phone"></i> </span>
+      <span><i class="fas fa-clock"></i> </span>
+    </div>
+    <div class="body"></div>
+    <div class="admin-elem-p2-2">
+      <a href="mailto:" class="btn btn-primary"><i class="fas fa-reply"></i> Reply via Email</a>
+      <a href="messages.html" class="btn admin-elem-p2-3">← Back to All</a>
+      <a href="?delete=" class="btn btn-danger" onclick="return confirm('Delete this message?')"><i class="fas fa-trash"></i> Delete</a>
+    </div>
+  </div>
+  
+
+  <!-- MESSAGES TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <h3>All Messages () —  unread</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>From</th><th>Subject</th><th>Preview</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr class="">
+          <td>
+            <div class="admin-elem-p2-4"></div>
+            <div class="admin-elem-p2-5"></div>
+          </td>
+          <td></td>
+          <td class="msg-preview"></td>
+          <td><span class="badge badge-"></span></td>
+          <td class="admin-elem-p2-6"></td>
+          <td class="admin-elem-p2-6">
+            <a href="?view=" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> View</a>
+            <a href="?delete=" class="btn btn-danger btn-sm" onclick="return confirm('Delete this message?')"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        
+        
+        <tr><td colspan="6" class="admin-elem-p2-7">No messages yet.</td></tr>
+        
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

@@ -763,3 +763,47 @@ body:has(.login-container) .main {
     margin-left: 0 !important;
 }
 
+/* Extracted from the Remove anchor tag */
+.btn-remove {
+  color: #dc2626;
+  background: #fee2e2;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  border: 1px solid #fca5a5;
+  transition: all 0.2s;
+}
+
+/* Optional hover state to utilize the transition property you had */
+.btn-remove:hover {
+  background: #fca5a5;
+  color: #991b1b;
+}
+
+/* Extracted from the Account Privilege span */
+.admin-badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Extracted from the Status spans */
+.status-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}

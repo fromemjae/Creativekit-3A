@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders | CreativeKit3A Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css?v=">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-brand">CreativeKit3A <span>Admin Panel</span></div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <div class="nav-section">Manage</div>
+    <a href="products.html"><i class="fas fa-box"></i> Products</a>
+    <a href="orders.html" class="active"><i class="fas fa-shopping-bag"></i> Orders</a>
+    <a href="users.html"><i class="fas fa-users"></i> Users</a>
+    <a href="messages.html"><i class="fas fa-envelope"></i> Messages</a>
+    <a href="admin_quotes.html"><i class="fas fa-comments-dollar"></i> Quotes</a>
+    
+    <div class="nav-section">Super Admin</div>
+    <a href="admins.html"><i class="fas fa-user-shield"></i> Manage Admins</a>
+    
+    <div class="nav-section">Account</div>
+    <a href="/CREATIVEKIT3A-WEBSITE/" target="_blank"><i class="fas fa-globe"></i> View Website</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </nav>
+  <div class="sidebar-footer">Logged in as <strong class="admin-elem-p2-1"></strong></div>
+</aside>
+
+<main class="main">
+  <div class="page-header">
+    <h2>Orders</h2>
+    <div class="filters">
+      <a href="orders.html"           class="">All</a>
+      <a href="?status=pending"      class="">Pending</a>
+      <a href="?status=processing"   class="">Processing</a>
+      <a href="?status=shipped"      class="">Shipped</a>
+      <a href="?status=delivered"    class="">Delivered</a>
+      <a href="?status=cancelled"    class="">Cancelled</a>
+    </div>
+  </div>
+
+  <div class="alert alert-success"><i class="fas fa-check-circle"></i> </div>
+
+  <!-- ORDER DETAIL -->
+  
+  <div class="order-detail">
+    <h3>Order # Details</h3>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <label>Customer</label>
+        <span></span>
+      </div>
+      <div class="detail-item"><label>Email</label><span></span></div>
+      <div class="detail-item"><label>Phone</label><span></span></div>
+      <div class="detail-item">
+        <label>Total Amount</label>
+        <span class="admin-elem-p2-8">₱</span>
+      </div>
+      <div class="detail-item"><label>Date</label><span></span></div>
+      <div class="detail-item">
+        <label>Update Status</label>
+        <form method="POST" class="status-form">
+          <input type="hidden" name="order_id" value="">
+          <select name="status">
+            
+            <option value="" ></option>
+            
+          </select>
+          <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Save</button>
+        </form>
+      </div>
+    </div>
+
+    
+    <p class="admin-elem-p2-9"><strong>Notes:</strong> </p>
+    
+
+    <h4 class="admin-elem-p2-10">Items Ordered</h4>
+    
+      
+      <div class="item-row">
+        
+          <img src="" class="item-img" alt="">
+        
+        <div class="item-name"></div>
+        <div class="item-qty">x &nbsp; ₱</div>
+      </div>
+      
+    
+      <p class="admin-elem-p2-11">No items recorded for this order.</p>
+    
+
+    <div class="admin-elem-p2-12">
+      <a href="orders.html" class="btn admin-elem-p2-3"><i class="fas fa-arrow-left"></i> Back</a>
+      <a href="?delete=" class="btn btn-danger"
+         onclick="return confirm('Delete order #?')"><i class="fas fa-trash"></i> Delete Order</a>
+    </div>
+  </div>
+  
+
+  <!-- ORDERS TABLE -->
+  <div class="card">
+    <div class="card-header"><h3>All Orders ()</h3></div>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Customer</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>#</strong></td>
+          <td></td>
+          <td>₱</td>
+          <td><span class="badge badge-"></span></td>
+          <td></td>
+          <td class="admin-elem-p2-6">
+            <a href="?view=" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> View</a>
+            <a href="?delete=" class="btn btn-danger btn-sm"
+               onclick="return confirm('Delete order #?')"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        
+        
+        <tr><td colspan="6" class="admin-elem-p2-7">No orders found.</td></tr>
+        
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

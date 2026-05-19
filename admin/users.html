@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users Management | CreativeKit3A Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css?v=">
+</head>
+<body>
+  
+
+<div class="container">
+  <div class="header">
+    <h2><i class="fas fa-users"></i> Registered Customers Management</h2>
+    <a href="dashboard.html" class="btn admin-elem-p2-32"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+
+  
+    <div class="alert alert-success"><i class="fas fa-check-circle"></i> </div>
+  
+
+  
+    <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> </div>
+  
+
+  <div class="card">
+    <div class="card-header">
+      <h3>All Customers Listed in System ()</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Joined Date</th>
+          <th>Actions Panel</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td></td>
+          <td><strong></strong></td>
+          <td></td>
+          <td></td>
+          <td><span class="badge badge-"></span></td>
+          <td></td>
+          <td>
+            <div class="actions-cell">
+              <a href="?promote=" class="btn btn-info btn-sm" onclick="return confirm('Are you sure you want to promote this customer to an Admin profile?')"><i class="fas fa-user-shield"></i> Make Admin</a>
+              
+              
+                <a href="?unban=" class="btn btn-success btn-sm"><i class="fas fa-unlock"></i> Unban</a>
+              
+                <a href="?ban=" class="btn btn-warning btn-sm" onclick="return confirm('Ban this user account?')"><i class="fas fa-ban"></i> Ban</a>
+              
+              
+              <a href="?delete=" class="btn btn-danger btn-sm" onclick="return confirm('Delete this user permanently?')"><i class="fas fa-trash"></i> Delete</a>
+            </div>
+          </td>
+        </tr>
+        
+        
+        <tr>
+          <td colspan="7" class="admin-elem-p2-33">No registered user accounts found in database.</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
