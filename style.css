@@ -429,20 +429,24 @@ h1, h2, h3, h4, h5, h6 {
 /* ============================================================
    TOP BAR (Social + Contact)
    ============================================================ */
-.top-bar {
-  background: var(--black);
-  color: var(--white);
-  padding: 8px 0;
-  font-size: 0.82rem;
-}
-
-.top-bar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+   .top-bar {
+    background: var(--black);
+    color: var(--white);
+    padding: 8px 0;
+    font-size: 0.82rem;
+    width: 100%;
+  }
+  
+  .top-bar .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: auto; /* Changed from 41px to auto to let content size dynamically */
+    display: flex;
+    justify-content: space-between; /* Pushes contact left, auth right */
+    align-items: center;
+    flex-wrap: nowrap; /* CRITICAL: Prevents breaking or stacking into multiple rows */
+  }
 
 .top-bar-social {
   display: flex;
@@ -459,12 +463,14 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--orange-light);
 }
 
+/* Container for all contact data (email + phone rows) */
 .top-bar-contact {
   font-family: sans-serif;
   display: inline-flex;
-  gap: 20px;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 20px; /* Uniform breathing space between elements */
+  margin: 0;
+  flex-wrap: nowrap; /* Forces layout to remain strictly on a single row line */
 }
 
 .top-bar-contact a {
@@ -472,6 +478,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap; /* Prevents text from breaking within a link */
   transition: var(--transition);
 }
 
@@ -2932,6 +2939,21 @@ textarea.quote-input {
 /* ============================================================
    STANDALONE AUTHENTICATION PAGE STRUCTURES (NEW)
    ============================================================ */
+
+   /* Authentication block alignment context layout rules */
+.auth-container {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto; /* Ensures it firmly docks to the right-hand wall margin */
+  flex-shrink: 0; /* Prevents the buttons from squishing down */
+}
+
+.auth-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
 /* Centers the form vertically and horizontally on the standalone pages */
 .auth-page-wrapper {
   display: flex;
