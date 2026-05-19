@@ -3313,15 +3313,26 @@ div.top-bar div.top-bar-contact {
 }
 
 /* ============================================================
-   FLUID COMPONENT VIEWPORT VISIBILITY TOGGLES
+   FLUID ARCHITECTURE: CRITICAL OVERRIDE FOR INITIAL VISIT LEAK
    ============================================================ */
 
-/* Force inner modal forms out of sight when not active */
+/* 1. Force the parent overlay wrapper to be absolutely dead on initial page parse */
+div.lm-modal:not(.open) {
+  display: none !important;
+}
+
+/* 2. When .open is injected by JS, active the main flex centering overlay mask layout */
+div.lm-modal.open {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 3. Ensure internal panel layout states switch dynamically without blinking */
 div.lm-card div.lm-panel.panel-hidden {
   display: none !important;
 }
 
-/* Ensure active panels use the fluid vertical layout structure safely */
 div.lm-card div.lm-panel:not(.panel-hidden) {
   display: flex !important;
   flex-direction: column !important;
