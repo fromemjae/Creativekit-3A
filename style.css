@@ -2117,14 +2117,51 @@ top-bar-auth {
  
 /* ── Modal card ──────────────────────────────────────────── */
 /* Ensure the modals are hidden by default */
+/* ============================================================
+   PERFECT MODAL POPUP FIX — STRUCTURAL CENTERING
+   ============================================================ */
+
+/* The dark background overlay that covers the entire screen */
 .lm-modal {
-    display: none; 
-    position: fixed;
-    z-index: 1000;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    /* DO NOT use !important here */
+  display: none; 
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(15, 23, 42, 0.6) !important; /* Semi-transparent dark overlay */
+  backdrop-filter: blur(2px); /* Gives it a premium blurred look */
+  z-index: 999999 !important; /* Ensures it sits over everything else */
+}
+
+/* The actual login/register container card */
+.lm-card {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important; /* Locks it dead center */
+  width: 90% !important;
+  max-width: 420px !important; /* Keeps it tight and readable, not full screen */
+  background: var(--white) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+  overflow: hidden !important;
+  animation: lmSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Close button positioning context rules */
+.lm-close {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 10 !important;
+  cursor: pointer !important;
+}
+
+/* Slide up and pop animation */
+@keyframes lmSlideIn {
+  from { opacity: 0; transform: translate(-50%, -45%) scale(0.95); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 /* Ensure the overlay is also hidden by default */
@@ -2143,13 +2180,6 @@ top-bar-auth {
 @keyframes lmSlideIn {
   from { opacity: 0; transform: translate(-50%, -46%) scale(0.94); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
- 
-.lm-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  position: relative;
 }
  
 .forgot-form {
