@@ -83,7 +83,7 @@ async function initAuth() {
 }
 
 // Run this when the page finishes loading
-window.addEventListener('DOMContentLoaded', initAuth);
+// window.addEventListener('DOMContentLoaded', initAuth);
 
 /**
  * Handles user registration
@@ -1067,23 +1067,27 @@ window.submitRegister = async () => {
 /* ============================================================
    BOOTSTRAP — Run all modules on DOM ready
    ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  Carousel.init();
-  Sidenav.init();
-  Accordion.init();
-  Modal.init();
-  Cart.init();
-  LazyImages.init();
-  StickyNav.init();
-  Search.init();
-  ProductCards.init();
-  SmoothScroll.init();
-  ContactForm.init();
-  ScrollReveal.init();
-  AuthModal.init();
-
-  console.log('[Pinoyballers] All modules initialized ✓');
-});
+   document.addEventListener('DOMContentLoaded', async () => {
+    // CRITICAL: Fire the Supabase Auth UI state check immediately on load
+    await updateAuthUI();
+  
+    // Run the rest of your frontend component modules
+    Carousel.init();
+    Sidenav.init();
+    Accordion.init();
+    Modal.init();
+    Cart.init();
+    LazyImages.init();
+    StickyNav.init();
+    Search.init();
+    ProductCards.init();
+    SmoothScroll.init();
+    ContactForm.init();
+    ScrollReveal.init();
+    AuthModal.init();
+  
+    console.log('[Pinoyballers] All modules initialized ✓');
+  });
 
 /* ==========================================
    Extracted from accessories.php
@@ -1308,16 +1312,17 @@ async function updateAuthUI() {
     const customerGroup = document.getElementById('auth-customer');
     const adminGroup = document.getElementById('auth-admin');
 
-    // Reset visibility to baseline before validating session profile states
-    if (guestGroup) guestGroup.hidden = true;
-    if (customerGroup) customerGroup.hidden = true;
-    if (adminGroup) adminGroup.hidden = true;
+    // 1. Reset baseline: Forcefully make sure everything is hidden first
+    if (guestGroup) guestGroup.classList.add('auth-hide');
+    if (customerGroup) customerGroup.classList.add('auth-hide');
+    if (adminGroup) adminGroup.classList.add('auth-hide');
 
+    // 2. Conditional check: Reveal exactly ONE active group interface
     if (!session) {
-      // Show Guest options only if session is missing entirely
-      if (guestGroup) guestGroup.hidden = false;
+      // Nobody is logged in -> Show Sign In / Register buttons
+      if (guestGroup) guestGroup.classList.remove('auth-hide');
     } else {
-      // Session exists: evaluate the profile role metrics
+      // Someone is logged in -> Check database profiles for permissions
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role, full_name')
@@ -1327,9 +1332,11 @@ async function updateAuthUI() {
       if (profileError) throw profileError;
 
       if (profile && profile.role === 'admin') {
-        if (adminGroup) adminGroup.hidden = false;
+        // Show Admin controls layout view
+        if (adminGroup) adminGroup.classList.remove('auth-hide');
       } else {
-        if (customerGroup) customerGroup.hidden = false;
+        // Show Standard Customer greetings and logout links
+        if (customerGroup) customerGroup.classList.remove('auth-hide');
         const nameEl = document.getElementById('user-display-name');
         if (nameEl) nameEl.textContent = profile?.full_name || 'Customer';
       }
