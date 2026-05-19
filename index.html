@@ -480,84 +480,141 @@
   
 
 
-<div class="lm-overlay" id="lm-overlay" onclick="closeAllModals()" aria-hidden="true"></div>
-
-<div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="lm-modal-title">
-  <div class="lm-card">
+  <div class="lm-overlay" id="lm-overlay" onclick="window.closeAllModals()" aria-hidden="true"></div>
  
-    <button class="lm-close" onclick="window.closeModal('login-modal')" aria-label="Close">&times;</button>
- 
-    <div class="lm-header">
-      <span class="lm-brand">CreativeKit3A</span>
-      <p class="lm-tagline">Your Corporate Giveaways Partner</p>
-    </div>
- 
-    <div class="lm-tabs" role="tablist">
-      <button class="lm-tab active" id="tab-login" role="tab" aria-selected="true" onclick="window.switchTab('login')">Sign In</button>
-      <button class="lm-tab" id="tab-register" role="tab" aria-selected="false" onclick="window.switchTab('register')">Register</button>
-    </div>
- 
-    <div class="lm-panel" id="panel-login" role="tabpanel">
- 
-      <div class="lm-field">
-        <label for="lm-login-email"><i class="fas fa-envelope"></i> Email Address</label>
-        <input type="email" id="lm-login-email" placeholder="you@email.com" autocomplete="email" required>
+  <div class="lm-modal" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="lm-modal-title" onclick="window.closeModal('login-modal')">
+    <div class="lm-card" onclick="event.stopPropagation()">
+   
+      <button class="lm-close" onclick="window.closeModal('login-modal')" aria-label="Close">&times;</button>
+   
+      <div class="lm-header">
+        <span class="lm-brand">CreativeKit3A</span>
+        <p class="lm-tagline">Your Corporate Giveaways Partner</p>
       </div>
- 
-      <div class="lm-field">
-        <label for="lm-login-password"><i class="fas fa-lock"></i> Password</label>
-        <div class="lm-pw-wrap">
-          <input type="password" id="lm-login-password" placeholder="••••••••" autocomplete="current-password" required>
-          <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-login-password', this)" aria-label="Show password">
-            <i class="fas fa-eye"></i>
-          </button>
+   
+      <div class="lm-tabs" role="tablist">
+        <button class="lm-tab active" id="tab-login" role="tab" aria-selected="true" onclick="window.switchTab('login')">Sign In</button>
+        <button class="lm-tab" id="tab-register" role="tab" aria-selected="false" onclick="window.switchTab('register')">Register</button>
+      </div>
+   
+      <div class="lm-panel" id="panel-login" role="tabpanel">
+        <div class="lm-field">
+          <label for="lm-login-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-login-email" placeholder="you@email.com" autocomplete="email" required>
         </div>
+   
+        <div class="lm-field">
+          <label for="lm-login-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-login-password" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-login-password', this)" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+   
+        <div class="lm-extras">
+          <label class="lm-remember">
+            <input type="checkbox" id="lm-remember"> Remember me
+          </label>
+          <a href="#" class="lm-forgot" onclick="document.getElementById('panel-login').classList.add('panel-hidden'); document.getElementById('panel-forgot').classList.remove('panel-hidden'); return false;">Forgot password?</a>
+        </div>
+   
+        <div class="lm-msg lm-msg--error" id="lm-login-error" hidden></div>
+   
+        <button class="btn btn-primary lm-submit" id="lm-login-btn" onclick="submitLogin()">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+   
+        <p class="lm-switch">
+          Don't have an account?
+          <a href="#" onclick="window.switchTab('register'); return false;">Register here</a>
+        </p>
       </div>
- 
-      <div class="lm-extras">
-        <label class="lm-remember">
-          <input type="checkbox" id="lm-remember"> Remember me
-        </label>
-        <a href="#" class="lm-forgot" onclick="document.getElementById('panel-login').classList.add('panel-hidden'); document.getElementById('panel-forgot').classList.remove('panel-hidden'); return false;">Forgot password?</a>
+   
+      <div class="lm-panel panel-hidden" id="panel-register" role="tabpanel">
+        <div class="lm-field-row">
+          <div class="lm-field">
+            <label for="lm-reg-firstname"><i class="fas fa-user"></i> First Name</label>
+            <input type="text" id="lm-reg-firstname" placeholder="Juan" autocomplete="given-name" required>
+          </div>
+          <div class="lm-field">
+            <label for="lm-reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+            <input type="text" id="lm-reg-lastname" placeholder="Dela Cruz" autocomplete="family-name" required>
+          </div>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-reg-email" placeholder="you@email.com" autocomplete="email" required>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-phone"><i class="fas fa-mobile-alt"></i> Mobile <span class="lm-optional">(optional)</span></label>
+          <input type="tel" id="lm-reg-phone" placeholder="+63 917 000 0000" autocomplete="tel">
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-password"><i class="fas fa-lock"></i> Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-password" placeholder="At least 8 characters" autocomplete="new-password" required oninput="updateStrength(this.value)">
+          </div>
+          <div class="lm-strength-bar"><div class="lm-strength-fill" id="lm-strength-fill"></div></div>
+          <span class="lm-strength-label" id="lm-strength-label"></span>
+        </div>
+   
+        <div class="lm-field">
+          <label for="lm-reg-confirm"><i class="fas fa-lock"></i> Confirm Password</label>
+          <div class="lm-pw-wrap">
+            <input type="password" id="lm-reg-confirm" placeholder="Repeat your password" autocomplete="new-password" required>
+            <button type="button" class="lm-pw-toggle" onclick="togglePw('lm-reg-confirm', this)" aria-label="Show confirm password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+   
+        <div class="lm-terms">
+          <label><input type="checkbox" id="lm-reg-terms" required> I agree to the <a href="about.html" target="_blank">Terms &amp; Conditions</a></label>
+        </div>
+   
+        <div class="lm-msg lm-msg--error" id="lm-reg-error" hidden></div>
+        <div class="lm-msg lm-msg--success" id="lm-reg-success" hidden></div>
+   
+        <button class="btn btn-primary lm-submit" id="lm-reg-btn" onclick="submitRegister()">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+   
+        <p class="lm-switch">
+          Already have an account?
+          <a href="#" onclick="window.switchTab('login'); return false;">Sign in here</a>
+        </p>
       </div>
- 
-      <div class="lm-msg lm-msg--error" id="lm-login-error" hidden></div>
- 
-      <button class="btn btn-primary lm-submit" id="lm-login-btn" onclick="submitLogin()">
-        <i class="fas fa-sign-in-alt"></i> Sign In
-      </button>
- 
-      <p class="lm-switch">
-        Don't have an account?
-        <a href="#" onclick="window.switchTab('register'); return false;">Register here</a>
-      </p>
+   
+      <div class="lm-panel panel-hidden" id="panel-forgot" role="tabpanel">
+        <p style="font-size: 0.85rem; margin-bottom: 15px; color: #666; line-height: 1.45;">
+          Enter your registered email address below, and we will send you instructions to reset your password.
+        </p>
+   
+        <div class="lm-field">
+          <label for="lm-forgot-email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="lm-forgot-email" placeholder="you@email.com" required>
+        </div>
+   
+        <div class="lm-msg lm-msg--error" id="lm-forgot-error" hidden></div>
+        <div class="lm-msg lm-msg--success" id="lm-forgot-success" hidden></div>
+   
+        <button type="button" class="btn btn-primary lm-submit" id="lm-forgot-btn" onclick="submitForgotPassword(); return false;">
+          <i class="fas fa-paper-plane"></i> Send Reset Link
+        </button>
+   
+        <p class="lm-switch">
+          Remembered your password?
+          <a href="#" onclick="document.getElementById('panel-forgot').classList.add('panel-hidden'); document.getElementById('panel-login').classList.remove('panel-hidden'); return false;">Sign in here</a>
+        </p>
+      </div>
+   
     </div>
- 
-    <div class="lm-panel panel-hidden" id="panel-forgot" role="tabpanel">
-      <p style="font-size: 0.85rem; margin-bottom: 15px; color: #666; line-height: 1.45;">
-        Enter your registered email address below, and we will send you instructions to reset your password.
-      </p>
- 
-      <div class="lm-field">
-        <label for="lm-forgot-email"><i class="fas fa-envelope"></i> Email Address</label>
-        <input type="email" id="lm-forgot-email" placeholder="you@email.com" required>
-      </div>
- 
-      <div class="lm-msg lm-msg--error" id="lm-forgot-error" hidden></div>
-      <div class="lm-msg lm-msg--success" id="lm-forgot-success" hidden></div>
- 
-      <button type="button" class="btn btn-primary lm-submit" id="lm-forgot-btn" onclick="submitForgotPassword(); return false;">
-        <i class="fas fa-paper-plane"></i> Send Reset Link
-      </button>
- 
-      <p class="lm-switch">
-        Remembered your password?
-        <a href="#" onclick="document.getElementById('panel-forgot').classList.add('panel-hidden'); document.getElementById('panel-login').classList.remove('panel-hidden'); return false;">Sign in here</a>
-      </p>
-    </div>
- 
   </div>
-</div>
   
 
   <div id="forgot-password-modal" class="lm-modal" style="display: none;">
