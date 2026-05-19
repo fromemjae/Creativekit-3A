@@ -1301,25 +1301,23 @@ async function transmitQuotationProposal(event) {
 // Function to update UI based on Auth state
 async function updateAuthUI() {
   try {
-    // 1. Get the session
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-    
     if (sessionError) throw sessionError;
 
     const guestGroup = document.getElementById('auth-guest');
     const customerGroup = document.getElementById('auth-customer');
     const adminGroup = document.getElementById('auth-admin');
 
+    // Reset visibility to baseline before validating session profile states
+    if (guestGroup) guestGroup.hidden = true;
+    if (customerGroup) customerGroup.hidden = true;
+    if (adminGroup) adminGroup.hidden = true;
+
     if (!session) {
-      // NO ONE LOGGED IN: Ensure elements exist before hiding/showing
+      // Show Guest options only if session is missing entirely
       if (guestGroup) guestGroup.hidden = false;
-      if (customerGroup) customerGroup.hidden = true;
-      if (adminGroup) adminGroup.hidden = true;
     } else {
-      // SOMEONE LOGGED IN
-      if (guestGroup) guestGroup.hidden = true;
-      
-      // Query profile
+      // Session exists: evaluate the profile role metrics
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role, full_name')
@@ -1330,16 +1328,13 @@ async function updateAuthUI() {
 
       if (profile && profile.role === 'admin') {
         if (adminGroup) adminGroup.hidden = false;
-        if (customerGroup) customerGroup.hidden = true;
       } else {
         if (customerGroup) customerGroup.hidden = false;
-        if (adminGroup) adminGroup.hidden = true;
         const nameEl = document.getElementById('user-display-name');
         if (nameEl) nameEl.textContent = profile?.full_name || 'Customer';
       }
     }
   } catch (err) {
-    // This catches errors so the rest of main.js (like openModal) keeps working
     console.error('Auth UI Update Failed:', err.message);
   }
 }
