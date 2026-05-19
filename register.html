@@ -26,6 +26,20 @@
       <div class="lm-msg lm-msg--success" id="lm-reg-success" hidden></div>
 
       <form class="auth-form" onsubmit="handleRegister(event)">
+
+        <div class="lm-field">
+          <label for="reg-firstname"><i class="fas fa-user"></i> First Name</label>
+          <div class="auth-input-wrap">
+            <input type="text" id="reg-firstname" placeholder="Enter your first name" required>
+          </div>
+        </div>
+
+        <div class="lm-field">
+          <label for="reg-lastname"><i class="fas fa-user"></i> Last Name</label>
+          <div class="auth-input-wrap">
+            <input type="text" id="reg-lastname" placeholder="Enter your last name" required>
+          </div>
+        </div>
         
         <div class="lm-field">
           <label for="reg-email"><i class="fas fa-envelope"></i> Email Address</label>
@@ -66,5 +80,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="main.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
