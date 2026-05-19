@@ -10,27 +10,75 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 window.supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 /* ============================================================
-   MODAL CONTROL FUNCTIONS (GLOBALLY EXPOSED)
+   MODAL CONTROL FUNCTIONS (GLOBALLY EXPOSED FOR FLUID ARCHITECTURE)
    ============================================================ */
+
+/**
+ * Invokes and displays a target overlay container card layout view
+ * @param {string} modalId - The explicit DOM node ID attribute string
+ */
 window.openModal = function(modalId) {
-    console.log("Attempting to open modal target ID:", modalId);
-    const modal = document.getElementById(modalId);
-    const overlay = document.getElementById('lm-overlay');
-    if (modal) {
-        modal.style.display = 'block';
-        if (overlay) overlay.style.display = 'block';
-    } else {
-        console.error("Could not find modal layout element with ID:", modalId);
-    }
+  console.log("[Fluid UI] Invoking modal wrapper target container:", modalId);
+  const modal = document.getElementById(modalId);
+  const overlay = document.getElementById('lm-overlay');
+  
+  if (modal) {
+      modal.classList.add('open');
+      // Fallback display handling to support secondary stylesheet configurations
+      modal.style.display = 'flex'; 
+      
+      if (overlay) {
+          overlay.classList.add('open');
+          overlay.style.display = 'block';
+      }
+      document.body.style.overflow = 'hidden'; // Protect viewport from background scroll leakage
+  } else {
+      console.error("[Fluid UI Fault] Target modal ID element not discovered:", modalId);
+  }
 };
 
+/**
+* Gracefully dismisses and seals an active overlay container card layout view
+* @param {string} modalId - The explicit DOM node ID attribute string
+*/
 window.closeModal = function(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'none';
-        const overlay = document.getElementById('lm-overlay');
-        if (overlay) overlay.style.display = 'none';
-    }
+  console.log("[Fluid UI] Dismissing modal container view instance:", modalId);
+  const modal = document.getElementById(modalId);
+  const overlay = document.getElementById('lm-overlay');
+  
+  if (modal) {
+      modal.classList.remove('open');
+      modal.style.setProperty('display', 'none', 'important'); // Overrides layout inheritance paths instantly
+  }
+  
+  // Check if there are any other modular panels active on screen
+  const remainingOpenModals = document.querySelectorAll('.lm-modal.open');
+  if (remainingOpenModals.length === 0) {
+      if (overlay) {
+          overlay.classList.remove('open');
+          overlay.style.display = 'none';
+      }
+      document.body.style.overflow = ''; // Instantly restores fluid body scroll functionality
+  }
+};
+
+/**
+* Universal safe catch engine to drop all modal screens concurrently
+*/
+window.closeAllModals = function() {
+  const activeModals = document.querySelectorAll('.lm-modal');
+  const overlay = document.getElementById('lm-overlay');
+  
+  activeModals.forEach(modal => {
+      modal.classList.remove('open');
+      modal.style.display = 'none';
+  });
+  
+  if (overlay) {
+      overlay.classList.remove('open');
+      overlay.style.display = 'none';
+  }
+  document.body.style.overflow = '';
 };
 
 /* ============================================================
