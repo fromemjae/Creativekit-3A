@@ -816,6 +816,64 @@ window.switchTab = (tab) => {
     }
   };
 
+  /* ============================================================
+   AUTH: SUPABASE LIVE SESSION CONTROLLER (REWRITE)
+   ============================================================ */
+async function updateAuthUI(passedSession = null) {
+  try {
+    // 1. Establish the session token smoothly whether passed by listener or fetched fresh
+    let session = passedSession;
+    if (!session) {
+      const { data: { session: fetchedSession }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      session = fetchedSession;
+    }
+
+    const guestGroup = document.getElementById('auth-guest');
+    const customerGroup = document.getElementById('auth-customer');
+    const adminGroup = document.getElementById('auth-admin');
+
+    // 2. Baseline Reset: Clear active class tokens from all layout blocks cleanly
+    if (guestGroup) guestGroup.classList.remove('active');
+    if (customerGroup) customerGroup.classList.remove('active');
+    if (adminGroup) adminGroup.classList.remove('active');
+
+    if (!session) {
+      console.log("[Auth UI] No active session profiles detected. Rendering Guest view.");
+      if (guestGroup) guestGroup.classList.add('active'); // Safely reveals Sign In / Register
+    } else {
+      console.log("[Auth UI] Active user session verified. Resolving permissions matrix...");
+      
+      // 3. Query the profiles table data matrix safely for role metrics
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role, full_name')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profileError) {
+        // Fallback safety catch: If a user profile row isn't constructed yet, treat them as a baseline customer
+        console.warn('[Auth UI Profile Missing]', profileError.message);
+        if (customerGroup) customerGroup.classList.add('active');
+        const nameEl = document.getElementById('user-display-name');
+        if (nameEl) nameEl.textContent = session.user.email.split('@')[0];
+        return;
+      }
+
+      // 4. Inject structural classes fluidly based on actual administrative roles
+      if (profile && profile.role === 'admin') {
+        if (adminGroup) adminGroup.classList.add('active');
+      } else {
+        if (customerGroup) customerGroup.classList.add('active');
+        const nameEl = document.getElementById('user-display-name');
+        if (nameEl) nameEl.textContent = profile?.full_name || 'Customer';
+      }
+    }
+  } catch (err) {
+    console.error('[Auth UI Failure]', err.message);
+  }
+}
+
   /* ── REGISTER ── */
   window.submitRegister = async () => {
     const btn    = document.getElementById('lm-reg-btn');
