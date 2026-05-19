@@ -104,38 +104,53 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.82rem;
     width: 100%;
   }
-  
-  .top-bar .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex !important;
-    flex-direction: row-reverse !important; /* Forces Auth to the left, Contact to the right */
-    justify-content: space-between !important; 
-    align-items: center !important;
-    flex-wrap: nowrap !important;
-  }
-  
-  /* Auth Container */
-  .auth-container {
-    display: flex !important;
-    align-items: center !important;
-    margin-right: auto !important; /* Pulls everything to the left-most edge */
-    flex-shrink: 0 !important;
-  }
-  
-  /* CRITICAL: Force non-active auth groups to remain strictly invisible */
-  .auth-group {
-    display: none !important; /* Hidden by default */
-    align-items: center !important;
-    gap: 12px !important;
-    white-space: nowrap !important;
-  }
-  
-  /* Only show the group if it does NOT have the hide class */
-  .auth-group:not(.auth-hide) {
-    display: inline-flex !important;
-  }
+  /* ============================================================
+   PERFECT TOP BAR STRUCTURAL ALIGNMENT
+   ============================================================ */
+.top-bar .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex !important;
+  flex-direction: row !important; /* Keep normal layout flow */
+  justify-content: space-between !important; /* Pushes left group to the left, right to the right */
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  height: 41px;
+}
+
+/* Force Auth Container to be the absolute first item on the left */
+.auth-container {
+  display: flex !important;
+  align-items: center !important;
+  order: 1 !important; /* Explicitly forces left positioning */
+  margin-right: auto !important; /* Pushes contact info away to the right */
+  flex-shrink: 0 !important;
+}
+
+/* Force Contact Details to be the absolute last item on the right */
+.top-bar-contact {
+  font-family: sans-serif;
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+  margin: 0 !important;
+  order: 2 !important; /* Explicitly forces right positioning */
+  margin-left: auto !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Modal Group Visibility Base Overrides */
+.auth-group {
+  display: none !important;
+  align-items: center !important;
+  gap: 12px !important;
+  white-space: nowrap !important;
+}
+
+.auth-group:not(.auth-hide) {
+  display: inline-flex !important;
+}
   
   /* Contact Details Wrapper */
   .top-bar-contact {

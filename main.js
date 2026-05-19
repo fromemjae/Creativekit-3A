@@ -16,9 +16,8 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 /* ============================================================
    MODAL CONTROL FUNCTIONS
    ============================================================ */
-// Ensure this is in your main.js to handle opening
-function openModal(modalId) {
-    console.log("Attempting to open:", modalId); 
+   function openModal(modalId) {
+    console.log("Attempting to open modal target ID:", modalId);
     const modal = document.getElementById(modalId);
     const overlay = document.getElementById('lm-overlay');
     
@@ -26,19 +25,20 @@ function openModal(modalId) {
         modal.style.display = 'block';
         if (overlay) overlay.style.display = 'block';
     } else {
-        console.error("Could not find element with ID:", modalId);
+        console.error("Could not find modal layout element with ID:", modalId);
     }
 }
 
-// Ensure this is in your main.js to handle closing
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
-        document.getElementById('lm-overlay').style.display = 'none';
+        
+        // Safety: Only shut off the background overlay frame if no other modals are active
+        const overlay = document.getElementById('lm-overlay');
+        if (overlay) overlay.style.display = 'none';
     }
 }
-
 /* ============================================================
    AUTH: SUPABASE INTEGRATION
    ============================================================ */
